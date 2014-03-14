@@ -1,4 +1,4 @@
-dragoons
+Ivan Ivanov
 ========
 
-JS course of Dragoons 2c group
+Part of Dragoons learning group @ 2create
