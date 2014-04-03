@@ -1,0 +1,65 @@
+<script >
+"use strict";
+
+( function () {
+	function sumNumbers(a, b) {
+		return a + b;
+	}
+	//console.log( sumNumbers(1,2) );	
+	
+})();
+
+( function () {
+
+	function changeTempreture( deg ) {
+		return deg * 33.8;
+	}	
+
+	//console.log( changeTempreture( 5 ));
+
+})();
+
+( function () {
+
+	function convertToKm( miles ) {
+		return miles * 1.66;		
+	}	
+
+	//console.log( convertToKm( 15 ) );
+})();
+
+( function () {
+
+	function solveEquation(a, b) {
+		return (-1 * b) / a;				
+	}	
+
+	//console.log( solveEquation( 10, 5 ) );
+	
+})();
+
+( function () {
+
+	function solveQuadraticEquation(a, b, c) {
+		var discriminant = ( b * b ) - ( 4 * a * c )				
+		var result = []
+
+		if ( discriminant < 0 ) {
+			result 
+		} else if ( discriminant === 0 ) {
+			result.push( ( -1 * b ) / ( 2 * a ) )
+		} else {
+			discriminant = Math.sqrt( discriminant )
+
+			result.push( ( -1 * b + discriminant ) / ( 2 * a ) )	
+			result.push( ( -1 * b - discriminant ) / ( 2 * a ) )
+
+		}
+		return result;	
+
+	}	
+
+	console.log( solveQuadraticEquation( 2, 5, 2 ) );
+	throw "stop";
+})();
+</script>
