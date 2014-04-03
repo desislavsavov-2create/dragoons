@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>01 Values And Variables</title>
+
+	<script>
+
+		"use strict";
+
+		(function() {
+
+			function add(a, b) {
+				return a + b;
+			}
+
+			console.log(add(2, 2));
+
+			function degreesConverter(degrees) {
+				return 32 + 1.8 * degrees;
+			}
+
+			console.log(degreesConverter(100));
+
+			function milesConverter(miles) {
+				return miles * 1.609344;
+			}
+
+			console.log(milesConverter(78));
+
+			function solveEquation(a, b) {
+				var x = -b / a;
+
+				return x;
+			}
+
+			console.log(solveEquation(2, 4));
+
+			function solveQuadraticEquation(a, b, c) {
+
+				var D = (b * b) - (4 * a * c);
+				var x, x1, x2;
+				var roots;
+
+				console.log(D);
+
+				if (D < 0){
+					
+					return 'there are no real roots';
+
+				} else if (D === 0) {
+					
+					return x = -b / 2 * a;
+
+					console.log('d=0')
+
+				} else if (D > 0) {
+					x1 = (-b + Math.sqrt(D)) / 2 * a;
+					x2 = (-b - Math.sqrt(D)) / 2 * a;
+
+					roots = [x1, x2];
+
+					return roots;
+
+				}
+
+			}
+
+			console.log(solveQuadraticEquation(2, 9, 2));
+
+		})();
+
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
