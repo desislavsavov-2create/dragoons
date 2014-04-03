@@ -6,7 +6,7 @@
 
 	<script type="text/javascript">
 
-		// use strict
+		"use strict";
 
 		(function(){
 
@@ -99,9 +99,9 @@
 
 			function get_circle_perimeter(r){
 				var pi = 3.14;
-				var perimteter = c;
+				var perimteter;
 
-				perimeter = 2 * pi * r;
+				perimeter = Math.floor(2 * pi * r);
 
 				return perimeter;
 			}
