@@ -21,5 +21,90 @@
 		    console.log(tempConvert(20));
 		})();
 	</script>
+
+	<script>
+		(function () {
+		    function milesToKm(miles) {
+		        return miles * 1.609344;
+		    }
+		    console.log(parseInt(milesToKm(20)));
+		})();
+	</script>
+
+	<script>
+		(function () {
+		    function solve_equation(a, b) {
+		    	// ax + b = 0
+		    	// x = -b/a
+		        return -b/a;
+		    }
+		    console.log(solve_equation(10, 5));
+		})();
+	</script>
+
+	<script>
+		(function () {
+		    function solve_quadratic_equation(a, b, c) {
+		    	// ax^2 + bx + c = 0
+		    	var discriminant = b * b - 4 * a * c;
+		    	var results = [];
+
+		    	if( discriminant < 0) {
+		    		return 'No results'
+		    	} else if ( discriminant === 0 ) {
+		    		return -(b / 2 * a)
+		    	} else {
+		    		return [ (-b*b + Math.sqrt(discriminant))/(2 * a) , (-b*b - Math.sqrt(discriminant))/(2*a) ];
+		    	}
+		    }
+
+		    console.log(solve_quadratic_equation(1, 3, 2));
+		})();
+	</script>
+
+	<script>
+		(function () {
+		    function get_circle_perimeter(r) {
+		        return parseFloat(2 * Math.PI * r).toFixed(2);
+		    }
+		    console.log(get_circle_perimeter(5));
+		})();
+	</script>
+
+	<script>
+		(function () {
+		    function get_triangle_area(a) {
+		        return parseFloat((Math.sqrt(3)/4)*a*a).toFixed(2);
+		    }
+		    console.log(get_triangle_area(10));
+		})();
+	</script>
+
+	<script>
+		(function () {
+		    function to_bool(input) {
+		        return input != '' ? 'truty' : 'falsy' ;
+		    }
+		    console.log(to_bool('0'));
+		})();
+	</script>
+
+	<script>
+		(function () {
+		    function add(a, b) {
+		        return parseInt(a, 10) + parseInt(b, 10);
+		    }
+		    console.log(add('1', '9'));
+		})();
+	</script>
+
+	<script>
+		(function () {
+		    function divides_by_3(number) {
+		        return number % 3 === 0 ? 'Dividable' : 'Not Dividable' ;
+		    }
+		    console.log(divides_by_3(333));
+		})();
+	</script>
 </body>
 </html>
