@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8" />
-	<title>01 Values and Variables</title>
+	<title>JS Learning - 01. Values and Variables</title>
 </head>
 <body>
 	<script>
@@ -47,14 +47,20 @@
 
 			function solveQuadraticEquation(a, b, c) {
 				var discriminant = Math.pow(b, 2) - ( 4 * a * c );
+				var result = [];
 
-				if(discriminant < 0) {
-					return 'discriminant lower than 0; no result';
+				if(discriminant > 0) {
+					result.push((-1 * b + Math.sqrt(discriminant)) / (2 * a));
+					result.push((-1 * b - Math.sqrt(discriminant)) / (2 * a));
+
+					return result;
 				} else if(discriminant === 0) {
-					return -c / b;
+					result.push(-1 * b / 2 * a);
 				} else {
-					return [(-b + Math.sqrt(discriminant)) / (2 * a), (-b - Math.sqrt(discriminant)) / (2 * a)];
+					// discriminant is a negative number
 				}
+
+				return result;
 			}
 
 			console.log(solveQuadraticEquation(2, 7, 5));
@@ -85,6 +91,31 @@
 			}
 
 			console.log(toBoolean(7 === '7'))
+
+
+			// 9.
+
+			function add(a, b) {
+				return Number(a) + Number(b);
+			}
+
+			console.log(add('92', 40));
+
+
+			// 10.
+
+			function dividesBy3(number) {
+				var result = number % 3;
+
+				return (result === 0);
+			}
+
+			console.log(dividesBy3(5));
+
+
+			// 11.
+
+			
 		})();
 	</script>
 </body>
