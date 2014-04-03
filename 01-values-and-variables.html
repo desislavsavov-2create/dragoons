@@ -1,25 +1,77 @@
 <script type="text/javascript">
+	"use strict";
+
 	(function() {
 		function add( a, b ) {
 			return a + b;
 		}
 
-		console.log( add( 1, 3 ) );
+		// console.log( add( 1, 3 ) );
 	})();
 
 	(function() {
-		function convertCelsiusToFahrenheit( deg ) {
-			deg = ( ( deg * 9 ) / 5 ) + 32;
+		var atmosphereConditions = {
+			deg: 100,
+			windSpeed: 10
+		};
 
-			return deg;
+		function convertCelsiusToFahrenheit( atmosphereConditions ) {
+			atmosphereConditions.deg = ( ( atmosphereConditions.deg * 9 ) / 5 ) + 32;
+
+			return atmosphereConditions.deg;
 		}
 
-		console.log( convertTemperature( 36 ) );
+		// console.log( convertCelsiusToFahrenheit( atmosphereConditions ) );
 	})();
 
 	(function() {
 		function convertMilesToKilometers( distance ) {
 			return distance / 1.609344;
 		}
+
+		// console.log( convertMilesToKilometers( 5 ) )
+	})();
+
+	(function() {
+		function solveEquation( a, b ) {
+			return ( -1 * b ) / a;
+		}
+
+		// console.log( solveEquation( 5, 7 ) );
+	})();
+
+	(function() {
+		function solveQuadraticEquation( a, b, c ) {
+			var discriminant = ( b * b ) - ( 4 * a * c );
+			var x;
+
+			if ( discriminant < 0 ) {
+				x = 'No solution.';
+			} else if ( discriminant == 0 ) {
+				x = ( -1 * b ) + ( 2 * a );
+			} else {
+				x = [ ( ( -1 * b ) + Math.sqrt( discriminant ) ) / (2 * a), ( ( -1 * b ) - Math.sqrt( discriminant ) ) / (2 * a) ];
+			}
+
+			return x;
+		}
+
+		//console.log( solveQuadraticEquation( 1, 5, 2 ) );
+	})();
+
+	(function() {
+		function getCirclePerimeter( radius ) {
+			return Math.PI * radius * 2;
+		}
+
+		//console.log( getCirclePerimeter( 3 ) );
+	})();
+
+	(function() {
+		function getTriangleArea( a ) {
+
+		}
+
+		console.log( getTriangleArea(  ) )
 	})();
 </script>
