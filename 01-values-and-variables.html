@@ -74,15 +74,15 @@
 				if ( discriminant > 0 ) {
 					x1 = ( (-b) - Math.sqrt(discriminant) ) / (2 * a);
 					x2 = ( (-b) + Math.sqrt(discriminant) ) / (2 * a);
-					result.push(x1)
-					result.push(x2)
+					result.push(x1, x2);
+					// result.push(x2);
 				}
 
 				else if ( discriminant === 0) {
 					x1 = x2 = (-b) / (2 * a);
 					result.push(x1);
 				} else {
-					result = "Not solveable"	
+					result = "No roots";	
 				}
 
 				return result;
