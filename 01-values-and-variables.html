@@ -43,20 +43,28 @@
 	(function() {
 		function solveQuadraticEquation( a, b, c ) {
 			var discriminant = ( b * b ) - ( 4 * a * c );
-			var x;
+			var result = [];
 
-			if ( discriminant < 0 ) {
-				x = 'No solution.';
+			if ( discriminant > 0 ) {
+				result.push(( ( -1 * b ) + Math.sqrt( discriminant ) ) / (2 * a));
+				result.push(( ( -1 * b ) - Math.sqrt( discriminant ) ) / (2 * a));
 			} else if ( discriminant == 0 ) {
-				x = ( -1 * b ) + ( 2 * a );
+				result.push(( -1 * b ) + ( 2 * a ));
 			} else {
-				x = [ ( ( -1 * b ) + Math.sqrt( discriminant ) ) / (2 * a), ( ( -1 * b ) - Math.sqrt( discriminant ) ) / (2 * a) ];
+				// the discriminant is not a positive number
+				// the equation has no roots.
+
+				throw 'No real roots found.';
 			}
 
-			return x;
+			return result;
 		}
 
-		//console.log( solveQuadraticEquation( 1, 5, 2 ) );
+		try {
+			// console.log( solveQuadraticEquation( 2, 0, 2 ) );
+		} catch (e) {
+			// console.log( "Couldn't find roots for 2 0 2." )
+		}
 	})();
 
 	(function() {
@@ -64,14 +72,14 @@
 			return Math.PI * radius * 2;
 		}
 
-		//console.log( getCirclePerimeter( 3 ) );
+		// console.log( getCirclePerimeter( 3 ) );
 	})();
 
 	(function() {
 		function getTriangleArea( a ) {
-
+			return a * 3;
 		}
 
-		console.log( getTriangleArea(  ) )
+		// console.log( getTriangleArea( 5 ) )
 	})();
 </script>
