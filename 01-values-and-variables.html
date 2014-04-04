@@ -41,25 +41,137 @@
 ( function () {
 
 	function solveQuadraticEquation(a, b, c) {
-		var discriminant = ( b * b ) - ( 4 * a * c )				
-		var result = []
+		var discriminant = ( b * b ) - ( 4 * a * c );				
+		var result = [];
 
 		if ( discriminant < 0 ) {
-			result 
+			return result;
 		} else if ( discriminant === 0 ) {
-			result.push( ( -1 * b ) / ( 2 * a ) )
+			result.push( ( -1 * b ) / ( 2 * a ) );
 		} else {
-			discriminant = Math.sqrt( discriminant )
+			discriminant = Math.sqrt( discriminant );
 
-			result.push( ( -1 * b + discriminant ) / ( 2 * a ) )	
-			result.push( ( -1 * b - discriminant ) / ( 2 * a ) )
+			result.push( ( -1 * b + discriminant ) / ( 2 * a ) );	
+			result.push( ( -1 * b - discriminant ) / ( 2 * a ) );
 
 		}
 		return result;	
 
 	}	
 
-	console.log( solveQuadraticEquation( 2, 5, 2 ) );
-	throw "stop";
+	//console.log( solveQuadraticEquation( 2, 5, 2 ) );
+	
+})();
+
+( function () {
+	function getCirclePerimeter(r){
+		return Math.PI * ( r * r );
+	}
+
+	//console.log( getCirclePerimeter(5) )
+})();
+
+( function () {
+	function getTriangleArea(a) {
+		return ( Math.sqrt(3) / 4 ) * ( a * a );
+	}
+
+	//console.log( 5 )
+
+})();
+
+( function (){
+	function toBool(input) {
+		return Boolean( input );
+	}
+
+	//console.log( toBool( "a" ) );
+})();
+
+( function (){
+	function add(a, b) {
+		a = Number(a);
+		b = Number(b);
+
+		return a + b;
+	}
+
+	//console.log( add( 1, '2' ) );
+})();
+
+( function (){
+	function dividesBy3(number) {
+		return  number % 3 === 0; 
+	}
+
+	// console.log( dividesBy3( 7 ) );
+})();
+
+( function (){
+	function coordinates(x1, y1, x2, y2) {
+		var x = x2 - x1;
+		var y = y2 - y1;
+
+		return Math.sqrt( ( x * x ) + ( y * y ) ) ;
+	}
+
+	//console.log( coordinates( 5, 5, 9, 9 ) );
+})();
+
+( function (){
+	function convertTangens(a) {
+		var radians = ( a * Math.PI ) / 180 ;
+	
+		return Math.tan( radians );
+	}
+
+	//console.log( convertTangens( 45 ) );
+})();
+
+( function (){
+	function splitText(text) {
+		var splited = text.split('\n');
+
+		return splited;
+	}
+	var str = 'An island song\n'+
+		'Like a "floating" river\n'+
+		'Rain\'s Rain\'s Fall Fall';
+	// console.log( splitText( 'An island song' ) )
+	// console.log( splitText( 'Like a "floating" river' ) )
+	// console.log( splitText( "Rain's Rain's Fall Fall" ) )
+})();
+
+( function (){
+	function findLetter(a){
+		var letter = a.indexOf('w')
+		
+		return !(letter === -1);
+	}
+
+	//console.log( findLetter( 'Like a "floating" river') )
+})();
+
+( function (){
+	function tranformUppercase(text) {
+		var splitted = text.split(' ');
+		var splittedArray = [];
+		var splittedLength = splitted.length;
+
+		for ( var i = 0; i < splittedLength; i++ ){
+			var word = splitted[i];
+			var wordLength = word.length;
+			var wordRest = word.substring( 1, wordLength ) 
+
+			word = word.charAt(0).toUpperCase() + wordRest ;
+
+			splittedArray.push(word);						
+		}
+		text = splittedArray.join(' ');
+
+		return text;
+	}
+
+	console.log( tranformUppercase( 'lorem ipsum dolor sit a met' ) )
 })();
 </script>
