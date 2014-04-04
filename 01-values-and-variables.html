@@ -1,85 +1,176 @@
-<script type="text/javascript">
-	"use strict";
+<html>
+	<head>
+		<script type="text/javascript">
+			"use strict";
 
-	(function() {
-		function add( a, b ) {
-			return a + b;
-		}
+			(function() {
+				function add( a, b ) {
+					return a + b;
+				}
 
-		// console.log( add( 1, 3 ) );
-	})();
+				// console.log( add( 1, 3 ) );
+			})();
 
-	(function() {
-		var atmosphereConditions = {
-			deg: 100,
-			windSpeed: 10
-		};
+			(function() {
+				var atmosphereConditions = {
+					deg: 100,
+					windSpeed: 10
+				};
 
-		function convertCelsiusToFahrenheit( atmosphereConditions ) {
-			atmosphereConditions.deg = ( ( atmosphereConditions.deg * 9 ) / 5 ) + 32;
+				function convertCelsiusToFahrenheit( atmosphereConditions ) {
+					atmosphereConditions.deg = ( ( atmosphereConditions.deg * 9 ) / 5 ) + 32;
 
-			return atmosphereConditions.deg;
-		}
+					return atmosphereConditions.deg;
+				}
 
-		// console.log( convertCelsiusToFahrenheit( atmosphereConditions ) );
-	})();
+				// console.log( convertCelsiusToFahrenheit( atmosphereConditions ) );
+			})();
 
-	(function() {
-		function convertMilesToKilometers( distance ) {
-			return distance / 1.609344;
-		}
+			(function() {
+				function convertMilesToKilometers( distance ) {
+					return distance / 1.609344;
+				}
 
-		// console.log( convertMilesToKilometers( 5 ) )
-	})();
+				// console.log( convertMilesToKilometers( 5 ) )
+			})();
 
-	(function() {
-		function solveEquation( a, b ) {
-			return ( -1 * b ) / a;
-		}
+			(function() {
+				function solveEquation( a, b ) {
+					return ( -1 * b ) / a;
+				}
 
-		// console.log( solveEquation( 5, 7 ) );
-	})();
+				// console.log( solveEquation( 5, 7 ) );
+			})();
 
-	(function() {
-		function solveQuadraticEquation( a, b, c ) {
-			var discriminant = ( b * b ) - ( 4 * a * c );
-			var result = [];
+			(function() {
+				function solveQuadraticEquation( a, b, c ) {
+					var discriminant = ( b * b ) - ( 4 * a * c );
+					var result = [];
 
-			if ( discriminant > 0 ) {
-				result.push(( ( -1 * b ) + Math.sqrt( discriminant ) ) / (2 * a));
-				result.push(( ( -1 * b ) - Math.sqrt( discriminant ) ) / (2 * a));
-			} else if ( discriminant == 0 ) {
-				result.push(( -1 * b ) + ( 2 * a ));
-			} else {
-				// the discriminant is not a positive number
-				// the equation has no roots.
+					if ( discriminant > 0 ) {
+						result.push(( ( -1 * b ) + Math.sqrt( discriminant ) ) / (2 * a));
+						result.push(( ( -1 * b ) - Math.sqrt( discriminant ) ) / (2 * a));
+					} else if ( discriminant === 0 ) {
+						result.push(( -1 * b ) + ( 2 * a ));
+					} else {
+						// the discriminant is not a positive number
+						// the equation has no roots.
 
-				throw 'No real roots found.';
-			}
+						throw 'No real roots found.';
+					}
 
-			return result;
-		}
+					return result;
+				}
 
-		try {
-			// console.log( solveQuadraticEquation( 2, 0, 2 ) );
-		} catch (e) {
-			// console.log( "Couldn't find roots for 2 0 2." )
-		}
-	})();
+				try {
+					// console.log( solveQuadraticEquation( 2, 0, 2 ) );
+				} catch (e) {
+					// console.log( "Couldn't find roots for 2 0 2." )
+				}
+			})();
 
-	(function() {
-		function getCirclePerimeter( radius ) {
-			return Math.PI * radius * 2;
-		}
+			(function() {
+				function getCirclePerimeter( radius ) {
+					return Math.PI * radius * 2;
+				}
 
-		// console.log( getCirclePerimeter( 3 ) );
-	})();
+				// console.log( getCirclePerimeter( 3 ) );
+			})();
 
-	(function() {
-		function getTriangleArea( a ) {
-			return a * 3;
-		}
+			(function() {
+				function getTriangleArea( a ) {
+					return Math.sqrt(3) / 4 * a * a;
+				}
 
-		// console.log( getTriangleArea( 5 ) )
-	})();
-</script>
+				// console.log( getTriangleArea( 5 ) )
+			})();
+
+			(function() {
+				function toBool( input ) {
+					return Boolean( input );
+				}
+
+				// console.log(toBool(''));
+				// console.log(toBool('a'));
+				// console.log(toBool({}));
+				// console.log(toBool([]));
+			})();
+
+			(function() {
+				function add( a, b ) {
+					return parseInt(a) + parseInt(b);
+				}
+
+				// console.log( add( '2', 5 ) );
+			})();
+
+			(function() {
+				function dividesBy3( number ) {
+					return number % 3 === 0;
+				}
+
+				// console.log( dividesBy3( 6 ) );
+				// console.log( dividesBy3( 8 ) );
+			})();
+
+			(function() {
+				function calculateDistance( x1, y1, x2, y2 ) {
+					var result = [];
+
+					result.push( Math.abs( x1 - y1 ) );
+					result.push( Math.abs( x2 - y2 ) );
+
+					return result;
+				}
+
+				// console.log( calculateDistance( 1, 3, 7, -2 ) );
+			})();
+
+			(function() {
+				function getTan( deg ) {
+					var rad = deg * Math.PI / 180;
+
+					return Math.tan( rad );
+				}
+
+				// console.log( getTan( 45 ) );
+				// console.log( getTan( 70 ) );
+			})();
+
+			(function() {
+				function splitText() {
+					var inputText = 'An island song \n Like a "floating" river \n Rain\'s Rain\'s Fall Fall';
+
+					return inputText.split('\n');
+				}
+
+				// console.log( splitText() );
+			})();
+
+			(function() {
+				var textNode = 'Lorem ipsum dolor sit amet.';
+
+				// console.log( textNode.indexOf('a') > 0 );
+				// console.log( textNode.indexOf('Q') > 0 );
+			})();
+
+			(function() {
+				function capitalizeFirstLetter( str ) {
+					str = str.split(' ');
+
+					for ( var i = 0; i < str.length; i++ ) {
+						str[i] = str[i].replace( str[i].charAt(0), str[i].charAt(0).toUpperCase() );
+					}
+
+					str = str.join(' ');
+
+					return str;
+				}
+
+				console.log( capitalizeFirstLetter( 'lorem ipsum dolor sit amet' ) );
+			})();
+		</script>
+	</head>
+
+	<body></body>
+</html>
