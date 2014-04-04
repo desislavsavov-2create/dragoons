@@ -1,0 +1,42 @@
+<html>
+<head></head>
+<body>
+	<script>
+	    "use strict";
+	</script>
+	<script>
+		function polydroms(startNum, endNum) {
+			var polydromsLength = 0;
+			for( var i = startNum; i <= endNum; i++ ) {
+				var splitedNum = [];
+				var isPolydrom = 0;
+				var j = 0;
+
+				while( parseInt( i / Math.pow(10, j)) ) {
+					splitedNum[j] = parseInt(i / Math.pow(10, j)) % 10;
+					j++;
+				}
+
+				for ( var j = 0; j < splitedNum.length; j++ ) {
+					if( splitedNum[j] === splitedNum[ splitedNum.length - 1 - j ] ) {
+						isPolydrom = 1;
+					} else {
+						isPolydrom = 0;
+						break;
+					}
+				}
+
+				if ( isPolydrom === 1 ) {
+					polydromsLength++;
+					document.write( i + ' <br>') 
+				}
+				
+
+			}
+			return polydromsLength;
+		}
+
+		console.log(polydroms(10, 10000))
+	</script>
+</body>
+</html>

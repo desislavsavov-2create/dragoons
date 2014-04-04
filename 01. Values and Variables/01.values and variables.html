@@ -108,5 +108,79 @@
 		    console.log(divides_by_3(333));
 		})();
 	</script>
+
+	<script>
+		(function () {
+		    function lineLength(x1, y1, x2, y2) {
+		    	var line = 0;
+		    	var a = Math.abs(x1 - x2);
+		    	var b = Math.abs(y1 - y2);
+
+		    	line = Math.sqrt(a * a + b * b)
+
+		        return line;
+		    }
+		    console.log(lineLength(2,2,4,5));
+		})();
+	</script>
+
+	<script>
+		(function () {
+		    function tangent(number) {
+		        return Math.tan(number * Math.PI / 180);
+		    }
+		    console.log(tangent(30));
+		    console.log(tangent(45));
+		})();
+	</script>
+
+	<script>
+		(function () {
+		    function textSplit(txt) {
+		    	var txtArray = [];
+		    	txtArray = txt.split('\n');
+
+		        return txtArray;
+		    }
+		    
+		    var txt = "An island song \n" +
+"Like a \"floating\" river \n" +
+"Rain's Rain's Fall Fall";
+
+		    console.log(textSplit(txt));
+		})();
+	</script>
+
+	<script>
+		(function () {
+		    function charContains(string, symbol) {
+		        return string.indexOf(symbol) != -1 ? 'Yes, "' + symbol + '" is in "' + string + '"' : 'No, "' + symbol + '" is not in "' + string + '"';
+		    }
+		    console.log(charContains('mechka', 'a'));
+		})();
+	</script>
+
+	<script>
+		(function () {
+		    function setUpperCases(txt) {
+		        var msg = txt.split(' ');
+		        var newText = '';
+		        for ( var i = 0; i < msg.length; i++ ) {
+		        	var firstChar = msg[i].charAt(0);
+		        	newText += firstChar.toUpperCase() + msg[i].substr(1, msg[i].length ) + ' ';
+		        }
+
+
+		        return newText;
+		    }
+		     var txt = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod \
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, \
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo \
+consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse \
+cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non \
+proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+		    console.log(setUpperCases(txt));
+		})();
+	</script>
 </body>
 </html>
