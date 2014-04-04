@@ -101,7 +101,7 @@
 
 			function get_circle_perimeter(r){
 				var pi = 3.14;
-				var perimteter;
+				var perimeter;
 
 				perimeter = Math.floor(2 * pi * r);
 
@@ -109,6 +109,120 @@
 			}
 
 			console.log(get_circle_perimeter(2))
+
+		})();
+
+		//  getTriangleArea A = (Math.sqrt(3)/ 4) * (a * a)
+
+		(function(){
+
+			function getTriangleArea(a){
+
+				var triangleArea = Math.floor((Math.sqrt(3) / 4) * (a * a));
+				return triangleArea;
+			}					
+
+			console.log(getTriangleArea(3));
+
+		})();
+
+		//  toBool(input)
+
+		(function(){
+
+			function toBool(input){
+				//  FAIL
+			}
+
+		})();
+
+		// add(a, b)
+
+		(function(){
+
+			function add(a,b){
+
+				var result = parseInt(a) + parseInt(b);
+				return result;
+			}
+
+			console.log(add(2, 3));
+			console.log(add('5', 3));
+
+		})();
+
+		// dividesBy3(number)
+
+		(function(){
+
+			function dividesBy3(number){
+				return (number % 3) === 0;
+			}
+
+			console.log(dividesBy3(3));
+			console.log(dividesBy3(4));
+
+		})();
+
+		// space between points
+
+		(function(){
+
+			function distanceBetweenPoints(x1, y1, x2, y2){
+				var a;
+				var b;
+
+				a = x2 - x1;
+				b = y2 - y1;
+
+				return Math.sqrt( (a * a) + ( b * b) ); 
+			}
+
+			console.log( distanceBetweenPoints(1, 3, 4, 5) );
+
+		})();
+
+		//  to uppercase
+
+		(function(){
+
+			function wordCapitalise(string){
+				/* 
+				var firstLetter = string.charAt(0);
+				var result = [];
+
+				result.push(string.charAt(0).toUpperCase());
+
+				for( var i = 0; i < string.length; i ++ ){
+					result.push(string.charAt(i));
+
+
+
+					if ( string.charAt(i) === ' ' ) {
+						result.push(string.charAt(i + 1).toUpperCase());
+					}
+				}  
+				return result.join('');
+				*/ 
+
+				var i;	
+				var result = [];
+				var word = '';
+				var words = [];
+
+
+				string = string.concat('');
+
+				for( i=0; i < string.length; i++ ) { 
+					
+					if ( string.charAt(i) !== ' ' ) {
+						result.push( string[i].concat() );
+					}
+				}
+				return result;
+			}
+
+			console.log(wordCapitalise("good mood doom"));
 
 		})();
 
