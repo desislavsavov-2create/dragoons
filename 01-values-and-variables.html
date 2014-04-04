@@ -98,7 +98,7 @@
 
 			(function() {
 				function add( a, b ) {
-					return parseInt(a) + parseInt(b);
+					return Number(a) + Number(b);
 				}
 
 				// console.log( add( '2', 5 ) );
@@ -115,15 +115,13 @@
 
 			(function() {
 				function calculateDistance( x1, y1, x2, y2 ) {
-					var result = [];
+					var firstSide = x2 - x1;
+					var secondSide = y2 - y1;
 
-					result.push( Math.abs( x1 - y1 ) );
-					result.push( Math.abs( x2 - y2 ) );
-
-					return result;
+					return Math.sqrt( firstSide * firstSide + secondSide * secondSide );
 				}
 
-				// console.log( calculateDistance( 1, 3, 7, -2 ) );
+				// console.log( calculateDistance( 1, 3, 5, 6 ) );
 			})();
 
 			(function() {
@@ -139,7 +137,9 @@
 
 			(function() {
 				function splitText() {
-					var inputText = 'An island song \n Like a "floating" river \n Rain\'s Rain\'s Fall Fall';
+					var inputText = 'An island song \n'+
+						'Like a "floating" river \n' +
+						'Rain\'s Rain\'s Fall Fall';
 
 					return inputText.split('\n');
 				}
@@ -150,8 +150,8 @@
 			(function() {
 				var textNode = 'Lorem ipsum dolor sit amet.';
 
-				// console.log( textNode.indexOf('a') > 0 );
-				// console.log( textNode.indexOf('Q') > 0 );
+				// console.log( textNode.indexOf('L') !== -1 );
+				// console.log( textNode.indexOf('Q') !== -1 );
 			})();
 
 			(function() {
@@ -166,8 +166,7 @@
 
 					return str;
 				}
-
-				console.log( capitalizeFirstLetter( 'lorem ipsum dolor sit amet' ) );
+				// console.log( capitalizeFirstLetter( 'lorem ipsum dolor sit amet' ) );
 			})();
 		</script>
 	</head>
