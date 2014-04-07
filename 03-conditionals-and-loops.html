@@ -1,0 +1,151 @@
+<html>
+	<head>
+		<script type="text/javascript">
+			"use strict";
+
+			(function() {
+				function findSmallestNumber( a, b, c ) {
+					var result;
+
+					if ( a <= b && a <= c ) {
+						result = a;
+					} else if ( b <= c && b <= a ) {
+						result = b;
+					} else if ( c <= b && c <= a ) {
+						result = c;
+					} else {
+						throw "Impossible!";
+					}
+
+					return result;
+				}
+
+				// console.log( findSmallestNumber(25,10,89) );
+			})();
+
+			(function() {
+				function findLargestNumber( a, b, c ) {
+					var result;
+
+					if ( a >= b && a >= c ) {
+						result = a;
+					} else if ( b >= c && b >= a ) {
+						result = b;
+					} else if ( c >= b && c >= a ) {
+						result = c;
+					} else {
+						throw "Impossible!";
+					}
+
+					return result;
+				}
+
+				// console.log( findLargestNumber(25,10,89) );
+			})();
+
+			(function() {
+				function findMiddleNumber( a, b, c ) {
+					var result;
+
+					if ( a >= b && a <= c ) {
+						result = a;
+					} else if ( b >= c && b <= a ) {
+						result = b;
+					} else if ( c >= b && c <= a ) {
+						result = c;
+					} else {
+						throw "Impossible!";
+					}
+
+					return result;
+				}
+
+				// console.log( findMiddleNumber(25,10,89) );
+			})();
+
+			(function() {
+				function findLongestNumber( a, b, c ) {
+					var numbersToString = [];
+					var i;
+					var result;
+
+					for ( i = 0; i < arguments.length; i++ ) {
+						numbersToString.push(arguments[i].toString())
+					}
+
+					if ( numbersToString[0].length >= numbersToString[1].length && numbersToString[0].length >= numbersToString[2].length ) {
+						result = arguments[0];
+					} else if ( numbersToString[1].length >= numbersToString[2].length && numbersToString[1].length >= numbersToString[0].length ) {
+						result = arguments[1];
+					} else if ( numbersToString[2].length >= numbersToString[1].length && numbersToString[2].length >= numbersToString[0].length ) {
+						result = arguments[2];
+					} else {
+						throw "Impossible!";
+					}
+
+					return result;
+				}
+
+				// console.log( findLongestNumber( 250,10,8945 ) );
+			})();
+
+			(function() {
+				function sumDigitsString( a ) {
+					var numberToString = a.toString();
+					var result = 0;
+					var i;
+
+					for ( i = 0; i < numberToString.length; i++ ) {
+						result += Number( numberToString.charAt(i) );
+					}
+
+					return result;
+				}
+
+				// console.log( sumDigitsString(45678) );
+
+				function sumDigitsNumbers( a ) {
+					var result = 0;
+
+					while ( a > 0 ) {
+						result += a % 10;
+						a = Math.floor( a/10 );
+					}
+
+					return result;
+				}
+
+				// console.log( sumDigitsNumbers(45678) );
+			})();
+
+			(function() {
+				function randomNumber( a, b ) {
+					var lowest = Math.min( a, b ); 
+					var range = Math.abs( a - b ) + 1; 
+
+					return Math.floor( Math.random() * range ) + lowest;
+				}
+
+				// console.log(randomNumber(5, 10));
+			})();
+
+			(function() {
+				function alphabeticalReplace(string) {
+					string = string.toLowerCase();
+					var result = [];
+					var i;
+
+					for ( i = 0; i < string.length; i++ ) {
+						result.push(string.charCodeAt(i) - 65);
+					}
+
+					return result.join('');
+				}
+
+				//console.log(alphabeticalReplace('lorem'));
+			})();
+		</script>
+	</head>
+
+	<body></body>
+</html>
