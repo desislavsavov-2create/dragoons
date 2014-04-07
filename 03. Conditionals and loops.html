@@ -1,0 +1,68 @@
+<html>
+<head>
+	<title>Conditionals and loops</title>
+</head>
+<body>
+
+	<script type="text/javascript">
+
+		"use strict";
+
+		//  smallest of 3 
+
+		(function() {
+
+			function smallestOF(a, b, c) {
+				var smallest = a;
+
+				if ( b < smallest ) {
+					smallest = b;
+				}
+
+				if ( c < smallest ) {
+					smallest = c;
+				}
+
+				return smallest;
+			}
+
+			console.log(smallestOF(11, 211, 1213));
+		})();
+
+		//  biggestOf 3
+
+		(function() {
+
+			function biggestOF(a, b, c) {
+				var biggest = a;
+
+				if ( b > biggest ) {
+					biggest = b;
+				}
+
+				if( c > biggest ) {
+					biggest = c;
+				}
+
+				return biggest;
+			}
+
+			console.log(biggestOF(321, 211, 313));
+		})();
+
+		//  middleOf 3 
+
+		(function() {
+
+			function middleOf(a, b, c) {}
+
+			console.log(middleOf(1, 70, 20));
+
+		})();
+
+		
+
+	</script>
+
+</body>
+</html>

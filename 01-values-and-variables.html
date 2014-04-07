@@ -185,45 +185,67 @@
 		//  to uppercase
 
 		(function(){
+			function wordCapitalise(string) {
 
-			function wordCapitalise(string){
-				/* 
-				var firstLetter = string.charAt(0);
-				var result = [];
-
-				result.push(string.charAt(0).toUpperCase());
-
-				for( var i = 0; i < string.length; i ++ ){
-					result.push(string.charAt(i));
-
-
-
-					if ( string.charAt(i) === ' ' ) {
-						result.push(string.charAt(i + 1).toUpperCase());
-					}
-				}  
-				return result.join('');
-				*/ 
-
-				var i;	
 				var result = [];
 				var word = '';
-				var words = [];
+				var i;	
+				var words = string.split(' ');
 
-
-				string = string.concat('');
-
-				for( i=0; i < string.length; i++ ) { 
-					
-					if ( string.charAt(i) !== ' ' ) {
-						result.push( string[i].concat() );
-					}
+				for( i=0; i < words.length; i++ ) { 
+					word = words[i].split('');
+					word[0] = word[0].toUpperCase();
+					word = word.join('');
+					result.push(word);
 				}
+				result = result.join(' ');
+				
 				return result;
 			}
 
 			console.log(wordCapitalise("good mood doom"));
+		})();
 
+		// angle
+
+		(function() {
+
+			function tangensOf() {
+
+			}
+
+		})();
+
+		//  text to variable
+
+		(function() {
+
+			function stringToVariable(string) {
+				var result = [];
+				var i;
+				var string = string.split(' ');
+
+				for ( i=0; i < string.length; i++ ) {
+					result.push(string[i]);	
+				}
+
+				return result;
+			}
+
+			console.log(stringToVariable('An island song'));
+			console.log(stringToVariable('Like a "floating" river'));
+			console.log(stringToVariable("Rain's Rain's Fall Fall"));
+		})();
+
+		// letter in a string 
+
+		(function() {
+
+			function checkForLetter(string, a) {
+				return string.indexOf(a) !== -1;
+			}	
+
+			console.log(checkForLetter("doggy", "o"));
 		})();
 
 	</script>
