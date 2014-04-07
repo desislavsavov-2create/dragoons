@@ -102,10 +102,36 @@
 			console.log(getDistance(2, 5, 3, 6));
 
 			function calculateTangent(angle){
-				var radians = angle * 3.14 / 180;
+				var radians = ( angle * 3.14 ) / 180;
+
+				return Math.tan(radians);
 			}
 
-			console.log(calculateTangent(90))
+			console.log(calculateTangent(45));
+
+			function verse() {
+				var text = "An island song \n" +
+				"Like a 'floating' river \n" +
+				"Rain's Rain's Fall Fall";
+				var textRows = text.split('\n');
+
+				return textRows;
+			}
+
+			console.log(verse());
+
+			function characterSearch (character) {
+				var text = 'Like a "floating" river';
+				var characterPosition = text.indexOf(character);
+
+				if (characterPosition >= 0 ) {
+					return 'Character Found'
+				} else {
+					return 'Character Not Found'
+				}
+			}
+
+			console.log(characterSearch('w'));
 
 			function capitalizeWords(string) {
 				var words = string.split(' ');
@@ -120,7 +146,6 @@
 				}
 
 				return words.join(' ');
-
 			}
 
 			console.log(capitalizeWords('an island song'));
