@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>JS Learning - 03. Conditionals &amp; Loops</title>
+</head>
+<body>
+	<script>
+		(function() {
+			'use strict';
+
+			// 01.
+
+			function getSmallestNumber(a, b, c) {
+				if(a <= b && a < c) {
+					return a;
+				} else if(b < a && b <= c) {
+					return b;
+				} else if(c <= a && c < b) {
+					return c;
+				} else if(a === b && a === c) {
+					return a;
+				}
+			}
+
+			console.log(getSmallestNumber(21, 12, 40));
+		})();
+	</script>
+
+	<script>
+		(function() {
+			'use strict';
+
+			// 02.
+
+			function getLargestNumber(a, b, c) {
+				if(a >= b && a > c) {
+					return a;
+				} else if(b > a && b >= c) {
+					return b;
+				} else if(c >= a && c > b) {
+					return c;
+				} else if(a === b && a === c) {
+					return a;
+				}
+			}
+
+			console.log(getLargestNumber(21, 12, 40));
+		})();
+	</script>
+
+	<script>
+		(function() {
+			'use strict';
+
+			// 03.
+
+			function getMiddleNumber(a, b, c) {
+				if(a >= b && a < c || a >= c && a < b) {
+					return a;
+				} else if(b >= a && b < c || b >= c && b < a) {
+					return b;
+				} else if(c >= a && c < b || c <= a && c > b) {
+					return c;
+				} else if(a === b && a === c) {
+					return a;
+				}
+			}
+
+			console.log(getMiddleNumber(30, 45, 60));
+		})();
+	</script>
+
+	<script>
+		(function() {
+			'use strict';
+
+			// 04.
+
+			function getLongestNumber(x, y, z) {
+				var a = getNumberLength(x);
+				var b = getNumberLength(y);
+				var c = getNumberLength(z);
+
+				if(a >= b && a > c) {
+					return x;
+				} else if(b > a && b >= c) {
+					return y;
+				} else if(c >= a && c > b) {
+					return z;
+				} else if(a === b && a === c) {
+					return x;
+				}
+			}
+
+			function getNumberLength(num) {
+				var i = 0;
+
+				while(num > 0) {
+
+					if(parseInt(num / Math.pow(10, i), 10) > 0) {
+						i++;
+					} else {
+						num = parseInt(num / Math.pow(10, i), 10);
+					}
+				}
+
+				return i;
+			}
+
+			console.log(getLongestNumber(6, 45, 644));
+		})();
+	</script>
+
+	<script>
+		(function() {
+			'use strict';
+
+			// 05.
+
+			function sumNumberDigits(num) {
+				var result = 0;
+
+				while(num > 0) {
+					result += num % 10;
+
+					num = Math.floor(num / 10);
+				}
+
+				return result;
+			}
+
+			console.log(sumNumberDigits(1234));
+		})();
+	</script>
+
+	<script>
+		(function() {
+			'use strict';
+
+			// 06.
+
+			function getRandomBetweenTwoNumbers(a, b) {
+				var min = Math.min(a, b);
+				var range = Math.abs(a - b) - 1;
+
+				return Math.ceil(Math.random() * range) + min;
+			}
+
+			console.log(getRandomBetweenTwoNumbers(3,15));
+		})();
+	</script>
+
+	<script>
+		(function() {
+			'use strict';
+
+			// 07.
+
+			function replaceLettersWithNumbers(input) {
+				var result = '';
+				var currentSymbol;
+
+				for(var i = 0; i < input.length; i++) {
+					currentSymbol = input.charAt(i).charCodeAt() - 96;
+
+					if(input.charAt(i) === ' ') {
+						currentSymbol = input.charAt(i);
+					}
+
+					result = result + currentSymbol;
+				}
+
+				return result;
+			}
+
+			console.log(replaceLettersWithNumbers('raining cats and dogs'));
+		})();
+	</script>
+
+	<script>
+		(function() {
+			'use strict';
+
+			// 08.
+
+			function getLongestWord(words) {
+				var longestIdx = 0;
+
+				for(var i = 0; i < words.length; i++) {
+					if(words[i].length > words[longestIdx].length) {
+						longestIdx = i;
+					}
+				}
+
+				return words[longestIdx];
+			}
+
+			console.log(getLongestWord(['i', 'cheeseburgers', 'like']));
+		})();
+	</script>
+
+	<script>
+		(function() {
+			'use strict';
+
+			// 09.
+
+			function getVowels(input) {
+				var result = [];
+				var currentChar;
+				var vowels = 'aeoiuy';
+
+				for(var i = 0; i < input.length; i++) {
+					currentChar = input[i];
+
+					if(vowels.indexOf(currentChar) !== -1) {
+						result.push(currentChar);
+					}
+				}
+
+				return result;
+			}
+
+			console.log(getVowels('popocatepetl'));
+		})();
+	</script>
+
+	<script>
+		(function() {
+			'use strict';
+
+			// 10.
+
+			function makeStringWithEveryThirdSymbol(input) {
+				var result = '';
+
+				for(var i = 0; i < input.length; i++) {
+					if(i > 0 && i % 3 === 2) {
+						result = result + input[i];
+					}
+				}
+
+				return result;
+			}
+
+			console.log(makeStringWithEveryThirdSymbol('abcabcabcabcabc'));
+		})();
+	</script>
+
+	<script>
+		(function() {
+			'use strict';
+
+			// 11.
+
+			function switchUppercaseBetweenThreeSymbols(input) {
+				var isUppercase = true;
+				var result = '';
+				var currentChar;
+
+				for(var i = 0; i < input.length; i++) {
+					currentChar = input[i];
+
+					if(i > 2 && i % 3 === 0) {
+						isUppercase = !isUppercase;
+					}
+
+					if(isUppercase) {
+						currentChar = currentChar.toUpperCase();
+					}
+
+					result = result + currentChar;
+				}
+
+				return result;
+			}
+
+			console.log(switchUppercaseBetweenThreeSymbols('pneumonoultramicroscopicsilicovolcanoconiosis'));
+		})();
+	</script>
+</body>
+</html>
