@@ -1,0 +1,99 @@
+<script >
+"use strict";
+
+( function () {
+	function smallNumbers(a, b, c) {
+		
+		if ( a <= b && a <= c ) {
+			return a;
+		} else if ( b <= c && b <= a ) {
+			return b;
+		} else {
+			return c;
+		}
+	}
+	//console.log( smallNumbers( 3, 2, 1 ) );		
+})();
+
+( function () {
+	function buggerNumbers (a, b, c) {
+		if ( a <= b && b >= c ) {
+			return b;
+		} else if ( a <= c && c >= b ) {
+			return c;
+		} else {
+			return a;
+		}	
+	}
+	//console.log( buggerNumbers( 1, 2, 3 ) )	
+})();
+
+( function () {
+	function middleNumbers (a, b, c) {
+		if ( ( a <= b && b <= c ) || ( a >= b && b >= c ) ) {
+			return b;
+		} else if ( ( b <= c && c <= a ) || ( b >= c && c >= a ) ) {
+			return c ;
+		} else {
+			return a;
+		}		
+	}
+	//console.log( middleNumbers( 2, 11, 16 ) )
+})();
+
+( function () {
+	function longestNumbers (a, b, c) {
+		var lengthA = a.toString().length;
+		var lengthB = b.toString().length;
+		var lengthC = c.toString().length;
+
+		if ( lengthA <= lengthB && lengthB >= lengthC ) {
+			return b;
+		} else if ( lengthA <= lengthC && lengthC >= lengthB ) {
+			return c;
+		} else {
+			return a;
+		}	
+	}
+
+	//console.log( longestNumbers( 1213, 132132, 12311112 ))
+})();
+
+( function () {
+	function sumNumbers (a) {
+		var result = 0;
+
+		while ( a > 0 ) {
+			result = result + (a % 10);
+			a = parseInt( a / 10, 10 );
+		}
+
+		return result;
+	}
+	//console.log( sumNumbers( 1234 ) );
+})();
+
+( function () {
+	function randomNum (a, b) {
+		var min = Math.min( a , b)
+		var range =  ( Math.abs( a - b ) ) + 1;
+
+		console.log( Math.floor( Math.random() * range ) + min )
+	}
+
+	//console.log( randomNum( 6, 1 ) )
+})();
+
+( function (){
+	function wordToNumbers ( word ) {
+		
+		var numberOfWord = [];
+
+		for ( var i = 0; i < word.length; i++ ) {
+			numberOfWord.push(word[i].charCodeAt())	
+		}
+	}
+
+	console.log( wordToNumbers( 'world' ) )
+})();
+</script>
