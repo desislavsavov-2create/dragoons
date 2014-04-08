@@ -156,15 +156,18 @@
 			'use strict';
 
 			// 07.
-
+			
 			function replaceLettersWithNumbers(input) {
 				var result = '';
+				var preserve = '. ,!?';
 				var currentSymbol;
 
-				for(var i = 0; i < input.length; i++) {
-					currentSymbol = input.charAt(i).charCodeAt() - 96;
+				input = input.toLowerCase();
 
-					if(input.charAt(i) === ' ') {
+				for(var i = 0; i < input.length; i++) {
+					currentSymbol = input.charCodeAt(i) - 96;
+
+					if(preserve.indexOf(input.charAt(i)) !== -1) {
 						currentSymbol = input.charAt(i);
 					}
 
@@ -174,7 +177,7 @@
 				return result;
 			}
 
-			console.log(replaceLettersWithNumbers('raining cats and dogs'));
+			console.log(replaceLettersWithNumbers('Raining Cats and Dogs'));
 		})();
 	</script>
 
@@ -205,11 +208,11 @@
 			'use strict';
 
 			// 09.
-
+			
 			function getVowels(input) {
 				var result = [];
 				var currentChar;
-				var vowels = 'aeoiuy';
+				var vowels = 'aeoiuyAEOIUY';
 
 				for(var i = 0; i < input.length; i++) {
 					currentChar = input[i];
@@ -235,10 +238,8 @@
 			function makeStringWithEveryThirdSymbol(input) {
 				var result = '';
 
-				for(var i = 0; i < input.length; i++) {
-					if(i > 0 && i % 3 === 2) {
-						result = result + input[i];
-					}
+				for(var i = 3; i < input.length; i+=3) {
+					result = result + input[i];
 				}
 
 				return result;
@@ -277,6 +278,179 @@
 			}
 
 			console.log(switchUppercaseBetweenThreeSymbols('pneumonoultramicroscopicsilicovolcanoconiosis'));
+		})();
+	</script>
+
+	<script>
+		(function() {
+			'use strict';
+
+			// 12.
+
+			function reverseString(input) {
+				var result = '';
+
+				for(var i = input.length-1; i >= 0; i--) {
+					result += input[i];
+				}
+
+				return result;
+			}
+
+			console.log(reverseString('test'));
+		})();
+	</script>
+
+	<script>
+		(function() {
+			'use strict';
+
+			// 13.
+
+			function replaceAsWithZeros(input) {
+				input = input.replace(/a/g, 0);
+
+				return input;
+			}
+
+			console.log(replaceAsWithZeros('lalalalala'));
+		})();
+	</script>
+
+	<script>
+		(function() {
+			'use strict';
+
+			// 14.
+
+			function findMatchesLengthInString(matchStr, input) {
+				var matchesLength = 0;
+
+				while(input.indexOf(matchStr) != -1) {
+					matchesLength++;
+					input = input.replace(matchStr, '');
+				}
+
+				return matchesLength;
+			}
+
+			console.log(findMatchesLengthInString('big', 'big bad wolf is a big badass'));
+		})();
+	</script>
+
+	<script>
+		(function() {
+			'use strict';
+
+			// 15.
+
+			function buzzFuzz() {
+				var result = '';
+
+				for(var i = 1; i <= 100; i++) {
+					result = result + i + ' ';
+
+					if(i % 3 === 0 && i % 5 !== 0) {
+						result = result + '(Fuzz) ';
+					} else if(i % 3 !== 0 && i % 5 === 0) {
+						result = result + '(Buzz) ';
+					} else if(i % 3 === 0 && i % 5 === 0) {
+						result = result + '(FuuuuzBuuuuz) '
+					}
+				}
+
+				return result;
+			}
+
+			console.log(buzzFuzz());
+		})();
+	</script>
+
+	<script>
+		(function() {
+			'use strict';
+
+			// 16.
+
+			function isPrimeNumber(num) {
+				var counter = 0;
+
+				num = Math.abs(num);
+
+				for(var i = 2; i < num / 2; i++) {
+					if (num % i === 0) {
+						return false;
+					}
+				}
+
+				return true;
+			}
+
+			console.log(isPrimeNumber(13));
+		})();
+	</script>
+
+	<script>
+		(function() {
+			'use strict';
+
+			// 17.
+
+			function countPalindromes(startNum, endNum) {
+				var palindromesLength = 0;
+
+				for( var i = startNum; i <= endNum; i++ ) {
+					var reversedNum = reverseNum(i);
+
+					if(i === reversedNum) {
+						palindromesLength++;
+					}
+				};
+
+				return palindromesLength;
+			}
+
+			function reverseNum(num) {
+				var reversedNum = 0;
+
+				while( parseInt(num) > 0 ) {
+					var lastDigit = num % 10;
+					var multiplier = getMultiplier(num);
+
+					num = Math.floor(num / 10);
+
+					reversedNum = reversedNum + (lastDigit * Math.pow(10, multiplier));
+				}
+
+				return reversedNum;
+			}
+
+			function getMultiplier(num) {
+				var multiplier = 0;
+
+				while( parseInt(num) > 10 ) {
+					num = num / 10;
+					multiplier++;
+				}
+
+				return multiplier;
+			}
+
+			console.log(countPalindromes(10, 10000));
+		})();
+	</script>
+
+	<script>
+		(function() {
+			'use strict';
+
+			// 18.
+
+			function sortArray(arrayObj) {
+				
+			}
+
+			
 		})();
 	</script>
 </body>
