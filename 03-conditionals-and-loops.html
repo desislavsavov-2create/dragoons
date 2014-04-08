@@ -130,10 +130,11 @@
 			})();
 
 			(function() {
-				function alphabeticalReplace(string) {
-					string = string.toLowerCase();
+				function alphabeticalReplace( string ) {
 					var result = [];
 					var i;
+
+					string = string.toLowerCase();
 
 					for ( i = 0; i < string.length; i++ ) {
 						result.push(string.charCodeAt(i) - 65);
@@ -142,7 +143,150 @@
 					return result.join('');
 				}
 
-				//console.log(alphabeticalReplace('lorem'));
+				// console.log(alphabeticalReplace('lorem'));
+			})();
+
+			(function() {
+				function findLongestWord( word1, word2, word3 ) {
+					var longest = '';
+
+					word1 = word1.toString();
+					word2 = word2.toString();
+					word3 = word3.toString();
+
+					if ( word1.length >= word2.length && word1.length >= word3.length ) {
+						longest = word1;
+					} else if ( word2.length >= word3.length && word2.length >= word1.length ) {
+						longest = word2;
+					} else if ( word3.length >= word1.length && word3.length >= word2.length ) {
+						longest = word3;
+					} else {
+						throw 'Impossible!';
+					}
+
+					return longest;
+				}
+
+				// console.log( findLongestWord( 'education', 'learn', 'assignments' ) );
+				// console.log( findLongestWord( 5, 'constitution', 'intelligence' ) );
+			})();
+
+			(function() {
+				function findVowels( string ) {
+					var vowels = 'aeiouAEIOU';
+					var result = '';
+					var i;
+
+					string = string.toString();
+
+					for ( i = 0; i < string.length; i++ ) {
+						if ( vowels.indexOf(string[i]) !== -1 ) {
+							result += string[i];
+						}
+					}
+
+					return result;
+				}
+
+				// console.log( findVowels( 'Education' ) );
+			})();
+
+			(function() {
+				function getEachThirdChar( string ) {
+					var result = '';
+					var i;
+
+					string = string.toString();
+
+					for ( i = 2; i < string.length; i += 3 ) {
+						result += string[i];
+					}
+
+					return result;
+				}
+
+				// console.log( getEachThirdChar( 'I am learning how to code Javascript.' ) );
+			})();
+
+			(function() {
+				function capitalizeEachThreeChars( string ) {
+					var result = '';
+					var sector = '';
+					var sectorIndex;
+
+					for ( sectorIndex = 0; sectorIndex < string.length / 3; sectorIndex++ ) {
+						sector = string.substr(sectorIndex * 3, 3);
+
+						if ( sectorIndex % 2 === 0 ) {
+							sector = sector.toUpperCase();
+						}
+
+						result += sector;
+					}
+
+					return result;
+				}
+
+				// console.log( capitalizeEachThreeChars( 'lorem ipsum dolor sit amet.' ) );
+			})();
+
+			(function() {
+				function reverseString( string ) {
+					var result = '';
+					var temp = [];
+					var i;
+
+					for ( i = string.length - 1; i >= 0; i-- ) {
+						temp.push(string[i]);
+					}
+
+					result = temp.join('');
+
+					return result;
+				}
+
+				// console.log(reverseString('Javascript'));
+			})();
+
+			(function() {
+				function replaceAwithZero( string ) {
+					var result = '';
+					var temp = [];
+					var i;
+
+					for ( i = 0; i < string.length; i++ ) {
+						temp.push(string[i]);
+
+						if ( temp[i].match('a') ) {
+							temp[i] = '0';
+						}
+					}
+
+					result = temp.join('');
+
+					return result;
+				}
+
+				// console.log( replaceAwithZero('Javascript is awesome!') );
+			})();
+
+			(function() {
+				function calculateStringMatches( string1, string2 ) {
+					string1 = string1.toString();
+					string2 = string2.toString();
+
+					var longestString = string1;
+					var smallestString = string2;
+
+					if ( string2.length >= string1.length ) {
+						longestString = string2;
+						smallestString = string1;
+					}
+
+					return longestString.slice(smallestString).length;
+				}
+
+				console.log( calculateStringMatches( 'Java', 'Javascript is not Java actually!' ) );
 			})();
 		</script>
 	</head>
