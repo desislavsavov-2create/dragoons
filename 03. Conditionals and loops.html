@@ -183,10 +183,9 @@
 				return longest;
 			}
 
-			console.log(longestWord('do', 'good', 'apple'));
-			console.log(longestWord('do', 'apple', 'good'));
-			console.log(longestWord('apple', 'good', 'do'));
-
+			// console.log(longestWord('do', 'good', 'apple'));
+			// console.log(longestWord('do', 'apple', 'good'));
+			// console.log(longestWord('apple', 'good', 'do'));
 		})();
 
 		//  vowels 
@@ -194,18 +193,72 @@
 		(function() {
 
 			function findVowels(string) {
-				var vowels = ['a', 'e', 'i', 'o', 'u', 'y'];
-				var wordLenght = string.length;
+				var vowels = ['a', 'e', 'i', 'o', 'u', 'y', 'A', 'E', 'I', 'O', 'U', 'Y'];
+				var wordLength = string.length;
 				var i;
+				var result = [];
 
-				for (i = 0; i < wordLenght; i ++) { 
-					console.log(string[i]);
+				for (i = 0; i < wordLength; i ++) { 
+					if (vowels.indexOf(string[i]) !== -1) {
+						result.push(string[i]);
+					}
 				}
 
+				return result;
 			}
 
-			console.log(findVowels('bubble'));
+			// console.log(findVowels('BuBble'));
+			// console.log(findVowels('Apple'));
+		})();
 
+		//  string of each 3rd
+
+		(function() {
+
+			function createString(string) {
+				var savedChracters = [];
+				var i;
+				var stringLength = string.length;
+
+				for (i = 0; i < stringLength; i = i + 3) {
+					savedChracters.push(string[i]);
+					console.log(i)
+				}
+
+				return savedChracters.join('');
+			}
+
+			console.log(createString('1234567890'));
+		})();
+
+		//  3 by 3 tp uppercase
+
+		(function() {
+
+			function threeToUppercase(string) {
+				var i;
+				var stringLength = string.length;
+				var uppercase = false; 
+
+				string = string.split('');
+
+				for (i = 0; i < stringLength; i++) {
+					string[i] = string[i].toLowerCase();
+
+					if (i % 3 === 0) {
+						uppercase = true;
+						if (uppercase === true) {
+							string[i] = string[i].toUpperCase();
+						}
+
+						console.log(string.indexOf(string[i]))
+					}					
+				}
+
+				return string;
+			}
+
+			console.log(threeToUppercase('abcdefghijklmnop'))
 		})();
 
 	</script>
