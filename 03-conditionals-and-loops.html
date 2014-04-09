@@ -183,18 +183,148 @@
 		for ( var sectorIdx = 0; sectorIdx < textLength/sectorLength; sectorIdx++ ) {
 			sectorStart = sectorIdx * sectorLength;
 
-			if ( sectorIdx % 2 === 0 ){				
-				result.push(text.substring( sectorStart , sectorStart + sectorLength ).toUpperCase());
+			var sector = text.substring( sectorStart , sectorStart + sectorLength );
 
-			} else {
-				result.push(text.substring( sectorStart , sectorStart + sectorLength ));
+			if ( sectorIdx % 2 === 0 ) {
+				sector = sector.toUpperCase();
 			}
 
-		};
+			result.push(sector);
+		}
 		
 		return result.join('');
 	}
 
-	console.log( eachThreeUppercase( 'lorem ipsum dolor sit' ) );
+	//console.log( eachThreeUppercase( 'lorem ipsum dolor sit' ) );
+})();
+
+( function () {
+	function reverseWord ( word ) {
+		var result = [];
+
+		for ( var i = word.length; i >= 0; i-- ) {
+			result.push(word[i]);
+		}
+
+		return result.join('');
+	}
+
+	//console.log( reverseWord( 'test' ) )
+})();
+
+( function () {
+	function replaceAWithZero ( word ) {
+		var result = [];
+		var searchedChar = 'a';
+		var character = 0;
+
+		for (var i = 0; i < word.length ; i++ ) {
+			character = word[i];
+
+			if ( searchedChar === word[i] ) {
+				character = 0;
+			}
+			result.push(character);
+		}
+
+		return result.join('');
+	}
+
+	// console.log( replaceAWithZero( 'javascript' ) );
+})();
+
+( function () {
+	function findSameChar ( word ) {
+		var searchedChar = 'a';
+		var countSameChar = 0;
+
+		for (var i = 0; i < word.length; i++ ) {
+			if ( searchedChar === word[i] ) {
+				countSameChar++;
+			}
+		}
+
+		return countSameChar;
+	}
+
+	// console.log( findSameChar( 'javascript learning' ) );
+})();
+
+( function () {
+	function fuzzBuzz ( numbers ) {
+		var digit;
+		var result = [];
+
+		for ( var i = 1; i < numbers+1; i++ ) {
+			var foldOnThree = i % 3 === 0;
+			var foldOnFive = i % 5 === 0;
+			digit = i;
+
+			if ( foldOnThree && foldOnFive ) {
+				digit = 'FuuuuzBuuuuz';
+			} else {
+				if ( foldOnThree ) {
+					digit = 'Fuzz';
+				}
+				if ( foldOnFive ) {
+					digit = 'Buzz';	
+				};
+			}
+			result.push(digit);
+		}
+
+		return result;
+	}
+
+	//console.log( fuzzBuzz( 100 ) )
+})();
+
+( function () {
+	// 
+	function isPrimeNumber(digit) {
+		if (digit <= 1) {
+			return false;
+		}
+
+		for (var i = 2; i < digit / 2; i++ ) {
+			if ( digit % i === 0 ) {
+				return false;
+			}	
+		}
+
+		return true;
+	}
+
+	//	console.log(isPrimeNumber(1)); 
+})();
+
+( function () {
+	function findPrimeNumbers(digits) {
+		var numberArr = [];
+
+		for ( var i = 2; i < digits; i++ ) {
+			numberArr[i] = true;
+
+			for (var j = 2; j < numberArr.length; j++ ) {
+				if ( numberArr[j] * numberArr[j] ) {
+					numberArr[j] = false
+				}
+			}
+
+			console.log(numberArr)
+		}
+
+
+	}
+
+	//console.log( findPrimeNumbers( 50 ) )
+})();
+
+( function () {
+	function findPolyndroms(digits) {
+
+	}
+
+	console.log( findPolyndroms( 100 ) )
 })();
 </script>
