@@ -71,7 +71,6 @@
 				}
 
 				return digit;
-
 			}
 
 			// console.log(digitsSum(123));
@@ -84,7 +83,6 @@
 				var result = random + min;
 
 				return result;
-
 			}
 
 			// console.log(randomNum(1, 6));
@@ -116,10 +114,51 @@
 			// console.log(findLongestWord('short', 'looooooooong', 'middle'));
 
 			function findVowels(word){
+				var vowels = ['a', 'e', 'i', 'o', 'u', 'y', 'A', 'E', 'I', 'O', 'U', 'Y'];
+				var result = [];
 
+				for (var i = 0; i < word.length; i++) {
+					for (var y = 0; y < vowels.length; y++){
+						if (word[i] === vowels[y]){
+							result.push(word[i]);
+						}
+					}
+				};
+
+				return result;
 			}
 
-			console.log(findVowels('abcde'));
+			// console.log(findVowels('aAbBcCdDeE'));
+
+			function getEachThirdElement(string) {
+				var result = [];
+				string = string.toString();
+
+				for (var i = 2; i < string.length; i += 3) {
+					result.push(string[i]);
+				};
+
+				return result;
+			}
+
+			// console.log(getEachThirdElement('abcabc123abc123'));
+
+			function capitalizeEachThreeSymbols(string) {
+				var pieces = [];
+				var result = [];
+
+				for (var i = 0; i < string.length; i += 3) {
+					pieces.push(string.substring(i, i + 3));
+				};
+
+				for (var i = 0; i < pieces.length; i += 2) {
+					result.push(pieces[i].toUpperCase());
+				};
+
+				return result;
+			}
+
+			console.log(capitalizeEachThreeSymbols('lorem ipsum dolor sit'));
 
 		})();
 
