@@ -399,26 +399,23 @@
 			function listPrimeNumbers(max) {
 				var primeNumbers = [];
 
-				primeNumbers.push(2);
+				for (var i = 2; i <= max; i++) {
+					primeNumbers[i] = true;
+				}
 
-				for( var i = 3; i <= max; i += 2 ) {
-					var iSqrt = Math.floor(Math.sqrt(i));
-					var isPrime = true;
-
-					for( var j = 0; primeNumbers[j] <= iSqrt; j++ ) {
-						if( i % primeNumbers[j] === 0 ) {
-							isPrime = false;
-							break;
-						}
+				for (i = 2; i <= max; i++) {
+					if (primeNumbers[i] === false) {
+						continue;
 					}
 
-					if(isPrime) {
-						primeNumbers.push(i);
+					for (var j = i * 2; j <= max; j += i) {
+						primeNumbers[j] = false;
 					}
 				}
 
 				return primeNumbers;
 			}
+
 
 			console.log(listPrimeNumbers(100));
 		})();
@@ -514,8 +511,9 @@
 
 			function sortArrayByTime(arrayObj) {
 				arrayObj.sort(function(a, b) {
-					var time1 = new Date (new Date().toDateString() + ' ' + a.start).getTime();
-					var time2 = new Date (new Date().toDateString() + ' ' + b.start).getTime();
+					var currentDate = new Date().toDateString();
+					var time1 = new Date (currentDate + ' ' + a.start).getTime();
+					var time2 = new Date (currentDate + ' ' + b.start).getTime();
 
 					return time1-time2;
 				});
