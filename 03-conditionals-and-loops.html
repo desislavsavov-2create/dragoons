@@ -396,6 +396,40 @@
 
 			// 17.
 
+			function listPrimeNumbers(max) {
+				var primeNumbers = [];
+
+				primeNumbers.push(2);
+
+				for( var i = 3; i <= max; i += 2 ) {
+					var iSqrt = Math.floor(Math.sqrt(i));
+					var isPrime = true;
+
+					for( var j = 0; primeNumbers[j] <= iSqrt; j++ ) {
+						if( i % primeNumbers[j] === 0 ) {
+							isPrime = false;
+							break;
+						}
+					}
+
+					if(isPrime) {
+						primeNumbers.push(i);
+					}
+				}
+
+				return primeNumbers;
+			}
+
+			console.log(listPrimeNumbers(100));
+		})();
+	</script>
+
+	<script>
+		(function() {
+			'use strict';
+
+			// 18.
+
 			function countPalindromes(startNum, endNum) {
 				var palindromesLength = 0;
 
@@ -444,7 +478,7 @@
 		(function() {
 			'use strict';
 
-			// 18.
+			// 19.
 
 			var eventSchedule = [
 				{
