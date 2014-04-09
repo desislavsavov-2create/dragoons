@@ -10,7 +10,7 @@
 
 		;(function() {
 
-			function lowestNumber(a, b, c) {
+			function findLowestNumber(a, b, c) {
 				if (a <= b && a <= c) {
 					return a;
 				} else if (b <= a && b <= c) {
@@ -20,9 +20,9 @@
 				}
 			}
 
-			// console.log(lowestNumber(1, 2, 3));
+			// console.log(findLowestNumber(1, 2, 3));
 
-			function highestNumber(a, b, c) {
+			function findHighestNumber(a, b, c) {
 				if (a >= b && a >= c) {
 					return a;
 				} else if (b >= c && b >= a) {
@@ -32,9 +32,9 @@
 				}
 			}
 
-			// console.log(highestNumber(1, 2, 3));
+			// console.log(findHighestNumber(1, 2, 3));
 
-			function middleNumber(a, b, c) {
+			function findMiddleNumber(a, b, c) {
 				if ( (c <= a && a <= b) || ( b <= a && a <= c ) ) {
 					return a;
 				} else if ( (a <= b && b <= c) || (c <= b && b <= c) ) {
@@ -44,14 +44,14 @@
 				}
 			}
 
-			// console.log(middleNumber(100, 200, 100));
+			// console.log(findMiddleNumber(100, 200, 100));
 
-			function longestNumber(a, b, c) {
+			function findLongestNumber(a, b, c) {
 				a = a.toString();
 				b = b.toString();
 				c = c.toString();
 
-				if (a.length >= b.length && a.length >= c.length) {
+				if (a.length >= b.length && a.length >= c.length) {d
 					return Number(a);
 				} else if (b.length >= c.length && b.length >= a.length) {
 					return Number(b);
@@ -60,7 +60,7 @@
 				}
 			}
 
-			// console.log(longestNumber(-1.2, 2, 222.312312132312));
+			// console.log(findLongestNumber(-1.2, 2, 222.312312132312));
 
 			function digitsSum(number) {
 				var digit = 0;
@@ -78,14 +78,48 @@
 
 			function randomNum(a, b) {
 				var min = Math.min(a, b);
-				var range = Math.abs(a - b);
-				var random = Math.random() * range + min;
+				var range = Math.abs(a - b) + 1;
+				var random = Math.random() * range;
+				random = Math.floor(random);
+				var result = random + min;
 
-				console.log(random);
+				return result;
 
 			}
 
-			console.log(randomNum(1, 6));
+			// console.log(randomNum(1, 6));
+
+			function wordToNumbers(word){
+				var result = [];
+
+				word = word.toLowerCase();
+
+				for (var i = 0; i < word.length; i++) {
+					result.push(word[i].charCodeAt() - 96);
+				};
+
+				return result;
+			}
+
+			// console.log(wordToNumbers('aBcDeF'));
+
+			function findLongestWord(word1, word2, word3){
+				if (word1.length >= word2.length && word1.length >= word3.length) {
+					return word1;
+				} else if (word2.length >= word3.length && word2.length >= word1.length) {
+					return word2;
+				} else {
+					return word3;
+				}
+			}
+
+			// console.log(findLongestWord('short', 'looooooooong', 'middle'));
+
+			function findVowels(word){
+
+			}
+
+			console.log(findVowels('abcde'));
 
 		})();
 
