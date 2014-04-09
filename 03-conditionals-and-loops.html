@@ -251,18 +251,15 @@
 			(function() {
 				function replaceAwithZero( string ) {
 					var result = '';
-					var temp = [];
 					var i;
 
 					for ( i = 0; i < string.length; i++ ) {
-						temp.push(string[i]);
-
-						if ( temp[i].match('a') ) {
-							temp[i] = '0';
+						if ( string[i] === 'a' ) {
+							result += '0';
+						} else {
+							result += string[i];
 						}
 					}
-
-					result = temp.join('');
 
 					return result;
 				}
@@ -272,21 +269,56 @@
 
 			(function() {
 				function calculateStringMatches( string1, string2 ) {
-					string1 = string1.toString();
-					string2 = string2.toString();
+					var matches = -1;
+					var occurrence = -1;
+					var protect = 0;
+					
+					do {
+						// Handle endless loops
+						if ( protect ++== 100 ) {
+							throw 'Too many iterations.';
+						}
 
-					var longestString = string1;
-					var smallestString = string2;
-
-					if ( string2.length >= string1.length ) {
-						longestString = string2;
-						smallestString = string1;
-					}
-
-					return longestString.slice(smallestString).length;
+						matches++;
+						occurrence = string2.indexOf(string1, occurrence + 1);
+					} while ( occurrence !== -1 );
+					
+					return matches;
 				}
 
-				console.log( calculateStringMatches( 'Java', 'Javascript is not Java actually!' ) );
+				// console.log( calculateStringMatches( 'Java', 'Javascript is not Java actually!' ) );
+			})();
+
+			(function() {
+				function devideBy3and5() {
+					var result;
+					var i;
+
+					for ( i = 1; i <= 100; i++ ) {
+						if ( i % 3 === 0 && i % 5 === 0 ) {
+							result = 'FuuuuzBuuuuz';
+						} else if ( i % 5 === 0 ) {
+							result = 'Buzz';
+						} else if ( i % 3 === 0 ) {
+							result = 'Fuzz';
+						} else {
+							result = i;
+						}
+
+						console.log(result);
+					}
+				}
+
+				// devideBy3and5();
+			})();
+
+			(function() {
+				function isPrimeNumber( number ) {
+					
+				}
+
+				// console.log( isPrimeNumber( 22 ) );
+				// console.log( isPrimeNumber( 23 ) );
 			})();
 		</script>
 	</head>
