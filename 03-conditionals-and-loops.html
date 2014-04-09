@@ -446,11 +446,50 @@
 
 			// 18.
 
-			function sortArray(arrayObj) {
-				
+			var eventSchedule = [
+				{
+					title: "Registration",
+					start: "08:30"
+				},
+				{
+					title: "Break",
+					start: "11:00"
+				},
+				{
+					title: "WordPress for dummies",
+					start: "10:30"
+				},
+				{
+					title: "Custom Post Types",
+					start: "11:15"
+				},
+				{
+					title: "WooCommerce",
+					start: "14:00"
+				},
+				{
+					title: "Lunch",
+					start: "12:30"
+				},
+				 
+				{
+					title: "Break",
+					start: "15:00"
+				}
+			];
+
+			function sortArrayByTime(arrayObj) {
+				arrayObj.sort(function(a, b) {
+					var time1 = new Date (new Date().toDateString() + ' ' + a.start).getTime();
+					var time2 = new Date (new Date().toDateString() + ' ' + b.start).getTime();
+
+					return time1-time2;
+				});
+
+				return arrayObj;
 			}
 
-			
+			console.log(sortArrayByTime(eventSchedule));
 		})();
 	</script>
 </body>
