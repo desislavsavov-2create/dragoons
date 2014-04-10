@@ -76,11 +76,15 @@
 			// console.log(digitsSum(123));
 
 			function randomNum(a, b) {
-				var min = Math.min(a, b);
-				var range = Math.abs(a - b) + 1;
-				var random = Math.random() * range;
+				var min, range, random, result;
+
+				min = Math.min(a, b);
+				range = Math.abs(a - b) + 1;
+
+				random = Math.random() * range;
 				random = Math.floor(random);
-				var result = random + min;
+				
+				result = random + min;
 
 				return result;
 			}
@@ -94,7 +98,7 @@
 
 				for (var i = 0; i < word.length; i++) {
 					result.push(word[i].charCodeAt() - 96);
-				};
+				}
 
 				return result;
 			}
@@ -123,7 +127,7 @@
 							result.push(word[i]);
 						}
 					}
-				};
+				}
 
 				return result;
 			}
@@ -136,7 +140,7 @@
 
 				for (var i = 2; i < string.length; i += 3) {
 					result.push(string[i]);
-				};
+				}
 
 				return result;
 			}
@@ -145,26 +149,106 @@
 
 			function capitalizeEachThreeSymbols(string) {
 				var pieces = [];
-				var result = [];
+				var result = '';
+				var piece = '';
 
 				for (var i = 0; i < string.length; i += 3) {
 					pieces.push(string.substring(i, i + 3));
-				};
+				}
 
-				for (var i = 0; i < pieces.length; i += 2) {
-					result.push(pieces[i].toUpperCase());
+				for (var i = 0; i < pieces.length; i++) {
+					if(i % 2 === 0) {
+						piece = pieces[i].toUpperCase();
+					} else {
+						piece = pieces[i];
+					}
+
+					result = result + piece;
 				};
 
 				return result;
 			}
 
-			console.log(capitalizeEachThreeSymbols('lorem ipsum dolor sit'));
+			// console.log(capitalizeEachThreeSymbols('lorem ipsum dolor sit'));
 
+			function reverseString(string) {
+				var result = '';
+
+				for (var i = string.length - 1; i >= 0; i--) {
+					result = result + string[i];
+				}
+
+				return result;
+			}
+
+			// console.log(reverseString('lorem'));
+
+			function replaceAwithNull(input) {
+				var result = '';
+
+				for (var i = 0; i < input.length; i++) {
+					if (input[i] === 'a') {
+						result = result + 0;
+					} else {
+						result = result + input[i];
+					}
+				}
+
+				return result;
+			}
+
+			// console.log(replaceAwithNull('abcabcabc'));
+
+			function findMatches(keyword, string) {
+				var matches = -1;
+				var lastMatchPosition = -1;
+
+				do {
+					lastMatchPosition = string.indexOf(keyword, lastMatchPosition + 1);
+					matches++;
+				} while(lastMatchPosition !== -1);
+
+				return matches;
+			}
+
+
+			// console.log(findMatches('asd', 'Lorem ipsum dolor LoremLorem dolor'));
+
+			function fuzzBuzz() {
+				var result = '';
+
+				for (var i = 2; i <= 100; i++) {
+					if ( (i % 3 === 0) && (i % 5 === 0) ) {
+						result = result + 'FuuuuzBuuuuz ';
+					} else if (i % 3 === 0) {
+						result = result + 'Fuzz ';
+					} else if (i % 5 === 0) {
+						result = result + 'Buzz ';
+					} else {
+						result = result + i;
+					}
+				}
+
+				return result;
+			}
+
+			// console.log(fuzzBuzz());
+
+			function isPrimeNumber(number) {
+				for (var i = 2; i <= number / 2; i++) {
+					if (number % i === 0) {
+						return false;
+					}
+				}
+
+				return true;
+			}
+
+			// console.log(isPrimeNumber(11));
+s
 		})();
 
 	</script>
-</head>
-<body>
-
 </body>
+</head>
 </html>
