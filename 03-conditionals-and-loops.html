@@ -305,7 +305,7 @@
 							result = i;
 						}
 
-						console.log(result);
+						console.log( result );
 					}
 				}
 
@@ -314,11 +314,93 @@
 
 			(function() {
 				function isPrimeNumber( number ) {
+					var i;
 					
+					for ( i = 2; i <= number/2; i++ ) {
+						if ( number % i === 0 ) {
+							return false;
+						}
+					}
+
+					return true;
 				}
 
-				// console.log( isPrimeNumber( 22 ) );
-				// console.log( isPrimeNumber( 23 ) );
+				// console.log( isPrimeNumber( 33 ) );
+				// console.log( isPrimeNumber( 31 ) );
+				// console.log( isPrimeNumber( 111 ) );
+			})();
+
+			(function() {
+				function findAllPrimeNumbers( number ) {
+					var numbersArray = {};
+					var primes = [];
+					var i;
+					
+					for ( i = 2; i <= number; i++) {
+						numbersArray[i] = true;
+					}
+
+					for ( i = 2; i <= number; i++ ) {
+						for ( var j = i * 2; j <= number; j = j + i ) {
+							numbersArray[j] = false;
+						}
+					}
+
+					for ( i = 2; i <= number; i++ ) {
+						if ( numbersArray[i] === true ) {
+							primes.push( i );
+						}
+					}
+
+					return primes;
+				}
+
+				// console.log( findAllPrimeNumbers( 100 ) );
+			})();
+
+			(function() {
+				function findPalindromes( start, end ) {
+					var palindromes = 0;
+					var i;
+					var mirrored;
+					
+					for ( i = start; i <= end; i++ ) {
+						mirrored = mirrorNumber( numberToDigits(i) );
+
+						if ( i === mirrored ) {
+							palindromes++;
+							console.log(i);
+						}
+					}
+
+					return palindromes;
+				}
+
+				function numberToDigits( number ) {
+					var digitsArray = [];
+
+					while ( number > 0 ) {
+						digitsArray.push( number % 10 );
+						number = Math.floor( number / 10);
+					}
+
+					return digitsArray;
+				}
+				
+
+				function mirrorNumber( digitsArray ) {
+					var arrayLength = digitsArray.length;
+					var num = 0;
+					var i;
+
+					for ( i = 0; i < arrayLength; i++ ) {
+						num += digitsArray[i] * Math.pow( 10, arrayLength - i - 1);
+					}
+
+					return num;
+				}
+
+				console.log( findPalindromes( 10, 100 ) );
 			})();
 		</script>
 	</head>
