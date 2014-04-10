@@ -35,7 +35,271 @@
 
 			// 02.
 
-			
+			var numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+
+			function splitArrayOddEven(input) {
+				var results = {
+					even: [],
+					odd: []
+				}
+
+				for( var i = 0; i < input.length; i++ ) {
+					if(i % 2 === 0) {
+						results.even.push(input[i]);
+					} else {
+						results.odd.push(input[i]);
+					}
+				}
+
+				return results;
+			}
+
+			numbers = splitArrayOddEven(numbers);
+
+			console.log(numbers)
+		})();
+	</script>
+
+	<script>
+		(function() {
+			'use strict';
+
+			// 03.
+
+			var numbers = [1, 2, 3, 4];
+
+			function reverseArray(input) {
+				var inputLength = input.length - 1;
+				var startNum = 0;
+
+				while( inputLength - startNum >= 1 ) {
+					var temp = input[startNum];
+
+					input[inputLength] = temp;
+					input[startNum] = input[inputLength];
+
+					inputLength--;
+					startNum++;
+				}
+
+				return input;
+			}
+
+			numbers = reverseArray(numbers);
+
+			console.log(numbers)
+		})();
+	</script>
+
+	<script>
+		(function() {
+			'use strict';
+
+			// 04.
+
+			var numbers = [1, 2, 3, 4, 2, 5, 6, 3, 4, 7, 8];
+
+			function removeDuplicates(input) {
+				for( var i = 0; i < numbers.length; i++ ) {
+
+					for( var j = i + 1; j < numbers.length; j++ ) {
+						if( input[j] === input[i] ) {
+							input.splice(j, 1);
+							continue;
+						}
+					}
+
+				}
+
+				return input;
+			}
+
+			numbers = removeDuplicates(numbers);
+
+			console.log(numbers)
+		})();
+	</script>
+
+	<script>
+		(function() {
+			'use strict';
+
+			// 05.
+
+			var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+
+			function shuffle(input) {
+				var min = 0;
+				var max = input.length - 1;
+
+				for( var i = max; i >= min; i-- ) {
+					var currentValue = input[i];
+					var randomIndex = Math.ceil(Math.random() * max);
+
+					input[i] = input[randomIndex];
+					input[randomIndex] = currentValue;
+				}
+
+				return input;
+			}
+
+			numbers = shuffle(numbers);
+
+			console.log(numbers);
+		})();
+	</script>
+
+	<script>
+		(function() {
+			'use strict';
+
+			// 06.
+
+			var diagonal = [
+				[0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0]
+			];
+
+			function onesBelowDiagonal(input) {
+				var max = 1;
+
+				for( var i = 0; i < input.length; i++ ) {
+					for(var j = 0; j < max; j++ ) {
+						input[i][j] = 1;
+					}
+
+					max++;
+				}
+
+				return input;
+			}
+
+			diagonal = onesBelowDiagonal(diagonal);
+
+			console.table(diagonal);
+		})();
+	</script>
+
+	<script>
+		(function() {
+			'use strict';
+
+			// 07.
+
+			var diagonal = [
+				[0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0]
+			];
+
+			function onesAboveDiagonal(input) {
+				var max = input.length;
+
+				for( var i = 0; i < max; i++ ) {
+					for(var j = i; j < max; j++ ) {
+						input[i][j] = 1;
+					}
+				}
+
+				return input;
+			}
+
+			diagonal = onesAboveDiagonal(diagonal);
+
+			console.table(diagonal);
+		})();
+	</script>
+
+	<script>
+		(function() {
+			'use strict';
+
+			// 08.
+
+			var diagonal = [
+				[0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0]
+			];
+
+			function onesInDiagonal(input) {
+				var max = input.length;
+
+				for( var i = 0; i < max; i++ ) {
+					input[i][i] = 1;
+				}
+
+				return input;
+			}
+
+			diagonal = onesInDiagonal(diagonal);
+
+			console.table(diagonal);
+		})();
+	</script>
+
+	<script>
+		(function() {
+			'use strict';
+
+			// 09.
+
+			var pyramid = [
+				[0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0]
+			];
+
+			function onesInPyramid(input) {
+				var min = Math.ceil(input[0].length / input.length);
+				var max = min;
+
+				for( var i = 0; i < input.length; i++ ) {
+					for( var j = min; j <= max; j++ ) {
+						input[i][j] = 1;
+					}
+
+					min > 0 ? min-- : min = 0;
+					max < input[i].length - 1 ? max++ : max = input[i].length - 1;
+				}
+
+				return input;
+			}
+
+			pyramid = onesInPyramid(pyramid);
+
+			console.table(pyramid);
+		})();
+	</script>
+
+	<script>
+		(function() {
+			'use strict';
+
+			// 10.
+
+			// var numbers = [10, 5, 7, 4, 9, 3, 8, 1, 6, 2];
+
+			// function sortWithoutSort(input) {
+			// 	for( var i = input.length - 1; i >= 0; i-- ) {
+			// 		var currentValue = input[i];
+
+
+			// 	}
+
+			// 	return input;
+			// }
+
+			// numbers = sortWithoutSort(numbers);
+
+			// console.log(numbers);
 		})();
 	</script>
 </body>
