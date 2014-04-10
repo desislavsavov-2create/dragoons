@@ -295,36 +295,121 @@
 		return true;
 	}
 
+	function findPrimeNumbers(number) {
+		var primes = [];
+		for (var i = 2; i <= number; i++) {
+			if (isPrimeNumber(i)) {
+				primes.push(i);
+			}
+		};
+		return primes;
+	}
+	//	console.log(findPrimeNumbers(1000000));
+
 	//	console.log(isPrimeNumber(1)); 
 })();
 
 ( function () {
-	function findPrimeNumbers(digits) {
-		var numberArr = [];
+	function findPrimeNumbers(number) {
+		var numberArr = {};
+		var i, primes = [];
 
-		for ( var i = 2; i < digits; i++ ) {
+		for ( i = 2; i < number; i++ ) {
 			numberArr[i] = true;
-
-			for (var j = 2; j < numberArr.length; j++ ) {
-				if ( numberArr[j] * numberArr[j] ) {
-					numberArr[j] = false
-				}
-			}
-
-			console.log(numberArr)
 		}
 
+		for ( i = 2; i < number ; i++ ) {
+			for ( var j = i*2; j < number; j += i ) {
+				numberArr[j] = false;
+			}
+		}
+		
 
+		for ( i = 2; i < number; i++ ) {
+			if ( numberArr[i] === true ) {
+				primes.push(i);
+			}
+		}
+
+		return primes;
 	}
 
-	//console.log( findPrimeNumbers( 50 ) )
+	// console.log(findPrimeNumbers(1000000));
 })();
 
 ( function () {
-	function findPolyndroms(digits) {
+	function findPolyndroms(numbers) {
+		var result = [];
 
+		for ( var i = 10; i < numbers; i++ ) {
+			if ( isPalindrome(i) === true ) {
+				console.log(i);
+			}
+		}
 	}
 
-	console.log( findPolyndroms( 100 ) )
+	function isPalindrome( number ) {
+		var reducedNumber = number; 
+		var lastDigit; 
+
+		var digits = [];
+		var palindrome = 0;
+
+		while ( reducedNumber > 0 ){
+			lastDigit = reducedNumber % 10;
+			reducedNumber = Math.floor( reducedNumber / 10 );
+			digits.push(lastDigit)
+		}
+
+		for (var i = 0; i < digits.length; i++ ) {
+			palindrome += digits[i] * Math.pow( 10, digits.length - ( i + 1 ) )
+		}
+		
+		return palindrome === number;
+		
+	}
+
+	//console.log( findPolyndroms( 10000 ) )
+})();
+
+( function () {
+	function sortSchedule(schedule) {
+
+	}
+	
+	// var arr = [1, 6, 5, 8];
+
+	var eventSchedule = [
+		{
+			title: "Registration",
+			start: "08:30"
+		},
+		{
+			title: "Break",
+			start: "11:00"
+		},
+		{
+			title: "WordPress for dummies",
+			start: "10:30"
+		},
+		{
+			title: "Custom Post Types",
+			start: "11:15"
+		},
+		{
+			title: "WooCommerce",
+			start: "14:00"
+		},
+		{
+			title: "Lunch",
+			start: "12:30"
+		},
+	 
+		{
+			title: "Break",
+			start: "15:00"
+		}
+	];
+	console.log( sortSchedule( eventSchedule ) );
 })();
 </script>
