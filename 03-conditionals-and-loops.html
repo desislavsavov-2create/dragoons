@@ -400,7 +400,71 @@
 					return num;
 				}
 
-				console.log( findPalindromes( 10, 100 ) );
+				// console.log( findPalindromes( 10, 10000 ) );
+			})();
+
+			(function() {
+				var eventSchedule = [
+					{
+						title: "Registration",
+						start: "08:30"
+					},
+					{
+						title: "Break",
+						start: "11:00"
+					},
+					{
+						title: "WordPress for dummies",
+						start: "10:30"
+					},
+					{
+						title: "Custom Post Types",
+						start: "11:15"
+					},
+					{
+						title: "WooCommerce",
+						start: "14:00"
+					},
+					{
+						title: "Lunch",
+						start: "12:30"
+					},
+
+					{
+						title: "Break",
+						start: "15:00"
+					}
+				];
+				
+				function sortByTime( array ) {
+					array.sort(function(a, b) {
+						var tempDate = new Date();
+						var event1Time = a.start.split(':');
+						var event2Time = b.start.split(':');
+						
+						tempDate.setHours(event1Time[0]);
+						tempDate.setMinutes(event1Time[1]);
+
+						var event1Date = tempDate.getTime();
+
+						tempDate.setHours(event2Time[0]);
+						tempDate.setMinutes(event2Time[1]);
+
+						var event2Date = tempDate.getTime();
+
+						if ( event1Date > event2Date ) {
+							return 1;
+						} else if ( event1Date < event2Date ) {
+							return -1;
+						} else {
+							return 0;
+						}
+					});
+
+					return array;
+				}
+
+				// console.log( sortByTime( eventSchedule ) );
 			})();
 		</script>
 	</head>
