@@ -237,28 +237,176 @@
 
 			function threeToUppercase(string) {
 				var i;
-				var stringLength = string.length;
 				var uppercase = false; 
+				var result = [];
 
 				string = string.split('');
 
-				for (i = 0; i < stringLength; i++) {
-					string[i] = string[i].toLowerCase();
-
+				for (i = 0; i < string.length; i++) {
+					
 					if (i % 3 === 0) {
-						uppercase = true;
 						if (uppercase === true) {
-							string[i] = string[i].toUpperCase();
+							uppercase = false;
+						} else {
+							uppercase = true;
 						}
+						
+					}
 
-						console.log(string.indexOf(string[i]))
-					}					
+					if (uppercase === true) {
+						result.push(string[i].toUpperCase());
+					} else {	
+						result.push(string[i].toLowerCase());
+					}
 				}
 
-				return string;
+				return result.join('');
 			}
 
-			console.log(threeToUppercase('abcdefghijklmnop'))
+			// console.log(threeToUppercase('abcdefghijklmnop'))
+		})();
+
+		//  reverse string
+
+		(function() {
+
+			function reverseString(string) {
+				var result = [];
+				var i;
+
+				string = string.split('');				
+
+				for (i = string.length - 1; i >= 0; i-- ) {
+					result.push(string[i])
+				}
+
+				return result.join(''); 
+			} 
+
+			console.log(reverseString("dog"))
+			console.log(reverseString("doom"))
+		})();
+
+		//  replace a with 0
+
+		(function() {
+
+			function replaceLetterA(string) {
+				var i;
+				var letterToReplace = 'a'
+				var result = [];
+
+				string = string.split('');
+
+				for (i = 0; i < string.length; i ++) {
+					if(letterToReplace.indexOf(string[i]) !== -1) {
+						string[i].replace('a','0');
+					} 
+
+					result.push(string[i].replace('a','0'))
+				}
+
+				return result.join('');
+			}
+
+			console.log(replaceLetterA("banica banica"))
+		})();
+
+		//  match duplicates
+
+		(function() {
+
+			function countOccurances(search, text) {
+				var occurences = 0;
+				var lastIndexOf; 
+
+
+				while( text.indexOf(search, lastIndexOf) !== -1 ) {
+					lastIndexOf = text.indexOf(search, lastIndexOf) + search.length;
+					occurences++;
+				}
+				
+				return occurences;
+			}
+
+			console.log(countOccurances("mo", "mood moon doom dog fox"));	
+		})();
+
+		// FuuuuzBuuuuz
+
+		(function() {
+
+			function printNumbers() {
+
+				var max = 15;
+				var i, j;
+				var result = [];
+
+				for ( i = 1; i <= max; i++ ) {
+					if ( i % 3 === 0 && i % 5 === 0 ) {
+						result.push("FuzzBuzz");
+					} else if ( i % 3 === 0 ) {
+						result.push("Fuzz");
+					} else if ( i % 5 === 0 ) {
+						result.push("Buzz");
+					} else {
+						result.push(i);
+					}
+				}
+				return result
+			}
+
+			console.log(printNumbers());
+		})();
+
+		// prime number
+
+		(function() {
+
+			function chcekPrimeNumber(a) {
+
+				var prime = false;			
+				var n = Math.round(Math.sqrt(a));
+
+				if ( a >= 2 && a % n !== 0 ) {
+					prime = true;
+				}
+
+				return prime;
+
+
+			}
+
+			console.log(chcekPrimeNumber(1))
+			console.log(chcekPrimeNumber(2))
+			console.log(chcekPrimeNumber(3))
+			console.log(chcekPrimeNumber(4))
+			console.log(chcekPrimeNumber(5))
+			console.log(chcekPrimeNumber(6))
+			console.log(chcekPrimeNumber(7))
+			console.log(chcekPrimeNumber(8))
+			console.log(chcekPrimeNumber(9))
+			console.log(chcekPrimeNumber(10))
+			console.log(chcekPrimeNumber(11))
+			console.log(chcekPrimeNumber(12))
+			console.log(chcekPrimeNumber(13))
+			console.log(chcekPrimeNumber(14))
+			console.log(chcekPrimeNumber(15))
+			console.log(chcekPrimeNumber(16))
+			console.log(chcekPrimeNumber(17))
+			console.log(chcekPrimeNumber(18))
+			console.log(chcekPrimeNumber(19))
+			console.log(chcekPrimeNumber(20))
+			console.log(chcekPrimeNumber(21))
+			console.log(chcekPrimeNumber(22))
+			console.log(chcekPrimeNumber(23))
+			console.log(chcekPrimeNumber(24))
+			console.log(chcekPrimeNumber(25))
+			console.log(chcekPrimeNumber(26))
+			console.log(chcekPrimeNumber(27))
+			console.log(chcekPrimeNumber(28))
+			console.log(chcekPrimeNumber(29))
+			console.log(chcekPrimeNumber(30))
 		})();
 
 	</script>
