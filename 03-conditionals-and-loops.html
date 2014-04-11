@@ -246,6 +246,97 @@
 
 			// console.log(isPrimeNumber(11));
 
+			function findPrimeNumbers(n) {
+				var result = [];
+
+				for (var i = 2; i <= n; i++) {
+					if (isPrimeNumber(i)){
+						result.push(i);
+					}
+				}
+
+				return result;
+			}
+
+			// console.time("naivePrimes");
+			// console.log(findPrimeNumbers(100000));
+			// console.timeEnd("naivePrimes");
+
+			function smartPrimes(n) {
+				var numbers = [];
+				var primes = [];
+
+				for (var i = 2; i <= n; i++) {
+					numbers[i] = true;
+				}
+
+				for (i = 2; i <= n; i++) {
+					for (var j = i * 2; j <= n; j = j + i) {
+						numbers[j] = false;
+					}
+				}
+
+				for (i = 2; i <= n; i++) {
+					if (numbers[i] === true) {
+						primes.push(i);
+					}
+				}
+
+				return primes;
+			}
+
+			// console.time("smartPrimes");
+			// console.log(smartPrimes(10000000));
+			// console.timeEnd("smartPrimes");
+
+			// function findPalindromes(n) {
+			// 	var numbers = [];
+
+			// 	for (var i = 10; i <= n; i++){
+			// 		numbers.push(i);
+			// 	}
+
+			// 	return numbers;
+
+			// }
+
+			function isPalindrome(number){
+				var digits = extractDigits(number);
+				var reversedNumber = compileNumber(digits);
+
+				if (number === reversedNumber ){
+					return true;
+				} else {
+					return false;
+				}
+				
+			}
+
+			function extractDigits(number){
+				var digits = [];
+
+				while (number > 0) {
+					digits.push(number % 10);
+					number = parseInt(number / 10, 10);
+				}
+
+				return digits;
+			}
+
+			function compileNumber(digits){
+				var number = 0;
+				var exponent;
+
+				for (var i = 0; i < digits.length; i++) {
+					number = Math.pow();
+					console.log(number);
+				}
+
+				return number;
+			}
+
+			isPalindrome(123);
+
 		})();
 
 	</script>
