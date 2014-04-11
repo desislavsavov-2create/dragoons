@@ -374,42 +374,109 @@
 
 ( function () {
 	function sortSchedule(schedule) {
+		schedule.sort( function(a, b) {
 
+			function getTimeFromString(dateStr) {
+				var eventStart = dateStr.split(/[: ]/);
+				var hours = eventStart[0];
+				var minutes = eventStart[1];
+				var amOrPm = eventStart[2];
+
+				if ( amOrPm == 'PM' ) {
+					if ( hours === '12' ) {
+						hours = Number(hours) + 1;
+					} else {
+						hours = Number(hours) + 12;
+					}
+				}
+				
+				var date = new Date(1999, 1, 2, hours, minutes);
+
+				return date.getTime();
+			}
+
+			var event1Time = getTimeFromString(a.start);
+			var event2Time = getTimeFromString(b.start);
+
+			if ( event1Time > event2Time ) {
+				return 1;
+			} else if ( event1Time > event2Time ) {
+				return -1;
+			} else {
+				return;
+			}
+		});
+
+		return schedule;
 	}
-	
-	// var arr = [1, 6, 5, 8];
 
 	var eventSchedule = [
 		{
 			title: "Registration",
-			start: "08:30"
+			start: "8:30 AM"
 		},
 		{
 			title: "Break",
-			start: "11:00"
+			start: "11:40 AM"
 		},
 		{
 			title: "WordPress for dummies",
-			start: "10:30"
+			start: "10:30 AM"
 		},
 		{
 			title: "Custom Post Types",
-			start: "11:15"
+			start: "11:15 AM"
 		},
 		{
 			title: "WooCommerce",
-			start: "14:00"
+			start: "2:00 PM"
 		},
 		{
 			title: "Lunch",
-			start: "12:30"
+			start: "12:30 PM"
 		},
 	 
 		{
 			title: "Break",
-			start: "15:00"
+			start: "03:00 PM"
 		}
 	];
-	console.log( sortSchedule( eventSchedule ) );
+	console.table( sortSchedule( eventSchedule ) );
+})();
+
+( function () {
+	// function reverseArray(numbersArr) {
+	// 	return numbersArr.reverse();
+	// }
+
+	//console.log( reverseArray( [1, 5, 3] ) )
+})();
+
+( function () {
+	function sortArray(numbersArr) {
+		var even = [];
+		var odd = [];
+
+		for (var i = 0; i < numbersArr.length; i++) {
+			if ( numbersArr[i] % 2 === 0 ) {
+				even.push(numbersArr[i])
+			} else {
+				odd.push(numbersArr[i])
+			}
+		}
+
+		console.log(even)
+		console.log(odd)
+	}	
+
+	//console.log( sortArray( [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] ) )
+})();
+
+( function () {
+	function reverseArray(numberArr) {
+		
+	}
+
+	console.log( reverseArray( [1, 2, 3, 4] ) )
 })();
 </script>
