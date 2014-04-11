@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	
+	<title>Objects and Arrays</title>
+
+	<script>
+
+		// Arrays Assignments
+
+		(function() {
+			function reverseArray( array ) {
+				var result = [];
+				var i;
+
+				for ( i = 0; i < array.length; i++ ) {
+					result.push(array[array.length - i - 1]);
+				}
+
+				array = result;
+
+				return array;
+			}
+
+			// console.log( reverseArray( [1, 5, 3] ) );
+		})();
+
+		(function() {
+			function splitArray( array ) {
+				var oddsArray = [];
+				var evensArray = [];
+				var i;
+
+				for ( i = 0; i < array.length; i++ ) {
+					if ( i % 2 === 0 ) {
+						oddsArray.push(array[i]);
+					} else {
+						evensArray.push(array[i]);
+					}
+				}
+
+				return [oddsArray, evensArray];
+			}
+
+			// console.table( splitArray( ['lorem', 'ipsum', '1', 2, 'dolor', 'javascript'] ) );
+		})();
+
+		(function() {
+			function reverseArray2( array ) {
+				var arrayLength = array.length;
+				var temp;
+				var i;
+
+				for ( i = 0; i < arrayLength / 2; i++ ) {
+					temp = array[i];
+					array[i] = array[arrayLength - i - 1];
+					array[arrayLength - i - 1] = temp;
+				}
+
+				return array;
+			}
+
+			// console.log( reverseArray2( [1, 2, 3, 4] ) );
+		})();
+
+	</script>
+</head>
+
+<body></body>
+</html>
