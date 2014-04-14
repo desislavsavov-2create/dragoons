@@ -150,8 +150,8 @@
 			function letterToNumber(string) {
 				var string = string.toString();
 				var stringLength = string.length;
-				var i;
 				var result = [];
+				var i;
 
 				for( i = 0; i < stringLength; i ++ ) {
 					result.push( string.charCodeAt(i) - 96 );
@@ -195,8 +195,8 @@
 			function findVowels(string) {
 				var vowels = ['a', 'e', 'i', 'o', 'u', 'y', 'A', 'E', 'I', 'O', 'U', 'Y'];
 				var wordLength = string.length;
-				var i;
 				var result = [];
+				var i;
 
 				for (i = 0; i < wordLength; i ++) { 
 					if (vowels.indexOf(string[i]) !== -1) {
@@ -217,8 +217,8 @@
 
 			function createString(string) {
 				var savedChracters = [];
-				var i;
 				var stringLength = string.length;
+				var i;
 
 				for (i = 0; i < stringLength; i = i + 3) {
 					savedChracters.push(string[i]);
@@ -236,9 +236,9 @@
 		(function() {
 
 			function threeToUppercase(string) {
-				var i;
 				var uppercase = false; 
 				var result = [];
+				var i;
 
 				string = string.split('');
 
@@ -292,9 +292,9 @@
 		(function() {
 
 			function replaceLetterA(string) {
-				var i;
 				var letterToReplace = 'a'
 				var result = [];
+				var i;
 
 				string = string.split('');
 
@@ -337,10 +337,9 @@
 		(function() {
 
 			function printNumbers() {
-
 				var max = 15;
-				var i, j;
 				var result = [];
+				var i, j;
 
 				for ( i = 1; i <= max; i++ ) {
 					if ( i % 3 === 0 && i % 5 === 0 ) {
@@ -363,50 +362,26 @@
 
 		(function() {
 
-			function chcekPrimeNumber(a) {
+			function isPrime(number) {
+				var countDividors = 0;
+				var i;
 
-				var prime = false;			
-				var n = Math.round(Math.sqrt(a));
-
-				if ( a >= 2 && a % n !== 0 ) {
-					prime = true;
+				for( i = 2; i <= number / 2; i++ ) {
+					if ( number % i === 0 ) { 
+						countDividors++;
+					}
 				}
-
-				return prime;
-
-
+				return countDividors === 0;
 			}
 
-			console.log(chcekPrimeNumber(1))
-			console.log(chcekPrimeNumber(2))
-			console.log(chcekPrimeNumber(3))
-			console.log(chcekPrimeNumber(4))
-			console.log(chcekPrimeNumber(5))
-			console.log(chcekPrimeNumber(6))
-			console.log(chcekPrimeNumber(7))
-			console.log(chcekPrimeNumber(8))
-			console.log(chcekPrimeNumber(9))
-			console.log(chcekPrimeNumber(10))
-			console.log(chcekPrimeNumber(11))
-			console.log(chcekPrimeNumber(12))
-			console.log(chcekPrimeNumber(13))
-			console.log(chcekPrimeNumber(14))
-			console.log(chcekPrimeNumber(15))
-			console.log(chcekPrimeNumber(16))
-			console.log(chcekPrimeNumber(17))
-			console.log(chcekPrimeNumber(18))
-			console.log(chcekPrimeNumber(19))
-			console.log(chcekPrimeNumber(20))
-			console.log(chcekPrimeNumber(21))
-			console.log(chcekPrimeNumber(22))
-			console.log(chcekPrimeNumber(23))
-			console.log(chcekPrimeNumber(24))
-			console.log(chcekPrimeNumber(25))
-			console.log(chcekPrimeNumber(26))
-			console.log(chcekPrimeNumber(27))
-			console.log(chcekPrimeNumber(28))
-			console.log(chcekPrimeNumber(29))
-			console.log(chcekPrimeNumber(30))
+			console.log('3 ' + isPrime(3));
+			console.log('4 ' + isPrime(4));
+			console.log('5 ' + isPrime(5));
+			console.log('6 ' + isPrime(6));
+			console.log('7 ' + isPrime(7));
+			console.log('8 ' + isPrime(8));
+			console.log('9 ' + isPrime(9));
+			console.log('10 ' + isPrime(10));
 		})();
 
 	</script>
