@@ -10,12 +10,14 @@
 		// Arrays Assignments
 
 		(function() {
+			'use strict';
+
 			function reverseArray( array ) {
 				var result = [];
 				var i;
 
-				for ( i = 0; i < array.length; i++ ) {
-					result.push(array[array.length - i - 1]);
+				for ( i = array.length - 1; i >= 0; i-- ) {
+					result.push(array[i]);
 				}
 
 				array = result;
@@ -23,10 +25,12 @@
 				return array;
 			}
 
-			// console.log( reverseArray( [1, 5, 3] ) );
+			// console.log( reverseArray( [1, 5, 3, 4] ) );
 		})();
 
 		(function() {
+			'use strict';
+
 			function splitArray( array ) {
 				var oddsArray = [];
 				var evensArray = [];
@@ -47,6 +51,8 @@
 		})();
 
 		(function() {
+			'use strict';
+
 			function reverseArray2( array ) {
 				var arrayLength = array.length;
 				var temp;
@@ -64,6 +70,128 @@
 			// console.log( reverseArray2( [1, 2, 3, 4] ) );
 		})();
 
+		(function() {
+			'use strict';
+
+			function removeDuplicates( array ) {
+				var uniques = [];
+				var i;
+
+				for ( i = 0; i < array.length; i++ ) {
+					if ( uniques.indexOf(array[i]) === -1 ) {
+						uniques.push( array[i] );
+					}
+				}
+
+				return uniques;
+			}
+
+			// console.log( removeDuplicates( ['lorem', 'dolor', 'ipsum', 'dolor', 'sit', 'amet', 'lorem', 'amet'] ) )
+		})();
+
+		(function() {
+			'use strict';
+
+			var cards = [];
+			var size = 52;
+			var i;
+
+			for ( i = 0; i < size; i++ ) {
+				cards[i] = i;
+			}
+
+			function shuffle(cards) {
+				var temp;
+				var randomIndex;
+
+				for ( i = 0; i < cards.length; i++ ) {
+					randomIndex = Math.floor( Math.random() * ( cards.length - i ) );
+					temp = cards[i];
+					cards[i] = cards[randomIndex];
+					cards[randomIndex] = temp;
+				}
+			}
+			 
+			shuffle(cards);
+			// console.log(cards);
+		})();
+
+		(function() {
+			'use strict';
+
+			var matrix = [
+				[0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0]
+			];
+
+			function replaceBelowDiagonal( matrix ) {
+				var i;
+				var j;
+
+				for ( i = matrix.length - 1; i >= 0; i-- ) {
+					for ( j = 0; j < i + 1; j++ ) {
+						matrix[i][j] = 1;
+					}
+				}
+			}
+
+			replaceBelowDiagonal( matrix );
+
+			// console.table( matrix);
+		})();
+
+		(function() {
+			'use strict';
+
+			var matrix = [
+				[0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0]
+			];
+
+			function replaceAtDiagonal( matrix ) {
+				var i;
+
+				for ( i = 0; i < matrix.length; i++ ) {
+					matrix[i][i] = 1;
+				}
+			}
+
+			replaceAtDiagonal( matrix );
+
+			// console.table( matrix );
+		})();
+
+		(function() {
+			'use strict';
+
+			var matrix = [
+				[0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0]
+			];
+
+			function matrixPyramide( matrix ) {
+				var middle = Math.floor( matrix[0].length / 2 );
+				var i;
+				var j;
+
+				for ( i = 0; i < matrix.length; i++ ) {
+					for ( j = middle - i; j <= middle + i; j++ ){
+						matrix[i][j] = 1;
+					}
+				}
+			}
+
+			matrixPyramide( matrix );
+
+			// console.table( matrix );
+		})();
 	</script>
 </head>
 
