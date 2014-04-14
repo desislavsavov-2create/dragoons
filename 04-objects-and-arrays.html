@@ -267,6 +267,7 @@
 					}
 
 					min > 0 ? min-- : min = 0;
+
 					max < input[i].length - 1 ? max++ : max = input[i].length - 1;
 				}
 
@@ -285,21 +286,156 @@
 
 			// 10.
 
-			// var numbers = [10, 5, 7, 4, 9, 3, 8, 1, 6, 2];
+			var numbers = [10, 5, 7, 4, 9, 3, 8, 1, 6, 2];
 
-			// function sortWithoutSort(input) {
-			// 	for( var i = input.length - 1; i >= 0; i-- ) {
-			// 		var currentValue = input[i];
+			function sortWithoutSort(input) {
+				if(input.length < 2) {
+					return input;
+				}
 
+				var pivot = input[0];
+				var smaller = [], larger = [];
 
+				for( var i = 1; i < input.length; i++ ) {
+					if( input[i] > pivot ) {
+						larger.push( input[i] );
+					} else {
+						smaller.push( input[i] );
+					}
+				}
+
+				smaller = sortWithoutSort(smaller);
+				larger = sortWithoutSort(larger);
+
+				return [].concat(
+					smaller,
+					pivot,
+					larger
+				)
+			}
+
+			numbers = sortWithoutSort(numbers);
+
+			console.log(numbers);
+		})();
+	</script>
+
+	<script>
+		(function() {
+			'use strict';
+
+			// 11.
+
+			var numbers1 = [2, 4, 6, 7, 9, 20];
+			var numbers2 = [2, 5, 6, 8, 10, 12, 14];
+
+			var combined = [];
+
+			function mergeArraysWithoutDuplicates(array1, array2) {
+				
+
+				for( var i = 0; i < numbers1.length; i++ ) {
+
+					for( var j = 0; j < numbers2.length; j++ ) {
+
+						// Check for duplicates and remove them
+						if(numbers1[i] === numbers2[j]) {
+							numbers2.splice(j, 1);
+							continue;
+						}
+
+					}
+
+				}
+
+				
+
+				return [].concat(
+					numbers1,
+					numbers2
+				)
+			}
+
+			combined = mergeArraysWithoutDuplicates(numbers1, numbers2);
+
+			console.log(combined);
+		})();
+	</script>
+
+	<script>
+		(function() {
+			'use strict';
+
+			// 12.
+
+			var arr1 = ['red', 'blue', 'purple'];
+			var arr2 = ['blue', 'red', 'green'];
+			var arr3 = ['green', 'red', 'blue'];
+			var matched = [];
+
+			function arrayIntersect() {
+				if(arguments.length < 2) {
+					return arguments;
+				}
+
+				var result = [];
+				var defaultArray = arguments[0];
+
+				for( var i = 0; i < defaultArray.length; i++ ) {
+					var currentValue = defaultArray[i];
+					var shouldBeAdded = true;
+
+					for( var j = 1; j < arguments.length; j++ ) {
+						if( arguments[j].indexOf(currentValue) === -1 ) {
+							shouldBeAdded = false;
+						}
+					}
+
+					if(shouldBeAdded) {
+						result.push(currentValue);
+					}
+				}
+
+				return result;
+			}
+
+			matched = arrayIntersect(arr1, arr2, arr3); // red, blue
+
+			console.log(matched)
+		})();
+	</script>
+
+	<script>
+		(function() {
+			'use strict';
+
+			// 13.
+
+			// var arr1 = ['red', 'blue', 'purple'];
+			// var arr2 = ['blue', 'red', 'green'];
+			// var arr3 = ['green', 'red', 'blue'];
+			// var diff = [];
+
+			// function arrayDiff() {
+			// 	if(arguments.length < 2) {
+			// 		return arguments;
 			// 	}
 
-			// 	return input;
+			// 	var result = [];
+
+			// 	for( var i = 0; i < arguments.length; i++ ) {
+			// 		for( var j = 0; j < arguments[i].length; j++ ) {
+			// 			var currentValue = arguments[i][j];
+			// 			console.log(currentValue)
+			// 		}
+			// 	}
+
+			// 	return result;
 			// }
 
-			// numbers = sortWithoutSort(numbers);
+			// diff = arrayDiff(arr1, arr2, arr3);
 
-			// console.log(numbers);
+			
 		})();
 	</script>
 </body>
