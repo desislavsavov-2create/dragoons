@@ -289,16 +289,19 @@
 			// console.log(smartPrimes(10000000));
 			// console.timeEnd("smartPrimes");
 
-			// function findPalindromes(n) {
-			// 	var numbers = [];
+			function findPalindromes(n) {
+				var result = 0;
 
-			// 	for (var i = 10; i <= n; i++){
-			// 		numbers.push(i);
-			// 	}
+				for (var i = 10; i <= n; i++) {
+					if (isPalindrome(i) === true) {
+						result = result + 1;
+					}
+				};
 
-			// 	return numbers;
+				return result;
+			}
 
-			// }
+			console.log(findPalindromes(10000));
 
 			function isPalindrome(number){
 				var digits = extractDigits(number);
@@ -309,7 +312,6 @@
 				} else {
 					return false;
 				}
-				
 			}
 
 			function extractDigits(number){
@@ -325,20 +327,15 @@
 
 			function compileNumber(digits){
 				var number = 0;
-				var exponent;
 
 				for (var i = 0; i < digits.length; i++) {
-					number = Math.pow();
-					console.log(number);
+					number = number + digits[i]*Math.pow(10, digits.length - (i + 1));
 				}
 
 				return number;
 			}
 
-			isPalindrome(123);
-
 		})();
-
 	</script>
 </body>
 </head>
