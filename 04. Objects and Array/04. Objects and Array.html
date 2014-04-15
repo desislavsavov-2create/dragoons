@@ -11,7 +11,6 @@
 			var arrayEven = [];
 
 			for( var i = 0; i <= array.length; i++ ) {
-				debugger;
 				if( i % 2 === 0 ) {
 					arrayOdd.push(array[i])
 				} else {
@@ -29,17 +28,12 @@
 	
 	<script>
 		function arrayReverse(array) {
-			// var temp;
+			for( var i = array.length; i >= 0; i-- ) {
+				array.push( array[i] );
+				array.splice( i , 1 )
+			}
 
-			// for( var i = array.length; i >= ; i-- ) {
-			// 	temp = array[i];
-			// 	array[i] = array[array.length - i - 1];
-			// 	array[array.length - i - 1] = temp
-			// 	array.push(  );
-			// 	array.splice( i , 1 )
-			// }
-
-			// return "Reversed array: " + array;
+			return "Reversed array: " + array;
 		}
 
 		var myArray = [1,2,3,4,5,6,7,8];
@@ -50,8 +44,22 @@
 	<script>
 		function arrayOptimize(array) {
 			var newArray = [];
-			for( var i = 0; i <= array.length; i++ ) {
-				newArray.push(array[i]);
+			var duplicate = 0;
+			newArray[0] = array[0];
+
+			for( var i = 1; i < array.length; i++ ) {
+				duplicate = 0;
+
+				for (var j = 0; j < newArray.length; j++ ) {
+					if (newArray[j] === array[i]) {
+						duplicate++;
+					}
+				}
+
+				if( duplicate === 0 ) {
+					newArray.push(array[i])
+				}
+
 			}
 
 			return "Optimized array: " + newArray;
@@ -60,6 +68,115 @@
 		var myArray = [1,2,3,3,3,3,3,3,4,4,5,5,6,7,8];
 
 		console.log(arrayOptimize(myArray));
+	</script>
+
+	<script>
+		function sort(arr) {
+			var pivot = arr[0];
+			var left = [], right = [];
+
+			if( arr.length < 2 ) {
+				return arr;
+			}
+
+			for (var i = 1; i < arr.length; i++) {
+				if( arr[i] < pivot ) {
+					left.push(arr[i]);
+				} else {
+					right.push(arr[i]);
+				}
+			}
+
+			left = sort(left);
+			right = sort(right);
+
+			return [].concat(
+				left,
+				pivot,
+				right
+			);
+		}
+
+		var myArray = [2,5,6,1,2,7,9,34];
+
+		console.log(sort(myArray));
+	</script>
+
+	<script>
+		function shuffle(arr) {
+			var temp = null;
+			var randomIndex = 0;
+
+			for (var i = arr.length - 1; i >= 0; i-- ) {
+				randomIndex = parseInt( Math.random() * i );
+				temp = arr[i];
+				arr[i] = arr[randomIndex];
+				arr[randomIndex] = temp;
+			};
+
+			return arr;
+		}
+
+		var myArray = [1,2,3,4,5,6,7,8,9,10];
+
+		console.log(shuffle(myArray));
+	</script>
+
+	<script>
+		function diagonal(arr) {
+
+			for (var i = 0; i < arr.length; i++ ) {
+				for( var j = 0; j < arr[i].length; j++ ) {
+					if( j <= i ) {
+						arr[i][j] = 1;
+					}
+				}
+			};
+
+			// for (var i = 0; i < arr.length; i++ ) {
+			// 	for( var j = 0; j < arr[i].length; j++ ) {
+			// 		document.write(arr[i][j]);
+			// 	}
+			// 	document.write('<br>');
+			// };			
+
+			return arr;
+		}
+
+		var myArray = [
+			[0,0,0,0],
+			[0,0,0,0],
+			[0,0,0,0],
+			[0,0,0,0]
+		];
+
+		console.table(diagonal(myArray));
+	</script>
+
+	<script>
+		function pyramid(arr) {
+			var middle = 0;
+			// Math.floor(5 / 2)
+			// middle -i; middle + i
+			
+			middle = Math.floor(arr[0].length / 2);
+			for (var i = 0; i < arr.length; i++ ) {
+
+				for (var j = middle - i; j <= middle + i; j++ ) {
+					arr[i][j] = 1;
+				}
+			}
+
+			return arr;
+		}
+
+		var myArray = [
+			[0,0,0,0,0],
+			[0,0,0,0,0],
+			[0,0,0,0,0]
+		];
+
+		console.table(pyramid(myArray));
 	</script>
 </body>
 </html>
