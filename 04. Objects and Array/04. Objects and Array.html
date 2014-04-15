@@ -1,0 +1,65 @@
+<html>
+<head></head>
+<body>
+	<script>
+	    "use strict";
+	</script>
+
+	<script>
+		function arrayDivide(array) {
+			var arrayOdd = [];
+			var arrayEven = [];
+
+			for( var i = 0; i <= array.length; i++ ) {
+				debugger;
+				if( i % 2 === 0 ) {
+					arrayOdd.push(array[i])
+				} else {
+					arrayEven.push(array[i])
+				}
+			}
+
+			return "Default array: " + array + "\nArray odds: " + arrayOdd + "\nArray evens: " + arrayEven;
+		}
+
+		var myArray = [1,2,3,4,5,6];
+
+		console.log(arrayDivide(myArray));
+	</script>
+	
+	<script>
+		function arrayReverse(array) {
+			// var temp;
+
+			// for( var i = array.length; i >= ; i-- ) {
+			// 	temp = array[i];
+			// 	array[i] = array[array.length - i - 1];
+			// 	array[array.length - i - 1] = temp
+			// 	array.push(  );
+			// 	array.splice( i , 1 )
+			// }
+
+			// return "Reversed array: " + array;
+		}
+
+		var myArray = [1,2,3,4,5,6,7,8];
+
+		console.log(arrayReverse(myArray));
+	</script>
+
+	<script>
+		function arrayOptimize(array) {
+			var newArray = [];
+			for( var i = 0; i <= array.length; i++ ) {
+				newArray.push(array[i]);
+			}
+
+			return "Optimized array: " + newArray;
+		}
+
+		var myArray = [1,2,3,3,3,3,3,3,4,4,5,5,6,7,8];
+
+		console.log(arrayOptimize(myArray));
+	</script>
+</body>
+</html>

@@ -5,6 +5,88 @@
 	    "use strict";
 	</script>
 	<script>
+		function isPrime(number) {
+			var divisors = 0;
+			var result = "";
+
+			for( var i = 1; i <= number; i++ ) {
+				if( number % i === 0 ) {
+					divisors++;
+				}
+			}
+
+			if( divisors === 2 ) {
+				result = "PRIME"
+			} else {
+				result = "NOT PRIME"
+			}
+
+			// document.write( number + " is " + result );
+
+			return result;
+		}
+
+		console.log(isPrime(37));
+	</script>
+
+	<script>
+		// function isPrime(number) {
+		// 	for( var i = 2; i <= Math.sqrt(number); i++ ) {
+		// 		if( number % i === 0 ) {
+		// 			return false
+		// 		}
+		// 	}
+		// 	return true;
+		// }
+
+		// function allPrimesUntil(limit) {
+		// 	var results = [];
+
+		// 	for( var i = 1; i <= limit; i++ ) {
+		// 		if( isPrime(i) ) {
+		// 			document.write( i + "<br>" )
+		// 			results.push( i )
+		// 		}
+		// 	}
+
+		// 	return results;
+		// }
+
+		// console.time('primes');
+		// console.log(allPrimesUntil(100000));
+		// console.timeEnd('primes');
+	</script>
+
+	<script>
+		function allPrimesUntil(limit) {
+			var results = [];
+
+			for( var i = 1; i <= limit; i++ ) {
+				results[i] = true;
+			}
+
+			for( var i = 2; i <= Math.sqrt(limit); i ++ ) {
+				for( var j = i + i; j <= limit; j += i ) {
+					results[j] = false;
+				}
+			}
+
+			var primes = [];
+			for (var i = 2; i < results.length; i++) {
+				if (results[i]) {
+					primes.push(i);
+				}
+			}
+
+			return primes;
+		}
+
+		console.time('primes');
+		console.log(allPrimesUntil(1000000));
+		console.timeEnd('primes');
+	</script>
+
+	<script>
 		function polydroms(startNum, endNum) {
 			var polydromsLength = 0;
 			for( var i = startNum; i <= endNum; i++ ) {
@@ -28,7 +110,7 @@
 
 				if ( isPolydrom === 1 ) {
 					polydromsLength++;
-					document.write( i + ' <br>') 
+					// document.write( i + ' <br>') 
 				}
 				
 
