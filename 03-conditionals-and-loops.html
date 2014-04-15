@@ -470,59 +470,5 @@
 			console.log(countPalindromes(10, 10000));
 		})();
 	</script>
-
-	<script>
-		(function() {
-			'use strict';
-
-			// 19.
-
-			var eventSchedule = [
-				{
-					title: "Registration",
-					start: "08:30"
-				},
-				{
-					title: "Break",
-					start: "11:00"
-				},
-				{
-					title: "WordPress for dummies",
-					start: "10:30"
-				},
-				{
-					title: "Custom Post Types",
-					start: "11:15"
-				},
-				{
-					title: "WooCommerce",
-					start: "14:00"
-				},
-				{
-					title: "Lunch",
-					start: "12:30"
-				},
-				 
-				{
-					title: "Break",
-					start: "15:00"
-				}
-			];
-
-			function sortArrayByTime(arrayObj) {
-				arrayObj.sort(function(a, b) {
-					var currentDate = new Date().toDateString();
-					var time1 = new Date (currentDate + ' ' + a.start).getTime();
-					var time2 = new Date (currentDate + ' ' + b.start).getTime();
-
-					return time1-time2;
-				});
-
-				return arrayObj;
-			}
-
-			console.log(sortArrayByTime(eventSchedule));
-		})();
-	</script>
 </body>
 </html>
