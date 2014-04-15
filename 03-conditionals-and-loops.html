@@ -505,11 +505,20 @@
 ( function () {
 	var shuffle = function shuffle(cards) {
 		var cardsLength = cards.length;
+		var temp, min, max, randomNum;
 
 		for ( var i = 0; i < cards.length; i++ ) {
-			var min = i;
-			var max = cardsLength;
+			min = i;
+			max = cardsLength;
+			randomNum = Math.floor( Math.random() * ( max - min ) + 1 );
+			
+			temp = cards[i];
+			
+			cards[i] = cards[randomNum];
+			cards[randomNum] = temp;
 		}
+
+		return cards;
 	}
 
 	var cards = [];
@@ -520,9 +529,135 @@
 	}
 
 	shuffle(cards);
-	console.log(cards);
+	//console.log(cards);
+})();
+
+( function () {
+	function sortNumbers(numbers) {
+		var numbersLength = numbers.length;
+
+		if ( numbersLength < 2 ) {
+			return numbers;
+		}
+
+		var smaller = [], bigger = [];
+		var pivot = numbers[0];
+
+		for ( var i = 1; i < numbersLength; i++ ) {
+			if ( numbers[i] < pivot ) {
+				smaller.push(numbers[i])
+			} else {
+				bigger.push(numbers[i])
+			}
+		}
+
+		smaller = sortNumbers(smaller);
+		bigger = sortNumbers(bigger);
+
+		return [].concat(
+			smaller,
+			pivot,
+			bigger
+		)
+	}
+
+	var numbers = [ 2, 6, 5, 1, 3, 7, 4 ];
+	//console.log( sortNumbers(numbers) );
+
+})();
+
+( function () {
+	function replaceUnderDiagonal(matrix) {
+		for ( var i = 0; i < matrix.length; i++ ) {
+			for ( var j = 0; j < matrix.length; j++ ) {
+				if ( i >= j ) {
+					matrix[i][j] = 1;
+				}
+			};
+		};
+
+		return matrix;
+	}
+
+	//console.table( replaceUnderDiagonal( [ [0, 0, 0], [0, 0, 0], [0, 0, 0] ] ) )
+})();
+
+( function () {
+	function fillOverDiagonal(matrix) {
+		for ( var i = 0; i < matrix.length; i++ ) {
+			for ( var j = 0; j < matrix.length; j++ ) {
+				if ( i <= j ) {
+					matrix[i][j] = 1;
+				}
+			};
+		};
+
+		return matrix;
+	}
+
+	//console.table( fillOverDiagonal( [ [0, 0, 0], [0, 0, 0], [0, 0, 0] ] ) )
+})();
+
+( function () {
+	function fillOverDiagonal(matrix) {
+		for ( var i = 0; i < matrix.length; i++ ) {
+			for ( var j = 0; j < matrix.length; j++ ) {
+				if ( i <= j ) {
+					matrix[i][j] = 1;
+				}
+			};
+		};
+
+		return matrix;
+	}
+
+	//console.table( fillOverDiagonal( [ [0, 0, 0], [0, 0, 0], [0, 0, 0] ] ) )
+})();
+
+( function () {
+	function fillDiagonal(martix) {
+		
+		for (var i = 0; i < martix.length; i++) {
+			martix[i][i] = 1;
+		};
+
+		return martix;
+	}
+
+	//console.table( fillDiagonal( [ [0, 0, 0], [0, 0, 0], [0, 0, 0] ] ) )
+})();
+
+( function () {
+	function uniqueNumbers(numbers1, numbers2) {
+		var	all = [].concat(numbers1, numbers2);
+		var uniques = [];
+
+		for (var i = 0; i < all.length; i++) {
+			if ( uniques.indexOf(all[i]) === -1 ) {
+				uniques.push( all[i] )
+			}
+		}
+
+		return uniques;
+	}
+
+	//console.log( uniqueNumbers( [ 0, 1, 2, 3 ], [ 3, 4, 5, 0 ] ) );
 })();
 
 
+( function () {
+	function arrayIntersect(arr1, arr2) {
+		var all = [].concat(arr1, arr2);
+		var uniques = [];
 
+		console.log( all )
+
+	}
+
+	var arr1 = ['green', 'red', 'blue'];
+	var arr2 = ['green', 'yellow', 'red'];
+	 
+	var res = arrayIntersect(arr1, arr2);
+	console.log(res); // [green, red]
+})();
 </script>
