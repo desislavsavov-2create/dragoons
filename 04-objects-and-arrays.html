@@ -192,6 +192,135 @@
 
 			// console.table( matrix );
 		})();
+
+		(function() {
+			'use strict';
+
+			var sampleArray = [4, 5, 3, 7, 1, 8, 2, 10, 6];
+
+			function sortWithoutSort( array ) {
+				var arrayLength = array.length;
+
+				if ( arrayLength < 2 ) {
+					return array;
+				}
+
+				var pivot = array[0];
+				var left = [];
+				var right = [];
+				var i;
+
+				for ( i = 1; i < arrayLength; i++ ) {
+					if ( pivot < array[i] ) {
+						right.push( array[i] );
+					} else {
+						left.push( array[i] );
+					}
+				}
+
+				left = sortWithoutSort( left );
+				right = sortWithoutSort( right );
+
+				return [].concat(
+					left,
+					pivot,
+					right
+				);
+			}
+
+			sampleArray = sortWithoutSort( sampleArray );
+
+			// console.log(sampleArray);
+		})();
+
+		(function() {
+			'use strict';
+
+			var sampleArray1 = [1, 2, 3, 4, 2, 3];
+			var sampleArray2 = [4, 5, 6, 7];
+
+			function combineArrays( array1, array2 ) {
+				var result = [];
+				var i, j;
+
+				for ( i = 0; i < arguments.length; i++ ) {
+					for ( j = 0; j < arguments[i].length; j++ ) {
+						if ( result.indexOf( arguments[i][j] ) === -1 ) {
+							result.push( arguments[i][j] );
+						}
+					}
+				}
+
+				return result;
+			}
+
+			// console.log( combineArrays( sampleArray1, sampleArray2 ) );
+		})();
+
+		(function() {
+			'use strict';
+
+			var arr1 = ['green', 'red', 'blue'];
+			var arr2 = ['green', 'yellow', 'red'];
+
+			function arrayIntersect() {
+				// var result = [];
+				// var longer, smaller, i, j;
+
+				// if ( arr1.length >= arr2.length ) {
+				// 	longer = arr1;
+				// 	smaller = arr2;
+				// } else {
+				// 	longer = arr2;
+				// 	smaller = arr1;
+				// }
+
+				// for ( i = 0; i < longer.length; i++ ) {
+				// 	for ( j = 0; j < smaller.length; j++ ) {
+				// 		if ( longer.indexOf(smaller[j]) !== -1 && result.indexOf(smaller[j]) === -1 ) {
+				// 			result.push(smaller[j]);
+				// 		}
+				// 	}
+				// }
+
+				// return result;
+
+				var merged = [];
+				var result = [];
+				var i, j, missingFromArgs;
+
+				for ( i = 0; i < arguments.length; i++ ) {
+					merged = merged.concat(arguments[i]);
+				}
+
+				for ( i = 0; i < merged.length; i++ ) {
+					missingFromArgs = false;
+					for ( j = 0; j < arguments.length; j++ ) {
+						if (arguments[j].indexOf(merged[i]) === -1) {
+							missingFromArgs = true;
+							break;
+						}
+					}
+					if (!missingFromArgs && result.indexOf(merged[i]) === -1) {
+						result.push(merged[i]);
+					}
+				}
+
+				return result;
+			}
+
+			var res = arrayIntersect(arr1, arr2);
+
+			console.log(res);
+		})();
+
+		(function() {
+			'use strict';
+
+			function arrayDiff( arr1, arr2, arr3 ) {
+
+			}
+		})();
 	</script>
 </head>
 
