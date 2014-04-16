@@ -648,16 +648,52 @@
 ( function () {
 	function arrayIntersect(arr1, arr2) {
 		var all = [].concat(arr1, arr2);
-		var uniques = [];
+		var arr = [];
 
-		console.log( all )
-
+		for ( var i = 0; i < all.length; i++ ) {
+			for (var j = i + 1; j < all.length; j++ ) {
+				if ( all[i] === all[j] ) {
+					arr.push(all[i])
+				}
+			};
+		}
+		return arr;
 	}
 
 	var arr1 = ['green', 'red', 'blue'];
 	var arr2 = ['green', 'yellow', 'red'];
 	 
 	var res = arrayIntersect(arr1, arr2);
-	console.log(res); // [green, red]
+	//console.log(res); // [green, red]
+})();
+
+( function () {
+	var cache = {
+		data :{},
+		write: function (name, value) {
+			cache.data[name] = value;
+		},
+		read: function (name) {
+			if ( typeof cache.data[name] === 'undefined' ) {
+				return null;
+			} else {
+				return cache.data[name];
+			}
+		},
+		remove: function (name) {
+			delete cache.data[name];
+		}
+	}
+
+	var data = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod laborum.';
+
+	console.log(null === cache.read("home-html"));
+	cache.write("home-html", data);
+	console.log(data === cache.read("home-html"));
+	cache.remove("home-html");
+	console.log(null === cache.read("home-html"));	 
+	console.log(null === cache.read("write"));
+	cache.write("write", data);
+	console.log(data === cache.read("write"));
 })();
 </script>
