@@ -71,6 +71,45 @@
 	</script>
 
 	<script>
+
+		function arrayConcat(arr1, arr2) {
+
+			var newArr = [];
+			newArr = newArr.concat(arr1, arr2);
+
+			function arrayOptimize(newArr) {
+				var newArray = [];
+				var duplicate = 0;
+				newArray[0] = array[0];
+
+				for( var i = 1; i < array.length; i++ ) {
+					duplicate = 0;
+
+					for (var j = 0; j < newArray.length; j++ ) {
+						if (newArray[j] === array[i]) {
+							duplicate++;
+						}
+					}
+
+					if( duplicate === 0 ) {
+						newArray.push(array[i])
+					}
+
+				}
+
+				return newArray;
+			}
+
+			return arrayOptimize(newArr);
+		}
+
+		var arr1 = [1,2,3,3,3,3,3,3,4,4,5,5,6,7,8];
+		var arr2 = [111, 231, 214, 123, 111, 444, 231];
+
+		console.log(arrayConcat(arr1, arr2));
+	</script>
+
+	<script>
 		function sort(arr) {
 			var pivot = arr[0];
 			var left = [], right = [];
@@ -150,7 +189,7 @@
 			[0,0,0,0]
 		];
 
-		console.table(diagonal(myArray));
+		//console.table(diagonal(myArray));
 	</script>
 
 	<script>
@@ -176,7 +215,116 @@
 			[0,0,0,0,0]
 		];
 
-		console.table(pyramid(myArray));
+		//console.table(pyramid(myArray));
+	</script>
+
+	<script>
+		function eventSort(arr) {
+
+			// var matches = matches = startTime.toLowerCase().match(/(\d{1,2}):(\d{2}) ([ap]m)/);
+			// startTime = (parseInt(matches[1]) + (matches[3] == 'pm' ? 12 : 0)) + ':' + matches[2] + ':00';
+			function timeConvert(startTime) {
+				var time = startTime.split(':')
+
+				var hour = time[0];
+				var minAMPM = time[1].split(' ');
+
+				var min = minAMPM[0];
+				var ampm = minAMPM[1];
+
+				if( ampm === 'PM' ) {
+					hour = parseInt(hour, 10) + 12;
+				}
+
+				return new Date(2014,04,16,hour,min);
+			}
+
+
+			for (var i = 0; i < arr.length ; i++ ) {
+				var startTime = arr[i].start;
+				time = timeConvert(startTime);
+
+				arr[i].start = time;
+			}
+
+			arr.sort(function(element1, element2) {
+				if (element1.start > element2.start) {
+					return 1;
+				} else if (element2.start > element1.start) {
+					return -1
+				} else {
+					return 0;
+				}
+			});
+
+			return arr;
+		}
+
+		var eventSchedule = [
+			{
+				title: "Registration",
+				start: "08:30 AM"
+			},
+			{
+				title: "Break",
+				start: "11:00 AM"
+			},
+			{
+				title: "WordPress for dummies",
+				start: "10:30 AM"
+			},
+			{
+				title: "Custom Post Types",
+				start: "11:15 AM"
+			},
+			{
+				title: "WooCommerce",
+				start: "02:00 PM"
+			},
+			{
+				title: "Lunch",
+				start: "12:30 PM"
+			},
+		 
+			{
+				title: "Break",
+				start: "15:00 PM"
+			}
+		];
+
+		console.table(eventSort(eventSchedule));
+	</script>
+
+	<script>
+		var cache = {
+			data: {},
+			read: function(key) {
+				if ( typeof cache.data[key] === "undefined" ) {
+					return null;
+				} else {
+					return cache.data[key]
+				}
+			},
+			write: function(key, value) {
+				cache.data[key] = value;
+			},
+			remove: function(key ) {
+				delete cache.data[key];
+			}
+		    /* add your code here ... */
+		};
+		 
+		var data = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod laborum.';
+		 
+		console.log(null === cache.read("home-html"));
+		cache.write("home-html", data);
+		console.log(data === cache.read("home-html"));
+		cache.remove("home-html");
+		console.log(null === cache.read("home-html"));
+		 
+		console.log(null === cache.read("write"));
+		cache.write("write", data);
+		console.log(data === cache.read("write"));
 	</script>
 </body>
 </html>
