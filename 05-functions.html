@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	
+	<title>Document</title>
+	<script>
+		;(function() {
+
+			window.onload = function() {
+				var elapsedTime = 0;
+
+				function updateHtml(id, newHtml) {
+					document.getElementById(id).innerHTML = newHtml;
+				}
+
+				function zeroPadded(input){
+					if (input < 10) {
+						return '0' + input;
+					} else {
+						return input;
+					}
+				}
+
+				(function clockThick(){
+					var date = new Date();
+
+					updateHtml('hours', zeroPadded(date.getHours()));
+					updateHtml('minutes', zeroPadded(date.getMinutes()));
+					updateHtml('seconds', zeroPadded(date.getSeconds()));
+
+					setTimeout(clockThick, 1000)
+				})();
+
+				function stopWatch(){
+					var hours, minutes, seconds;
+
+					elapsedTime = elapsedTime + 1;
+
+					seconds = elapsedTime % 60;
+					minutes = Math.floor(elapsedTime / 60) % 60;
+					hours = Math.floor((elapsedTime / 60) / 60);
+
+					updateHtml('sw-hours', zeroPadded(hours));
+					updateHtml('sw-minutes', zeroPadded(minutes));
+					updateHtml('sw-seconds', zeroPadded(seconds));
+
+					var result = setTimeout(stopWatch, 1000);
+				}
+
+				var start = document.getElementById('start');
+				var pause = document.getElementById('pause');
+				var reset = document.getElementById('reset');
+				
+				start.onclick = stopWatch;
+
+				// rasul -> cleartimeout в един и съш scope
+
+			}
+
+		})();
+	</script>
+</head>
+
+<body>
+	<h2>Clock</h2>
+	<span id="hours">00</span>
+	:
+	<span id="minutes">00</span>
+	:
+	<span id="seconds">00</span>
+
+	<h2>Stopwatch</h2>
+	<span id="sw-hours">00</span>
+	:
+	<span id="sw-minutes">00</span>
+	:
+	<span id="sw-seconds">00</span>
+	
+	<br />
+	<button id="start">Start</button>
+	<button id="pause">Pause</button>
+	<button id="reset">Reset</button>
+
+
+</body>
+</html>
