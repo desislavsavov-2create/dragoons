@@ -1,0 +1,115 @@
+<html>
+<head>
+	<title>Functions</title>
+</head>
+<body>
+
+
+<!-- 
+	<div class="clock">
+		<h2>Clock</h2>
+		<span id="hours">00</span> :
+		<span id="minutes">00</span> :
+		<span id="seconds">00</span>
+	</div>
+
+-->
+
+	<div class="stopwatch">
+		<h2>STOPWATCH</h2>
+		<span id="hours">00</span> :<!-- /#hours -->
+		<span id="minutes">00</span> :<!-- /#minutes -->
+		<span id="seconds">00</span> <!-- /#seconds -->
+		
+		<br />
+
+		<a id="pause" href="#">Pause</a> <a id="reset" href="#">Reset</a>
+	</div><!-- /.stopwatch -->
+
+	<script type="text/javascript">
+
+		"use strict";
+
+		(function() {
+
+			function clock() {
+				var date = new Date();
+				var hours = date.getHours();
+				var minutes = date.getMinutes();
+				var seconds = date.getSeconds();
+
+				function addZero(num) {
+					if (num < 10) {
+						return '0' + num;
+					}
+					return num;
+				}
+
+				seconds = addZero(seconds);
+				minutes = addZero(minutes);
+				hours = addZero(hours);
+
+				document.getElementById('hours').innerHTML = hours;
+				document.getElementById('minutes').innerHTML = minutes;
+				document.getElementById('seconds').innerHTML = seconds;
+
+				setTimeout( clock, 1000 );
+			}
+
+			// clock();
+
+		})();
+
+		//  STOPWATCH
+
+		(function() {
+
+			function stopwatch() {
+
+				var elapsedTime = 0;
+				var runnig = true;
+				var currentTime = 0;
+
+				var updateHtml = function(elementId, newHml)  {
+					document.getElementById(elementId).innerHTML = newHml;
+				};
+
+				function addZero(num) {
+					if ( num < 10 ) {
+						return '0' + num;
+					}
+					return num;
+				}
+
+				document.getElementById('pause').addEventListener('click', function() {
+					clearTimeout()
+				});
+
+				(function tick() {
+					var seconds, minutes, hours; 
+
+					elapsedTime++;
+
+					console.log(elapsedTime)
+
+					seconds = elapsedTime % 60;
+					minutes = Math.floor((elapsedTime / 60) % 60);
+					hours = Math.floor((elapsedTime / 60) / 60);
+
+					updateHtml('seconds', addZero(seconds));
+					updateHtml('minutes', addZero(minutes));
+					updateHtml('hours', addZero(hours));
+
+					setTimeout( tick, 1000 )
+				})();
+			}
+
+			stopwatch();
+
+		})();
+
+	</script>
+
+
+</body>
+</html>
