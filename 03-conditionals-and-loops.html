@@ -660,12 +660,35 @@
 		return arr;
 	}
 
-	var arr1 = ['green', 'red', 'blue'];
+	var arr1 = ['green', 'red', 'blue',];
 	var arr2 = ['green', 'yellow', 'red'];
 	 
 	var res = arrayIntersect(arr1, arr2);
-	//console.log(res); // [green, red]
+	// console.log(res); // [green, red]
 })();
+
+// ( function () {
+// 	function arrayIntersect(arr1, arr2, arr3) {
+// 		var all = [].concat(arr1, arr2, arr3);
+// 		var arr = [];
+
+// 		for ( var i = 0; i < all.length; i++ ) {
+// 			for ( var j = i; j < all.length; j++ ) {
+// 				if ( all[i] === all[j] ){
+// 					arr.push(all[i])
+// 				}
+// 			}	
+// 		}
+// 		return arr;
+// 	}
+
+// 	var arr1 = ['green', 'red', 'blue',];
+// 	var arr2 = ['green', 'yellow', 'red'];
+// 	var arr3 = ['black', 'yellow', 'red'];
+	 
+// 	var res = arrayIntersect(arr1, arr2, arr3);
+// 	console.log(res); // [green, red]
+// })();
 
 ( function () {
 	var cache = {
@@ -687,13 +710,102 @@
 
 	var data = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod laborum.';
 
-	console.log(null === cache.read("home-html"));
+	// console.log(null === cache.read("home-html"));
 	cache.write("home-html", data);
-	console.log(data === cache.read("home-html"));
+	// console.log(data === cache.read("home-html"));
 	cache.remove("home-html");
-	console.log(null === cache.read("home-html"));	 
-	console.log(null === cache.read("write"));
+	// console.log(null === cache.read("home-html"));	 
+	// console.log(null === cache.read("write"));
 	cache.write("write", data);
-	console.log(data === cache.read("write"));
+	// console.log(data === cache.read("write"));
+})();
+
+( function (){
+
+	var clock = function (){
+		var date = new Date();
+		var hours = date.getHours();
+		var minutes = date.getMinutes();
+		var seconds = date.getSeconds();
+
+		hours = checkForNull(hours);
+		minutes = checkForNull(minutes);
+		seconds = checkForNull(seconds);
+
+		document.getElementById('hours').innerHTML = hours;
+		document.getElementById('minutes').innerHTML = minutes;
+		document.getElementById('seconds').innerHTML = seconds;
+		setTimeout( clock, 1000);
+	}
+
+	// window.onload = clock;
+	
+	function checkForNull(digit){		
+		if ( digit < 10 ) {
+			digit = '0' + digit;
+		}
+
+		return digit;
+	}
+})();
+
+( function (){
+
+	window.onload = function() {
+		var elapsedTime = 0;
+		var step;
+		var updateHtml = function(elementId, newHtml){
+			document.getElementById(elementId).innerHTML = newHtml;
+		}
+		
+		function checkForNull(digit){		
+			if ( digit < 10 ) {
+				digit = '0' + digit;
+			}
+
+			return digit;
+		}
+
+		( function tick(){
+			var hours, minutes, seconds;
+
+			elapsedTime++;
+
+			seconds = elapsedTime % 60;
+			minutes = Math.floor(elapsedTime / 60) % 60;
+			hours = Math.floor(elapsedTime / 60 / 60);
+
+			updateHtml('seconds', checkForNull(seconds))
+			updateHtml('minutes', checkForNull(minutes))
+			updateHtml('hours', checkForNull(hours))
+
+			step = setTimeout( tick, 1000);
+		})();
+		
+		document.getElementById('stop').addEventListener('click', function (e){
+			clearTimeout(step);	
+			elapsedTime = 0;
+
+			updateHtml('seconds', checkForNull(0))
+			updateHtml('minutes', checkForNull(0))
+			updateHtml('hours', checkForNull(0))
+
+			e.preventDefault();
+		})
+
+		document.getElementById('start').addEventListener('click', function (e){
+			
+			e.preventDefault();
+		})
+	}
+
+
 })();
 </script>
+
+<p><span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span></p>
+<a href="#" id="start">START</a>
+<a href="#" id="stop">STOP</a>
+<a href="#" id="reset">RESET</a>
+
+
