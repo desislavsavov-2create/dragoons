@@ -57,15 +57,31 @@
 
 	<div id="stopwatch">
 		<p>
-			<span id="stopwatchHours">00</span> : 
-			<span id="stopwatchMinutes">00</span> : 
-			<span id="stopwatchSeconds">00</span>
+			<span class="hours">00</span> : 
+			<span class="minutes">00</span> : 
+			<span class="seconds">00</span>
 		</p>
 
 		<div>
-			<button id="stopwatchStart">Run</button>
-			<button id="stopwatchPause">Pause</button>
-			<button id="stopwatchReset">Reset</button>
+			<button class="start">Run</button>
+			<button class="pause">Pause</button>
+			<button class="reset">Reset</button>
+		</div>
+	</div><!-- /#stopwatch -->
+
+	<h1>Stopwatch 2</h1>
+
+	<div id="stopwatch2">
+		<p>
+			<span class="hours">00</span> : 
+			<span class="minutes">00</span> : 
+			<span class="seconds">00</span>
+		</p>
+
+		<div>
+			<button class="start">Run</button>
+			<button class="pause">Pause</button>
+			<button class="reset">Reset</button>
 		</div>
 	</div><!-- /#stopwatch -->
 
@@ -73,70 +89,93 @@
 		(function() {
 			'use strict';
 
-			var doc = document;
+			window.onload = function() {
+				var Stopwatch = function(containerId) {
+					var _this = this;
 
-			var stopwatch = {
-				digits: {
-					seconds: doc.getElementById('stopwatchSeconds'),
-					minutes: doc.getElementById('stopwatchMinutes'),
-					hours: doc.getElementById('stopwatchHours')
-				},
-				btns: {
-					runBtn: doc.getElementById('stopwatchStart'),
-					pauseBtn: doc.getElementById('stopwatchPause'),
-					resetBtn: doc.getElementById('stopwatchReset')
-				},
-				methods: {
-					run: function() {
-						if(stopwatch.interval === null) {
-							stopwatch.methods.setTime();
+					_this.container = document.getElementById(containerId);
 
-							stopwatch.interval = setInterval(stopwatch.methods.setTime, 1000);
-						}
-					},
-					pause: function() {
-						clearInterval(stopwatch.interval);
+					_this.elapsed = 0;
+					
+					_this.seconds = _this.getElementByClass('seconds');
+					_this.minutes = _this.getElementByClass('minutes');
+					_this.hours = _this.getElementByClass('hours');
 
-						stopwatch.interval = null;
-					},
-					restart: function() {
-						stopwatch.methods.pause();
+					_this.btnStart = _this.getElementByClass('start');
+					_this.btnPause = _this.getElementByClass('pause');
+					_this.btnReset = _this.getElementByClass('reset');
 
-						stopwatch.elapsed = 0;
+					_this.ticker = null;
 
-						stopwatch.methods.setTime();
-					},
-					setTime: function() {
-						var seconds, minutes, hours, digits, methods;
-						var elapsed = stopwatch.elapsed;
+					_this.btnStart.onclick = function () {
+						_this.run();
+					};
+					_this.btnPause.onclick = function () {
+						_this.pause();
+					};
+					_this.btnReset.onclick = function () {
+						_this.reset();
+					};
 
-						digits = stopwatch.digits;
-						methods = stopwatch.methods;
+				};
 
-						seconds = methods.padNumber( elapsed % 60 );
-						minutes = methods.padNumber( ( Math.floor( elapsed / 60 ) % 60 ) );
-						hours = methods.padNumber( Math.floor( elapsed / 3600 ) );
+				Stopwatch.prototype.getElementByClass = function(className) {
+					return this.container.getElementsByClassName(className)[0];
+				};
 
-						methods.updateHtml(digits.seconds, seconds);
-						methods.updateHtml(digits.minutes, minutes);
-						methods.updateHtml(digits.hours, hours);
+				Stopwatch.prototype.renderHTML = function(element, newHTML) {
+					element.innerHTML = newHTML;
+				};
 
-						stopwatch.elapsed++;
-					},
-					updateHtml: function(elem, newHtml) {
-						elem.innerHTML = newHtml;
-					},
-					padNumber: function(num) {
-						return num.toString().length < 2 ? '0' + num : num;
+				Stopwatch.zeroPad = function(num) {
+					return num.toString().length < 2 ? '0' + num : num;
+				};
+
+				Stopwatch.prototype.run = function() {
+					var _this = this;
+
+					_this.updateVals();
+
+					if(_this.ticker === null) {
+						_this.ticker = setInterval(function() {
+							_this.updateVals();
+						}, 1000);
 					}
-				},
-				interval: null,
-				elapsed: 0
-			};
+				};
 
-			stopwatch.btns.runBtn.onclick = stopwatch.methods.run;
-			stopwatch.btns.pauseBtn.onclick = stopwatch.methods.pause;
-			stopwatch.btns.resetBtn.onclick = stopwatch.methods.restart;
+				Stopwatch.prototype.updateVals = function() {
+					var _this = this;
+					var elapsed = this.elapsed;
+					var seconds, minutes, hours;
+
+					seconds = elapsed % 60;
+					minutes = Math.floor( ( elapsed / 60 ) % 60 );
+					hours = Math.floor( elapsed / 3600 );
+
+					_this.renderHTML(this.seconds, Stopwatch.zeroPad(seconds));
+					_this.renderHTML(this.minutes, Stopwatch.zeroPad(minutes));
+					_this.renderHTML(this.hours, Stopwatch.zeroPad(hours));
+
+					this.elapsed++;
+				};
+
+				Stopwatch.prototype.pause = function() {
+					var _this = this;
+
+					clearInterval(this.ticker);
+					this.ticker = null;
+				};
+
+				Stopwatch.prototype.reset = function() {
+					this.pause();
+
+					this.elapsed = 0;
+					this.updateVals();
+				};
+
+				var stopwatch1 = new Stopwatch('stopwatch');
+				var stopwatch1 = new Stopwatch('stopwatch2');
+			}
 
 		})();
 	</script>
