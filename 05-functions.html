@@ -134,9 +134,9 @@
 				Stopwatch.prototype.run = function() {
 					var _this = this;
 
-					_this.updateVals();
-
 					if(_this.ticker === null) {
+						_this.updateVals();
+						
 						_this.ticker = setInterval(function() {
 							_this.updateVals();
 						}, 1000);
