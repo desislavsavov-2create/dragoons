@@ -1,0 +1,124 @@
+<html>
+<head></head>
+<body>
+	<script>
+		"use strict";
+
+		(function() {
+			window.onload = function() {
+				var timers = {
+					'stopwatch1': {
+						elapsedTime : 0,
+						isTicking : false
+					},
+					'stopwatch2': {
+						elapsedTime : 0,
+						isTicking : false
+					}						
+				}
+				var timer;
+				var isTicking = false;
+
+				function addZero(num) {
+					if( num >= 0 && num <= 9 ) {
+						num = '0' + num;
+					}
+					return num;
+				}
+
+				var stopwatch = function(id){
+					var hours, minutes, seconds;
+
+					var elapsedTime = timers[id].elapsedTime;
+
+					seconds = elapsedTime % 60;
+					minutes = Math.floor(elapsedTime / 60 ) % 60;
+					hours = Math.floor((elapsedTime / 60) / 60 ) % 60;
+					
+					var containerID = document.getElementById( id );
+
+					containerID.getElementsByClassName('hours')[0].textContent = addZero(hours);
+					containerID.getElementsByClassName('minutes')[0].textContent = addZero(minutes);
+					containerID.getElementsByClassName('seconds')[0].textContent = addZero(seconds);
+
+					timers[id].elapsedTime++;
+
+					timer = setTimeout( function() {
+						stopwatch(id);
+					}, 1000)
+				}
+
+				var startTimer = function(id) {
+					if ( !timers[id].isTicking ) {
+						clearTimeout( timer )
+						stopwatch(id);
+					}
+					timers[id].isTicking = true;
+				}
+
+				var pauseTimer = function(id) {
+					clearTimeout( timer );
+					timers[id].isTicking = false;
+				}
+
+				var restartTimer = function(id) {
+					timers[id].elapsedTime = 0;
+					if( timers[id].isTicking === true ) {
+						clearTimeout( timer );
+						stopwatch(id);
+					} else {
+						stopwatch(id);
+						clearTimeout( timer );
+					}					
+				}
+
+				var start = document.getElementsByClassName('start');
+				var pause = document.getElementsByClassName('pause');
+				var restart = document.getElementsByClassName('restart');
+
+				for ( var i = 0; i < start.length; i++ ) {
+					start[i].addEventListener('click', function() {
+						var id = this.parentNode.getAttribute('id');
+						startTimer(id)
+					});
+				}
+
+				for ( var i = 0; i < start.length; i++ ) {
+					pause[i].addEventListener('click', function() {
+						var id = this.parentNode.getAttribute('id');
+						pauseTimer(id)
+					});
+				}
+
+				for ( var i = 0; i < start.length; i++ ) {
+					restart[i].addEventListener('click', function() {
+						var id = this.parentNode.getAttribute('id');
+						restartTimer(id)
+					});
+				}
+
+			}
+		})();
+	</script>
+	<p id="stopwatch1">
+		Stopwatch:
+		<span class="hours">00</span> :
+		<span class="minutes">00</span> :
+		<span class="seconds">00</span>
+		<br />
+		<a href="#" class="start">Start</a>
+		<a href="#" class="pause">Pause</a>
+		<a href="#" class="restart">Restart</a>
+	</p>
+	<p id="stopwatch2">
+		Stopwatch:
+		<span class="hours">00</span> :
+		<span class="minutes">00</span> :
+		<span class="seconds">00</span>
+		<br />
+		<a href="#" class="start">Start</a>
+		<a href="#" class="pause">Pause</a>
+		<a href="#" class="restart">Restart</a>
+	</p>
+</body>
+</html>
