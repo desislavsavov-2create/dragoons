@@ -179,5 +179,39 @@
 
 		})();
 	</script>
+
+	<!-- Event Dispatcher -->
+
+	<script>
+		(function() {
+			'use strict';
+
+			var myActions = {};
+
+			function addAction(action, callback) {
+				if(typeof myActions[action] === 'undefined') {
+					myActions[action] = [];
+				}
+				myActions[action].push(callback);
+			}
+
+			function doAction(action) {
+				for( var i = 0; i < myActions[action].length; i++ ) {
+					myActions[action][i]();
+				}
+			}
+
+			addAction('test', function() {
+				console.log('test was just called.');
+			});
+
+			addAction('test', function() {
+				console.log('but test has two callbacks.');
+			})
+
+			doAction('test');
+
+		})();
+	</script>
 </body>
 </html>
