@@ -752,60 +752,101 @@
 ( function (){
 
 	window.onload = function() {
-		var elapsedTime = 0;
-		var step;
-		var updateHtml = function(elementId, newHtml){
-			document.getElementById(elementId).innerHTML = newHtml;
-		}
-		
-		function checkForNull(digit){		
-			if ( digit < 10 ) {
-				digit = '0' + digit;
+		var chronometers = document.getElementsByClassName('chronometter');
+
+		for (var i = 0; i < chronometers.length; i++) {
+			stopwatch(chronometers[i])
+		};
+
+		function stopwatch(watch){
+			var $this = watch;
+			var elapsedTime = 0;
+			var step;
+			var updateHtml = function(elementId, newHtml){
+				elementId.innerHTML = newHtml;
+			};
+			var start = $this.getElementsByClassName('start')[0];
+			var reset = $this.getElementsByClassName('reset')[0];
+			var pause = $this.getElementsByClassName('pause')[0];
+
+			function checkForNull(digit){		
+				if ( digit < 10 ) {
+					digit = '0' + digit;
+				}
+
+				return digit;
 			}
+			
+			function tick(){
+				var hours, minutes, seconds;
 
-			return digit;
+				elapsedTime++;
+
+				seconds = elapsedTime % 60;
+				minutes = Math.floor(elapsedTime / 60) % 60;
+				hours = Math.floor(elapsedTime / 60 / 60);
+
+				updateHtml($this.getElementsByClassName('hours')[0], checkForNull(hours))
+				updateHtml($this.getElementsByClassName('minutes')[0], checkForNull(minutes))
+				updateHtml($this.getElementsByClassName('seconds')[0], checkForNull(seconds))
+
+				step = setTimeout( tick, 1000);
+			};
+
+			reset.addEventListener('click', function (e){
+				clearTimeout(step);	
+				elapsedTime = 0;
+
+				updateHtml($this.getElementsByClassName('hours')[0], checkForNull(0))
+				updateHtml($this.getElementsByClassName('minutes')[0], checkForNull(0))
+				updateHtml($this.getElementsByClassName('seconds')[0], checkForNull(0))
+
+				e.preventDefault();
+			})
+			
+			start.addEventListener('click', function (e){
+				tick()
+				e.preventDefault();
+			})
+
+			pause.addEventListener('click', function (e){
+				clearTimeout(step);				
+				e.preventDefault();
+			})
+		}
+	}
+})();
+
+( function (){
+
+	window.onload = function() {
+		var Stopwatch = function(watch){
+			console.log(watch)
 		}
 
-		( function tick(){
-			var hours, minutes, seconds;
-
-			elapsedTime++;
-
-			seconds = elapsedTime % 60;
-			minutes = Math.floor(elapsedTime / 60) % 60;
-			hours = Math.floor(elapsedTime / 60 / 60);
-
-			updateHtml('seconds', checkForNull(seconds))
-			updateHtml('minutes', checkForNull(minutes))
-			updateHtml('hours', checkForNull(hours))
-
-			step = setTimeout( tick, 1000);
-		})();
-		
-		document.getElementById('stop').addEventListener('click', function (e){
-			clearTimeout(step);	
-			elapsedTime = 0;
-
-			updateHtml('seconds', checkForNull(0))
-			updateHtml('minutes', checkForNull(0))
-			updateHtml('hours', checkForNull(0))
-
-			e.preventDefault();
-		})
-
-		document.getElementById('start').addEventListener('click', function (e){
-			
-			e.preventDefault();
-		})
+		Stopwatch('chronometter1')
 	}
-
-
 })();
 </script>
 
-<p><span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span></p>
-<a href="#" id="start">START</a>
-<a href="#" id="stop">STOP</a>
-<a href="#" id="reset">RESET</a>
+<div class="chronometter" id="chronometter1">
+	<p><span id="hours" class="hours">00</span>:<span id="minutes" class="minutes">00</span>:<span id="seconds" class="seconds">00</span></p>
+	<a href="#" class="start">START</a>
+	<a href="#" class="pause">PAUSE</a>
+	<a href="#" class="reset">RESET</a>
+</div><!-- /#chronometter1 -->
 
+<div class="chronometter" id="chronometter2">
+	<p><span id="hours" class="hours">00</span>:<span id="minutes" class="minutes">00</span>:<span id="seconds" class="seconds">00</span></p>
+	<a href="#" class="start">START</a>
+	<a href="#" class="pause">PAUSE</a>
+	<a href="#" class="reset">RESET</a>
+</div><!-- /#chronometter1 -->
+
+<div class="chronometter" id="chronometter3">
+	<p><span id="hours" class="hours">00</span>:<span id="minutes" class="minutes">00</span>:<span id="seconds" class="seconds">00</span></p>
+	<a href="#" class="start">START</a>
+	<a href="#" class="pause">PAUSE</a>
+	<a href="#" class="reset">RESET</a>
+</div><!-- /#chronometter1 -->
 
