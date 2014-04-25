@@ -8,7 +8,6 @@
 		;(function() {
 
 			window.onload = function() {
-				var elapsedTime = 0;
 
 				function updateHtml(id, newHtml) {
 					document.getElementById(id).innerHTML = newHtml;
@@ -22,6 +21,8 @@
 					}
 				}
 
+				/* --- Clock ---*/
+
 				(function clockThick(){
 					var date = new Date();
 
@@ -32,11 +33,22 @@
 					setTimeout(clockThick, 1000)
 				})();
 
-				function stopWatch(){
+
+				/* --- Stopwatch ---*/
+
+				var elapsedTime = 0;
+				var isStarted = false;
+				var time;
+
+				function stopwatch(){
 					var hours, minutes, seconds;
 
 					elapsedTime = elapsedTime + 1;
 
+					time = setTimeout(stopwatch, 1000);
+					render();
+				}
+				function render() {
 					seconds = elapsedTime % 60;
 					minutes = Math.floor(elapsedTime / 60) % 60;
 					hours = Math.floor((elapsedTime / 60) / 60);
@@ -44,20 +56,87 @@
 					updateHtml('sw-hours', zeroPadded(hours));
 					updateHtml('sw-minutes', zeroPadded(minutes));
 					updateHtml('sw-seconds', zeroPadded(seconds));
-
-					var result = setTimeout(stopWatch, 1000);
 				}
 
-				var start = document.getElementById('start');
-				var pause = document.getElementById('pause');
-				var reset = document.getElementById('reset');
-				
-				start.onclick = stopWatch;
+				function startStopwatch() {
+					if (!isStarted) {
+						stopwatch();
+						isStarted = true;
+					}
+				}
 
-				// rasul -> cleartimeout в един и съш scope
+				function pauseStopwatch() {
+					clearTimeout(time);
+					isStarted = false;
+				}
+
+				function resetStopwatch() {
+					elapsedTime = 0;
+					pauseStopwatch();
+					render();
+				}
+
+				var start = document.getElementsByClassName('start');
+				var pause = document.getElementsByClassName('pause');
+				var reset = document.getElementsByClassName('reset');
+
+				start.onclick = startStopwatch;
+				pause.onclick = pauseStopwatch;
+				reset.onclick = resetStopwatch;
 
 			}
 
+		})();
+
+		(function() {
+			var actions = {};
+
+			function addAction(action, callback) {
+				if (typeof actions[action] === 'undefined') {
+					actions[action] = [];
+				}
+				actions[action].push(callback);
+			}
+
+			function doAction(action){
+				for (var i = 0; i < actions[action].length; i++) {
+					actions[action][i]();
+				}
+			}
+
+			// Listen for "init"
+			addAction("init", function () {
+				console.log("Init has just happened. ");
+			});
+			 
+			// Listen for "before_close"
+			addAction("before_close", function () {
+				console.log("window is about to close. ");
+			});
+			 
+			// Another listener for before_close
+			addAction("before_close", function () {
+				console.log("Are you sure?");
+			});
+			 
+			// say goodbye ...
+			addAction("RIP", function () {
+				console.log("we had a great time ... ");
+			});
+			 
+			// At later point, the events are triggered
+			setTimeout(function() {
+				doAction("init"); // Trigger the init event
+				doAction("before_close"); // Trigger the before_close event
+				// don't trigger RIP event.
+			}, 500);
+			
+			/* 
+				Expected output:
+				* Init has just happened.
+				* window is about to close.
+				* Are you sure?
+			*/
 		})();
 	</script>
 </head>
@@ -70,17 +149,50 @@
 	:
 	<span id="seconds">00</span>
 
-	<h2>Stopwatch</h2>
-	<span id="sw-hours">00</span>
-	:
-	<span id="sw-minutes">00</span>
-	:
-	<span id="sw-seconds">00</span>
-	
-	<br />
-	<button id="start">Start</button>
-	<button id="pause">Pause</button>
-	<button id="reset">Reset</button>
+	<div id="stopwatch1">
+		<h2>Stopwatch 1</h2>
+
+		<span class="sw-hours">00</span>
+		:
+		<span class="sw-minutes">00</span>
+		:
+		<span class="sw-seconds">00</span>
+		
+		<br />
+		<button class="start">Start</button>
+		<button class="pause">Pause</button>
+		<button class="reset">Reset</button>
+	</div><!-- /#stopwatch1 -->
+
+	<div id="stopwatch1">
+		<h2>Stopwatch 2</h2>
+
+		<span class="sw-hours">00</span>
+		:
+		<span class="sw-minutes">00</span>
+		:
+		<span class="sw-seconds">00</span>
+		
+		<br />
+		<button class="start">Start</button>
+		<button class="pause">Pause</button>
+		<button class="reset">Reset</button>
+	</div><!-- /#stopwatch1 -->
+
+	<div id="stopwatch1">
+		<h2>Stopwatch 3</h2>
+
+		<span class="sw-hours">00</span>
+		:
+		<span class="sw-minutes">00</span>
+		:
+		<span class="sw-seconds">00</span>
+		
+		<br />
+		<button class="start">Start</button>
+		<button class="pause">Pause</button>
+		<button class="reset">Reset</button>
+	</div><!-- /#stopwatch1 -->
 
 
 </body>
