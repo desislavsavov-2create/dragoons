@@ -819,14 +819,58 @@
 
 ( function (){
 
-	window.onload = function() {
-		var Stopwatch = function(watch){
-			console.log(watch)
+	var actions = {};
+
+	function doAction(event) {
+		for (var i = 0; i < actions[event].length; i++) {
+			actions[event][i]();
+		};
+	}
+
+	function addAction(action, callback) {
+		if ( typeof actions[action] === 'undefined' ){
+			actions[action] = [];
 		}
 
-		Stopwatch('chronometter1')
+		actions[action].push(callback);
 	}
+
+	// Listen for "init"
+	addAction("init", function () {
+	    console.log("Init has just happened. ");
+	});
+	 
+	// Listen for "before_close"
+	addAction("before_close", function () {
+	    console.log("window is about to close. ");
+	});
+	 
+	// Another listener for before_close
+	addAction("before_close", function () {
+	    console.log("Are you sure?");
+	});
+	 
+	// say goodbye ... 
+	addAction("RIP", function () {
+	    console.log("we had a great time ... ");
+	});
+	 
+	// At later point, the events are triggered
+	setTimeout(function() {
+	    doAction("init"); // Trigger the init event
+	    doAction("before_close"); // Trigger the before_close event
+	    // don't trigger RIP event.
+	}, 500);
+	/*
+	 
+	 Expected output: 
+	  * Init has just happened.
+	  * window is about to close. 
+	  * Are you sure?
+	 
+	*/
 })();
+
 </script>
 
 <div class="chronometter" id="chronometter1">
