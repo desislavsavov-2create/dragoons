@@ -213,5 +213,46 @@
 
 		})();
 	</script>
+
+	<!-- Add Filters -->
+
+	<script>
+		(function() {
+			'use strict';
+
+			var myFilters = {};
+
+			function addFilter(contentType, filterType) {
+				if(typeof myFilters[contentType] === 'undefined') {
+					myFilters[contentType] = [];
+				}
+
+				myFilters[contentType].push(filterType);
+			}
+
+			function applyFilters(contentType, text) {
+				for( var i = 0; i < myFilters[contentType].length; i++ ) {
+					text = myFilters[contentType][i](text);
+				}
+
+				return text;
+			}
+
+			function makeUppercase(text) {
+				return text.toUpperCase();
+			}
+
+			function removeSpaces(text) {
+				return text.replace(' ', '-');
+			}
+
+			addFilter('title', makeUppercase);
+
+			addFilter('title', removeSpaces);
+
+			console.log(applyFilters('title', 'lolo lololo'));
+
+		})();
+	</script>
 </body>
 </html>
