@@ -231,8 +231,14 @@
 			}
 
 			function applyFilters(contentType, text) {
+				var filters = myFilters[contentType];
+
+				if(typeof filters === 'undefined') {
+					return text;
+				}
+
 				for( var i = 0; i < myFilters[contentType].length; i++ ) {
-					text = myFilters[contentType][i](text);
+					text = filters[i](text);
 				}
 
 				return text;
