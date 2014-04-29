@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>JS Learning - 07. Regex</title>
+</head>
+<body>
+
+	<!-- REGEX -->
+
+	<script>
+		'use strict';
+
+		// 01.
+
+		var text =  'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod' +
+					'tempor 999 incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,' + 
+					'quis nostrud exercitation ullamco 99 laboris nisi ut aliquip ex ea commodo' + 
+					'consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse' + 
+					'cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non' + 
+					'proident, sunt in culpa qui offici222a deserunt mollit anim id est laborum.';
+
+		var threeDigits = /\d{3}/;
+
+		console.log('01 - ' + threeDigits.test(text));
+	</script>
+
+	<script>
+		'use strict';
+
+		// 02.
+
+		var url = 'http://tasks.2c-studio.com/emil/task/2026728';
+		var regex = /\d+$/;
+
+		console.log('02 - ' + url.match(regex));
+	</script>
+
+	<script>
+		'use strict';
+
+		// 03.
+
+		var url = 'http://tasks.2c-studio.com/emil/task/2026728';
+
+		var regex = /^https?:\/\/.+?\/(\w+)/;
+
+		console.log('03 - ' + url.match(regex)[1]);
+	</script>
+
+	<script>
+		'use strict';
+
+		// 04.
+
+		var phone = '(0898) 497-135';
+
+		var regex = /\(\d+\)/;
+
+		console.log('04 - ' + phone.match(regex));
+	</script>
+</body>
+</html>
