@@ -13,16 +13,18 @@
 
 		// 01.
 
-		var text =  'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod' +
+		(function() {
+			var text =  'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod' +
 					'tempor 999 incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,' + 
 					'quis nostrud exercitation ullamco 99 laboris nisi ut aliquip ex ea commodo' + 
 					'consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse' + 
 					'cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non' + 
 					'proident, sunt in culpa qui offici222a deserunt mollit anim id est laborum.';
 
-		var threeDigits = /\d{3}/;
+			var threeDigits = /\d{3}/;
 
-		console.log('01 - ' + threeDigits.test(text));
+			console.log('01 - ' + threeDigits.test(text));
+		})();
 	</script>
 
 	<script>
@@ -30,10 +32,12 @@
 
 		// 02.
 
-		var url = 'http://tasks.2c-studio.com/emil/task/2026728';
-		var regex = /\d+$/;
+		(function() {
+			var url = 'http://tasks.2c-studio.com/emil/task/2026728';
+			var regex = /\d+$/;
 
-		console.log('02 - ' + url.match(regex));
+			console.log('02 - ' + url.match(regex));
+		})();
 	</script>
 
 	<script>
@@ -41,11 +45,13 @@
 
 		// 03.
 
-		var url = 'http://tasks.2c-studio.com/emil/task/2026728';
+		(function() {
+			var url = 'http://tasks.2c-studio.com/emil/task/2026728';
 
-		var regex = /^https?:\/\/.+?\/(\w+)/;
+			var regex = /^https?:\/\/.+?\/(\w+)/;
 
-		console.log('03 - ' + url.match(regex)[1]);
+			console.log('03 - ' + url.match(regex)[1]);
+		})();
 	</script>
 
 	<script>
@@ -53,11 +59,186 @@
 
 		// 04.
 
-		var phone = '(0898) 497-135';
+		(function() {
+			var phone = '(0898) 497-135';
 
-		var regex = /\(\d+\)/;
+			var regex = /\(\d+\)/;
 
-		console.log('04 - ' + phone.match(regex));
+			console.log('04 - ' + phone.match(regex));
+		})();
+	</script>
+
+	<script>
+		'use strict';
+
+		// 05.
+
+		(function() {
+			var input = '192.168.2.31 - - [05/Mar/2013:16:40:00 +0200] "GET /wp-migrator-test/wp-includes/css/editor.min.css?ver=3.5.1 HTTP/1.1" 200 44756' + 
+					'192.168.2.31 - - [05/Mar/2013:16:39:56 +0200] "GET /wp-migrator-test/wp-admin/ HTTP/1.1" 200 68636' + 
+					'192.168.2.31 - - [05/Mar/2013:16:40:00 +0200] "GET /wp-migrator-test/wp-admin/images/media-button.png HTTP/1.1" 200 323' + 
+					'192.168.2.31 - - [05/Mar/2013:16:40:00 +0200] "GET /wp-migrator-test/wp-admin/images/wpspin_light.gif HTTP/1.1" 200 2193' + 
+					'192.168.2.31 - - [05/Mar/2013:16:40:00 +0200] "GET /wp-migrator-test/wp-admin/load-styles.php?c=0&dir=ltr&load=media-views,wp-jquery-ui-dialog&ver=3.5.1 HTTP/1.1" 200 27118' + 
+					'192.168.2.31 - - [05/Mar/2013:16:40:00 +0200] "GET /wp-migrator-test/wp-admin/load-scripts.php?c=0&load%5B%5D=admin-bar,thickbox,hoverIntent,common,wp-ajax-response,jquery-' + 
+					'color,wp-lists,quicktags,jquery-query,admin-comments,jquery-ui-cor&load%5B%5D=e,jquery-ui-widget,jquery-ui-mouse,jquery-ui-sortable,postbox,dashboard,customize-base,' +
+					'customize-loader,plugin-install,underscor&load%5B%5D=e,shortcode,media-upload,backbone,media-models,plupload,plupload-html5,plupload-flash,plupload-silverlight,plupload-html4,' +
+					'wp-plu&load%5B%5D=pload,media-views,media-editor,word-count,jquery-ui-resizable,jquery-ui-draggable,jquery-ui-button,jquery-ui-position,jquery-ui-&load%5B%5D=dialog,wpdialogs,' +
+					'wplink,wpdialogs-popup&ver=3.5.1 HTTP/1.1" 200 364358' +
+					'192.168.2.31 - - [05/Mar/2013:16:40:01 +0200] "GET /wp-migrator-test/wp-includes/js/thickbox/loadingAnimation.gif HTTP/1.1" 200 15238' +
+					'192.168.2.31 - - [05/Mar/2013:16:40:01 +0200] "GET /favicon.ico HTTP/1.1" 404 209' +
+					'192.168.2.31 - - [05/Mar/2013:16:40:01 +0200] "GET /wp-migrator-test/wp-admin/admin-ajax.php?action=wp-compression-test&test=1&1362494401554 HTTP/1.1" 200 1114' +
+					'192.168.2.31 - - [05/Mar/2013:16:40:01 +0200] "GET /wp-migrator-test/wp-admin/admin-ajax.php?action=dashboard-widgets&widget=dashboard_incoming_links HTTP/1.1" 200 253' +
+					'192.168.2.31 - - [05/Mar/2013:16:40:02 +0200] "GET /wp-migrator-test/wp-admin/admin-ajax.php?action=wp-compression-test&test=2&1362494402907 HTTP/1.1" 200 572' +
+					'192.168.2.31 - - [05/Mar/2013:16:40:02 +0200] "GET /wp-migrator-test/wp-admin/admin-ajax.php?action=dashboard-widgets&widget=dashboard_primary HTTP/1.1" 200 1862' +
+					'192.168.2.31 - - [05/Mar/2013:16:40:04 +0200] "GET /wp-migrator-test/wp-admin/admin-ajax.php?action=wp-compression-test&test=yes&1362494404100 HTTP/1.1" 200 1' +
+					'192.168.2.31 - - [05/Mar/2013:16:40:02 +0200] "GET /wp-migrator-test/wp-admin/admin-ajax.php?action=dashboard-widgets&widget=dashboard_secondary HTTP/1.1" 200 1748' +
+					'192.168.2.31 - - [05/Mar/2013:16:40:03 +0200] "GET /wp-migrator-test/wp-admin/admin-ajax.php?action=dashboard-widgets&widget=dashboard_plugins HTTP/1.1" 200 817';
+
+			var regex = /(\d{1,3}\.){3}(\d{1,3}) - - \[(\d{2}\/\w{3}\/\d{4}):/g;
+
+			var matches = input.match(regex);
+
+			for(var i = 0; i < matches.length; i++ ) {
+				matches[i] = matches[i].replace(/(\d{1,3}\.){3}(\d{1,3}) - - \[/, '').replace(':', '');
+			}
+
+			console.log(matches);
+		})();
+	</script>
+
+	<script>
+		'use strict';
+
+		// 06.
+
+		(function() {
+			var input = '#notification{position:absolute;right:4px;top:40px;z-index:19;max-width:270px;display:none;}#notification>div{background-color:rgba(240, 240, 240, 0.5);' + 
+					'font-weight:bold;margin-top:4px;padding:4px 8px;color:#fff;border:1px solid #f0f0f0;border-radius:3px;overflow:hidden;}#notification>div a{background:rgba(0, 0, 0, 0.15);' + 
+					'border-radius:3px;color:#eee;cursor:pointer;display:block;float:left;margin:4px 4px 4px 0;padding:4px 8px;text-decoration:none;}' + 
+					'#notification>div a:hover{background:rgba(0, 0, 0, 0.25);color:#fff;} #notification>div.warning{background-color:#EFBE43;}' +
+					'#notification>div.error{background-color:#D64141;} #notification>div.info{background-color:#3DA440;}' + 
+					'#notification>div.confirm{background-color:#3DA440;} #desktop-notification{overflow:hidden;padding:5px;background:#f0f0f0;}' + 
+					'#desktop-notification .phenom{border-bottom:none;margin-bottom:0;} #desktop-notification .action-card{margin-bottom:4px;}' + 
+					'#desktop-notification .action-comment{margin:0 5px 0 0;} h1{font-size:22px;line-height:1.2em;margin:0 0 10px;} ' + 
+					'h2{font-size:18px;line-height:1.2em;margin:0 0 9px;} h3,h4,h5,h6{font-size:16px;line-height:1.25em;margin:0 0 6px;} ' + 
+					'.quiet{color:#939393;}.quiet a{color:#939393;} .error{color:#EB3800;}.error a{color:#EB3800;} a{color:#444;}a:hover{color:#111;}';
+
+			var regex = /(#([\da-f]{6}|[\da-f]{3}))|rgba?\(.*?\)/gmi;
+
+			console.log(input.match(regex));
+		})();
+	</script>
+
+	<script>
+		'use strict';
+
+		// 07.
+
+		(function() {
+			var regex = /url\s*\(["']?(data:image\/png.*?|.*?\.png)["']?\)/gmi;
+		})();
+	</script>
+
+	<script>
+		'use strict';
+
+		// 08.
+
+		(function() {
+			var input = 'svn+ssh://code.2c-studio.com/var/svn/wordpress/jay_christopher/spend-bitcoins-responsive';
+
+			var regex = /([^:]+):\/\/([^\/]+)(\/.*)/;
+
+			console.log(input.match(regex));
+		})();
+	</script>
+
+	<div id="text1">
+D    themes/dr-e-magaziner/page-testimonials.php
+D    themes/dr-e-magaziner/page-case-studies.php
+U    themes/dr-e-magaziner/lib/carbon-fields/Carbon_Field.php
+D    themes/dr-e-magaziner/lib/cache/timthumb_int_0acf98d319669054fd4b16c51de7419d.timthumb.txt
+D    themes/dr-e-magaziner/lib/cache/timthumb_int_207af2ad5fdc386100e3350ae58e4815.timthumb.txt
+A    uploads/2013/03/photo-big-2.jpg
+A    uploads/2013/03/photo-big.jpg
+A    uploads/2013/03/slide-bg-1024x322.jpg
+A    plugins/black-studio-tinymce-widget/screenshot-2.png
+U    dump.sql.gz
+Updated to revision 152138.
+	</div><!-- /#text1 -->
+
+	<script>
+		'use strict';
+
+		// 09.
+
+		(function() {
+			window.onload = function() {
+				var _text1 = document.getElementById('text1');
+				var input = _text1.innerHTML;
+
+				input = input.replace(/^\s+/, '');
+				input = input.replace(/\s+$/, '');
+
+				var regex = /^(D\s+.*?)$/gm;
+
+				input = input.replace(regex, '<strong>$1</strong>');
+
+				_text1.innerHTML = input;
+			}
+		})();
+	</script>
+
+	<script>
+		'use strict';
+
+		// 10.
+
+		(function() {
+			window.onload = function() {
+				var input = '*Grumpy wizards* make toxic brew for the *evil Queen* and Jack.';
+
+				input = input.replace(/\*([^\*]+)\*/g, '<strong>$1</strong>');
+
+				console.log(input);
+			}
+		})();
+	</script>
+
+	<div id="text2">
+To: somebody@example.com
+Message-ID: &lt;0000013d4ae0f7fc-0757af04-880f-11e2-b3a0-0b04ad0f7260-000000@email.amazonses.com&gt;
+MIME-Version: 1.0
+Content-Type: text/html; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+Precedence: bulk Subject:
+X-Autoreply: yes
+Auto-Submitted: auto-replied
+X-Gm-Message-State: ALoCoQljBRCXIpZMlzv5hek1NVSA8Nnc0DTrfZZ2n2zfNwA+lqFwXDp+SyXYb0Oe62B6FTayZUyr
+X-Spam-Score: 2
+Subject: Grumpy wizards make toxic brew for the evil Queen and Jack.
+	</div><!-- /#text2 -->
+
+	<script>
+		'use strict';
+
+		// 11.
+
+		(function() {
+			window.onload = function() {
+				var _text2 = document.getElementById('text2');
+
+				var input = _text2.innerHTML;
+
+				input = input.replace(/^\s+/, '');
+				input = input.replace(/\s+$/, '');
+
+				var regex = /^Subject:[\s+]?(.*)$/mi;
+
+				_text2.innerHTML = input.match(regex)[1];
+			}
+		})();
 	</script>
 </body>
 </html>
