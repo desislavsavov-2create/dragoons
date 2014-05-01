@@ -857,8 +857,8 @@
 	 
 	// At later point, the events are triggered
 	setTimeout(function() {
-	    doAction("init"); // Trigger the init event
-	    doAction("before_close"); // Trigger the before_close event
+	    // doAction("init"); // Trigger the init event
+	    // doAction("before_close"); // Trigger the before_close event
 	    // don't trigger RIP event.
 	}, 500);
 	/*
@@ -871,7 +871,134 @@
 	*/
 })();
 
+( function (){
+	var actions = {};
+
+	function applyFilters(title){
+		for (var i = 0; i < actions[title].length; i++) {
+			actions[title][i]();
+		};
+	}
+
+	function addFilter(title, text){
+		if ( typeof actions[title] === 'undefined' ){ 
+			actions[title] = []	
+		}
+
+		actions[title].push(text)		
+	}
+
+	addFilter('title', function (){
+		var splittedArr = [];
+		var splitted = text.split(' ')
+
+		for (var i = 0; i < splitted.length; i++) {
+			var word = splitted[i];
+			var wordLength = word.length;
+			var wordRest = word.substring( 1, wordLength ) 
+
+			word = word.charAt(0).toUpperCase() + wordRest ;
+
+			splittedArr.push(word);
+		};
+
+		text = splittedArr.join(' ');
+
+		return 'title', text;
+	});
+
+	addFilter('content', function (){
+
+	});
+
+	addFilter('tags', function (){
+			
+	});
+
+	var text = "lorem ipsum dolor sit amet, consectetur adipisicing elit."
+	// console.log( applyFilters('title', text ) )
+})();
+
+( function (){
+	var url = 'http://tasks.2c-studio.com/emil/task/2026728'
+
+	var regex = /(\d)+$/;
+
+	// console.log( url.match(regex))
+})();
+
+
+( function (){
+	var url = 'http://tasks.2c-studio.com/emil/task/2026728'
+
+	var regex = /^https?:\/\/.+?\/([a-zA-Z0-9]*)/;
+
+	// console.log( url.match(regex)[1])
+})();
+
+
+// ^(\d{1,3}\.){3}\d{1,3} - - \[(.*?):    - date
+// url\s*\(['"]?(data:image/png.*?['"]?\)|.*.png['"]?\)) -   png match
+
+( function () {
+	var regex = /^(.*?):\/\/(.*?)(\/.*)/;
+
+	var url = 'svn+ssh://code.2c-studio.com/var/svn/wordpress/jay_christopher/spend-bitcoins-responsive'
+	// console.log( url.match(regex))
+})();
+
+( function () {
+	var regex = /^(D\s+.*$)/gm;
+
+	var text = 'D    themes/dr-e-magaziner/page-testimonials.php\n' +
+		'D    themes/dr-e-magaziner/page-case-studies.php\n' +
+		'U    themes/dr-e-magaziner/lib/carbon-fields/Carbon_Field.php\n' +
+		'D    themes/dr-e-magaziner/lib/cache/timthumb_int_0acf98d319669054fd4b16c51de7419d.timthumb.txt\n' +
+		'D    themes/dr-e-magaziner/lib/cache/timthumb_int_207af2ad5fdc386100e3350ae58e4815.timthumb.txt\n' +
+		'A    uploads/2013/03/photo-big-2.jpg\n' +
+		'A    uploads/2013/03/photo-big.jpg\n' +
+		'A    uploads/2013/03/slide-bg-1024x322.jpg\n' +
+		'A    plugins/black-studio-tinymce-widget/screenshot-2.png\n' +
+		'U    dump.sql.gz\n' +
+		'Updated to revision 152138.';
+
+		text = text.replace(regex, '<strong>$1</strong>');
+	// console.log( text);
+})();
+
+( function () {
+	var regex = /\*([^*]+)\*/gm;
+
+	var text = '*Grumpy wizards* make toxic brew for the *evil Queen* and Jack.';
+
+	text = text.replace(regex, '<strong>$1</strong>');
+	// console.log( text);
+})();
+
+( function () {
+	var regex = /^Subject:(.*)$/m;
+
+	var text = 'To: somebody@example.com\n' +
+		'Message-ID: <0000013d4ae0f7fc-0757af04-880f-11e2-b3a0-0b04ad0f7260-000000@email.amazonses.com>\n' +
+		'MIME-Version: 1.0\n' +
+		'Content-Type: text/html; charset=ISO-8859-1\n' +
+		'Content-Transfer-Encoding: 7bit\n' +
+		'Content-Disposition: inline\n' +
+		'Precedence: bulk Subject:\n' +
+		'X-Autoreply: yes\n' +
+		'Subject: Grumpy wizards make toxic brew for the evil Queen and Jack.\n' + 
+		'Auto-Submitted: auto-replied\n' +
+		'X-Gm-Message-State: ALoCoQljBRCXIpZMlzv5hek1NVSA8Nnc0DTrfZZ2n2zfNwA+lqFwXDp+SyXYb0Oe62B6FTayZUyr\n' +
+		'X-Spam-Score: 2\n' +
+		'Subject: Grumpy wizards make toxic brew for the evil Queen and Jack.';
+
+	// text = text.replace(regex, '<strong>$1</strong>');
+	console.log( text.match(regex));
+})();
+
 </script>
+
+
 
 <div class="chronometter" id="chronometter1">
 	<p><span id="hours" class="hours">00</span>:<span id="minutes" class="minutes">00</span>:<span id="seconds" class="seconds">00</span></p>
@@ -893,4 +1020,5 @@
 	<a href="#" class="pause">PAUSE</a>
 	<a href="#" class="reset">RESET</a>
 </div><!-- /#chronometter1 -->
+
 
