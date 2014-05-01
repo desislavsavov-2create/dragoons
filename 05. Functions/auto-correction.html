@@ -1,0 +1,64 @@
+<html>
+<head></head>
+<body>
+	<script>
+		"use strict";
+
+		(function() {
+			window.onload = function() {
+				function titleCase(title) {
+					// change title so it's in title case
+					// e.g. "title case" becomes "Title Case"
+
+			        var words = title.split(' ');
+			        var newText = '';
+			        for ( var i = 0; i < words.length; i++ ) {
+			        	var firstChar = words[i].charAt(0);
+			        	newText += firstChar.toUpperCase() + words[i].substr(1, words[i].length ) + ' ';
+			        }
+
+			        return newText;
+				}
+
+				var actions = {};
+
+				var addFilter = function( eventName, listener ) {
+					if( typeof actions[eventName] === "undefined" ) {
+						actions[eventName] = [];
+					}
+
+					actions[eventName].push( listener );
+
+				}
+
+				var applyFilters = function( event, title ) {
+					
+					for ( var i = 0; i < actions[event].length; i++ ) {
+						actions[event][i]();
+					}
+				}
+
+
+				addFilter('title', titleCase);
+				addFilter('title', function(title) {
+					// transform html to HTML
+					title = title.replace(/html/g, 'HTML');
+				});
+
+				addFilter('content', titleCase);
+
+				addFilter('tags', function(tag) {
+					//replace "tag name" with "tag-name"
+					tag = tag.replace(/ /g, ' ');
+
+					return tag;
+				});
+
+				var text = 'tietsdfsfa sd fs fd sdds a';
+
+				console.log(applyFilters('title', text))
+			}
+		})();
+	</script>
+</body>
+</html>

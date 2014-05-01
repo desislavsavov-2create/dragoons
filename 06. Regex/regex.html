@@ -1,0 +1,106 @@
+<!doctype>
+<html>
+<head>
+	<title>Regex</title>
+</head>
+<body>
+	<script>
+		"use strict"
+
+		var subject = "http://tasks.2c-studio.com/nikolay/task/2040852";
+
+		var regex = /^https?:\/\/.+?\/([\w]+)\//;
+
+		console.log( regex.test( subject ) )
+		console.log( subject.match( regex ) )
+	</script>
+
+	<script>
+		"use strict"
+
+		var subject = '192.168.2.31 - - [05/Mar/2013:16:40:00 +0200] "GET /wp-migrator-test/wp-includes/css/editor.min.css?ver=3.5.1 HTTP/1.1" 200 44756' +
+'192.168.2.31 - - [05/Mar/2013:16:39:56 +0200] "GET /wp-migrator-test/wp-admin/ HTTP/1.1" 200 68636' +
+'192.168.2.31 - - [05/Mar/2013:16:40:00 +0200] "GET /wp-migrator-test/wp-admin/images/media-button.png HTTP/1.1" 200 323' +
+'192.168.2.31 - - [05/Mar/2013:16:40:00 +0200] "GET /wp-migrator-test/wp-admin/images/wpspin_light.gif HTTP/1.1" 200 2193' +
+'192.168.2.31 - - [05/Mar/2013:16:40:00 +0200] "GET /wp-migrator-test/wp-admin/load-styles.php?c=0&dir=ltr&load=media-views,wp-jquery-ui-dialog&ver=3.5.1 HTTP/1.1" 200 27118' +
+'192.168.2.31 - - [05/Mar/2013:16:40:00 +0200] "GET /wp-migrator-test/wp-admin/load-scripts.php?c=0&load%5B%5D=admin-bar,thickbox,hoverIntent,common,wp-ajax-response,jquery-color,wp-lists,quicktags,jquery-query,admin-comments,jquery-ui-cor&load%5B%5D=e,jquery-ui-widget,jquery-ui-mouse,jquery-ui-sortable,postbox,dashboard,customize-base,customize-loader,plugin-install,underscor&load%5B%5D=e,shortcode,media-upload,backbone,media-models,plupload,plupload-html5,plupload-flash,plupload-silverlight,plupload-html4,wp-plu&load%5B%5D=pload,media-views,media-editor,word-count,jquery-ui-resizable,jquery-ui-draggable,jquery-ui-button,jquery-ui-position,jquery-ui-&load%5B%5D=dialog,wpdialogs,wplink,wpdialogs-popup&ver=3.5.1 HTTP/1.1" 200 364358' +
+'192.168.2.31 - - [05/Mar/2013:16:40:01 +0200] "GET /wp-migrator-test/wp-includes/js/thickbox/loadingAnimation.gif HTTP/1.1" 200 15238' +
+'192.168.2.31 - - [05/Mar/2013:16:40:01 +0200] "GET /favicon.ico HTTP/1.1" 404 209' +
+'192.168.2.31 - - [05/Mar/2013:16:40:01 +0200] "GET /wp-migrator-test/wp-admin/admin-ajax.php?action=wp-compression-test&test=1&1362494401554 HTTP/1.1" 200 1114' +
+'192.168.2.31 - - [05/Mar/2013:16:40:01 +0200] "GET /wp-migrator-test/wp-admin/admin-ajax.php?action=dashboard-widgets&widget=dashboard_incoming_links HTTP/1.1" 200 253' +
+'192.168.2.31 - - [05/Mar/2013:16:40:02 +0200] "GET /wp-migrator-test/wp-admin/admin-ajax.php?action=wp-compression-test&test=2&1362494402907 HTTP/1.1" 200 572' +
+'192.168.2.31 - - [05/Mar/2013:16:40:02 +0200] "GET /wp-migrator-test/wp-admin/admin-ajax.php?action=dashboard-widgets&widget=dashboard_primary HTTP/1.1" 200 1862' +
+'192.168.2.31 - - [05/Mar/2013:16:40:04 +0200] "GET /wp-migrator-test/wp-admin/admin-ajax.php?action=wp-compression-test&test=yes&1362494404100 HTTP/1.1" 200 1' +
+'192.168.2.31 - - [05/Mar/2013:16:40:02 +0200] "GET /wp-migrator-test/wp-admin/admin-ajax.php?action=dashboard-widgets&widget=dashboard_secondary HTTP/1.1" 200 1748' +
+'192.168.2.31 - - [05/Mar/2013:16:40:03 +0200] "GET /wp-migrator-test/wp-admin/admin-ajax.php?action=dashboard-widgets&widget=dashboard_plugins HTTP/1.1" 200 817' +
+'';
+		var regex = /^(\d{0,3}\.){3}\d{0,3} - - \[(.*?):/g;
+
+		console.log( regex.test( subject ) )
+		console.log( subject.match( regex ) )
+	</script>
+
+	<script>
+		"use strict"
+
+		var subject = '#notification{position:absolute;right:4px;top:40px;z-index:19;max-width:270px;display:none;}#notification>div{background-color:rgba(240, 240, 240, 0.5);font-weight:bold;margin-top:4px;padding:4px 8px;color:#fff;border:1px solid #f0f0f0;border-radius:3px;overflow:hidden;}#notification>div a{background:rgba(0, 0, 0, 0.15);border-radius:3px;color:#eee;cursor:pointer;display:block;float:left;margin:4px 4px 4px 0;padding:4px 8px;text-decoration:none;}#notification>div a:hover{background:rgba(0, 0, 0, 0.25);color:#fff;}' +
+'#notification>div.warning{background-color:#EFBE43;}' +
+'#notification>div.error{background-color:#D64141;}' +
+'#notification>div.info{background-color:#3DA440;}' +
+'#notification>div.confirm{background-color:#3DA440;}' +
+'#desktop-notification{overflow:hidden;padding:5px;background:#f0f0f0;}#desktop-notification .phenom{border-bottom:none;margin-bottom:0;}' +
+'#desktop-notification .action-card{margin-bottom:4px;}' +
+'#desktop-notification .action-comment{margin:0 5px 0 0;}' +
+'h1{font-size:22px;line-height:1.2em;margin:0 0 10px;}' +
+'h2{font-size:18px;line-height:1.2em;margin:0 0 9px;}' +
+'h3,h4,h5,h6{font-size:16px;line-height:1.25em;margin:0 0 6px;}' +
+'.quiet{color:#939393;}.quiet a{color:#939393;}' +
+'.error{color:#EB3800;}.error a{color:#EB3800;}' +
+'a{color:#444;}a:hover{color:#111;}'
+
+		var regex = /(#([a-f0-9]{6}|[a-f0-9]){3})|rgba?\(.*?\)/g;
+
+		console.log( regex.test( subject ) )
+		console.log( subject.match( regex ) )
+	</script>
+
+	<script>
+		"use strict"
+
+		//Zadacha 7
+
+		var subject = '#notification{position:absolute;right:4px;top:40px;z-index:19;max-width:270px;display:none;}#notification>div{background-color:rgba(240, 240, 240, 0.5);font-weight:bold;margin-top:4px;padding:4px 8px;color:#fff;border:1px solid #f0f0f0;border-radius:3px;overflow:hidden;}#notification>div a{background:rgba(0, 0, 0, 0.15);border-radius:3px;color:#eee;cursor:pointer;display:block;float:left;margin:4px 4px 4px 0;padding:4px 8px;text-decoration:none;}#notification>div a:hover{background:rgba(0, 0, 0, 0.25);color:#fff;}' +
+'#notification>div.warning{background-color:#EFBE43;}' +
+'#notification>div.error{background-color:#D64141;}' +
+'#notification>div.info{background-color:#3DA440;}' +
+'#notification>div.confirm{background-color:#3DA440;}' +
+'#desktop-notification{overflow:hidden;padding:5px;background:#f0f0f0;}#desktop-notification .phenom{border-bottom:none;margin-bottom:0;}' +
+'#desktop-notification .action-card{margin-bottom:4px;}' +
+'#desktop-notification .action-comment{margin:0 5px 0 0;}' +
+'h1{font-size:22px;line-height:1.2em;margin:0 0 10px;}' +
+'h2{font-size:18px;line-height:1.2em;margin:0 0 9px;}' +
+'h3,h4,h5,h6{font-size:16px;line-height:1.25em;margin:0 0 6px;}' +
+'.quiet{color:#939393;}.quiet a{color:#939393;}' +
+'.error{color:#EB3800;}.error a{color:#EB3800;}' +
+'a{color:#444;}a:hover{color:#111;}'
+
+		var regex = /url\s*\([\'\"]?(data:image\/png.*?[\'\"]?\)|.*\.png[\'\"]?\))/g;
+
+		console.log( regex.test( subject ) )
+		console.log( subject.match( regex ) )
+	</script>
+
+	<script>
+		"use strict"
+
+		//Zadacha 7
+
+		var subject = 'svn+ssh://code.2c-studio.com/var/svn/wordpress/jay_christopher/spend-bitcoins-responsive'
+
+		var regex = /(.*?):\/\/(.*?)(\/.*)/g;
+
+		console.log( regex.test( subject ) )
+		console.log( subject.match( regex ) )
+	</script>
+</body>
+</html>

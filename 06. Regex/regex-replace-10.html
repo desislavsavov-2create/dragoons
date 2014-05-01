@@ -1,0 +1,21 @@
+<html>
+<head>
+	<script>
+		"use strict"
+
+		window.onload = function() {
+			var text = document.body.innerHTML;
+			var regex = /\*[^\*]+\*/mg;
+
+			text = text.replace( regex , '<strong>$1</strong>');
+
+			console.log( text )
+
+			document.write('<pre>' + text + '</pre>')
+		}
+	</script>
+</head>
+<body>
+*Grumpy wizards* make toxic brew for the *evil Queen* and Jack.
+</body>
+</html>

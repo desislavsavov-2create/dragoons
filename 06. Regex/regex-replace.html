@@ -1,0 +1,35 @@
+<html>
+<head>
+	<script>
+		"use strict"
+
+		window.onload = function() {
+			var text = document.body.innerHTML;
+			var regex = /^(D\s+.*)$/mg;
+
+			text = text.replace(/^\s+/, '');
+			text = text.replace(/^\s+$/, '');
+
+
+			text = text.replace( regex , '<strong>$1</strong>');
+
+			console.log( text )
+
+			document.write('<pre>' + text + '</pre>')
+		}
+	</script>
+</head>
+<body>
+D    themes/dr-e-magaziner/page-testimonials.php
+D    themes/dr-e-magaziner/page-case-studies.php
+U    themes/dr-e-magaziner/lib/carbon-fields/Carbon_Field.php
+D    themes/dr-e-magaziner/lib/cache/timthumb_int_0acf98d319669054fd4b16c51de7419d.timthumb.txt
+D    themes/dr-e-magaziner/lib/cache/timthumb_int_207af2ad5fdc386100e3350ae58e4815.timthumb.txt
+A    uploads/2013/03/photo-big-2.jpg
+A    uploads/2013/03/photo-big.jpg
+A    uploads/2013/03/slide-bg-1024x322.jpg
+A    plugins/black-studio-tinymce-widget/screenshot-2.png
+U    dump.sql.gz
+Updated to revision 152138.
+</body>
+</html>

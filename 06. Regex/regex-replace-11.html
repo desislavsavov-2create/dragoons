@@ -1,0 +1,32 @@
+<html>
+<head>
+	<script>
+		"use strict"
+
+		window.onload = function() {
+			var text = document.body.innerHTML;
+			var regex = /^[\w\W]*Subject:\s(.*)$/m;
+
+			text = text.replace( regex , '$1');
+
+			console.log( text )
+
+			document.write('<pre>' + text + '</pre>')
+		}
+	</script>
+</head>
+<body>
+To: somebody@example.com
+Message-ID: <0000013d4ae0f7fc-0757af04-880f-11e2-b3a0-0b04ad0f7260-000000@email.amazonses.com>
+MIME-Version: 1.0
+Content-Type: text/html; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+Precedence: bulk Subject:
+X-Autoreply: yes
+Auto-Submitted: auto-replied
+X-Gm-Message-State: ALoCoQljBRCXIpZMlzv5hek1NVSA8Nnc0DTrfZZ2n2zfNwA+lqFwXDp+SyXYb0Oe62B6FTayZUyr
+X-Spam-Score: 2
+Subject: Grumpy wizards make toxic brew for the evil Queen and Jack.
+</body>
+</html>
