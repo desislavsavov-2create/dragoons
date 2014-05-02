@@ -2,8 +2,60 @@
 "use strict";
 
 ( function () {
+	var string = '#lorem\n'+
+	'##lorem\n'+
+	'###lorem\n'+
+	'####lorem\n'+
+	'#####lorem\n'+
+	'######lorem\n'+
+	'Lorem ipsum dolor sit *amet*, consectetur adipisicing elit. Ex, iure, tempore. <http://google.com>: Tempore, fugit, repudiandae tempora quo id numquam cum dignissimos vel ratione eaque ut *ullam* error accusamus quidem iusto. Quidem!';
 
+	var regex = /\*(.+?)\*/mg;
+	var regexMail = /<htt(.*?)>/mg;
+	var regexHead1 = /^#[^#](.*)?/mg;
+	var regexHead2 = /^##[^#](.*)?/mg;
+	var regexHead3 = /^###(.*)?/mg;
+
+	string = string.replace(regexMail, '<a href="htt$1">htt$1</a>');
+	string = string.replace(regex, '<strong>$1</strong>');
+	// string = string.replace(regexHead1, '<h1>$1</h1>');
+	// string = string.replace(regexHead2, '<h2>$1</h2>');
+	// string = string.replace(regexHead3, '<h3>$1</h3>');
+	string = string.replace(/^#{1,6}.*$/mg, function (match) {
+		var pieces = match.match(/^(#{1,6})\s*(.*)/);
+		var sharpsCount = pieces[1].length;
+		var headingTag = 'h' + sharpsCount;
+
+		var headingText = pieces[2];
+
+		return '<' + headingTag + '>' + headingText + '</' + headingTag + '>'
+	});
+
+	// console.log( string );
 })();
+
+( function () {
+	var string = ' * #lorem\n'+
+	' * ##lorem\n'+
+	' * ###lorem\n'+
+	' * ####lorem\n'+
+	' * #####lorem\n'+
+	' * ######lorem\n';
+	//'Lorem ipsum dolor sit *amet*, consectetur adipisicing elit. Ex, iure, tempore. <http://google.com>: Tempore, fugit, repudiandae tempora quo id numquam cum dignissimos vel ratione eaque ut *ullam* error accusamus quidem iusto. Quidem!';
+
+	var regex = /(^ \* .*$(\n|\r|\n\r|\r\n))+/mg;
+
+	string = string.replace(regex, function (match) {
+		match = match.replace(/(^\s\*\s*)/mg, '');
+		var items = match.split('\n');
+		
+		for ( var i = 0; i < items.length - 1; i++ ) {
+				
+		}
+	});
+	// console.log( string );
+})();
+
 
 </script>
 
