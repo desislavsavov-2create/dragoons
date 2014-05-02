@@ -6,32 +6,82 @@
 	<title>Regular Expressions</title>
 
 	<script>
+		'use strict';
+
 		window.onload = function() {
-			var text = document.body.innerHTML;
-			var regex = /subject: (.*)$/mi;
-			var subject;
+			var text = 	'Hello, *wonderful*, *World*!\n' + 
+						'#Heading 1!\n' + 
+						'##Heading 2!\n' + 
+						'###Heading 3!\n' + 
+						'<http://google.com>\n' +
+						'* ul list item 1\n' +
+						'* ul list item 2\n' +
+						'0. ol list item 1\n' +
+						'1. ol list item 2\n' +
+						'* ul list item 1\n' +
+						'* ul list item 2\n';
+			
+			function parseText( text ) {
+				var regexes = {
+					regexStrong: /\*(.*?)\*/g,
+					regexHeadings: /^#{1,3}.*$/mg,
+					regexLink: /<([^>]+)>/g,
+					regexUL: /(^\s*\*\s*.*$(\n|\r|\n\r|\r\n))+/gm,
+					regexReplaceUL: /^\s*\*\s*/gm,
+					regexOL: /(^\s*\d*\.\s*.*$(\n|\r|\n\r|\r\n))+/gm,
+					regexReplaceOL: /^\s*\d*\.\s*/gm
+				};
 
-			text = text.replace(/^\s+/, '');
-			text = text.replace(/\s+$/, '');
+				// links
+				text = text.replace(regexes.regexLink, '<a href="$1">$1</a>');
 
-			subject = text.match(regex)[1];
+				// strong
+				text = text.replace(regexes.regexStrong, '<strong>$1</strong>');
 
-			console.log( subject );
+				// headings
+				text = text.replace(regexes.regexHeadings, function( match ) {
+					var pieces = match.match(/^(#{1,3})\s*(.*)/);
+					var sharpsCount = pieces[1].length;
+					var headingText = pieces[2];
+					var headingTag = 'h' + sharpsCount;
+
+					return '<' + headingTag + '>' + headingText + '</' + headingTag + '>';
+				});
+
+				// unordered and ordered list
+				function lists(input, listRegex, replacementRegex, tag) {
+					input = input.replace(listRegex, function( match ) {
+						var match = match.replace(replacementRegex, '').replace(/\s*$/, '');
+						var items = match.split(/[\n\r]/);
+
+						for ( var i = 0; i < items.length; i++ ) {
+							items[i] = '<li>' + items[i] + '</li>';
+						}
+
+						items = '<' + tag + '>' + items.join('') + '</' + tag + '>';
+
+						console.log(items);
+
+						return items;
+					});
+
+					console.log(input);
+
+					return input;
+				};
+
+				lists(text, regexes.regexOL, regexes.regexReplaceOL, 'ol');
+				lists(text, regexes.regexUL, regexes.regexReplaceUL, 'ul');
+
+				return text;
+			}
+
+			document.write(parseText( text ));
 		};
+
 	</script>
 </head>
 <body>
-	To: somebody@example.com
-	Message-ID: <0000013d4ae0f7fc-0757af04-880f-11e2-b3a0-0b04ad0f7260-000000@email.amazonses.com>
-	MIME-Version: 1.0
-	Content-Type: text/html; charset=ISO-8859-1
-	Content-Transfer-Encoding: 7bit
-	Content-Disposition: inline
-	Precedence: bulk Subject:
-	X-Autoreply: yes
-	Auto-Submitted: auto-replied
-	X-Gm-Message-State: ALoCoQljBRCXIpZMlzv5hek1NVSA8Nnc0DTrfZZ2n2zfNwA+lqFwXDp+SyXYb0Oe62B6FTayZUyr
-	X-Spam-Score: 2
-	Subject: Grumpy wizards make toxic brew for the evil Queen and Jack.
+	
 </body>
 </html>
