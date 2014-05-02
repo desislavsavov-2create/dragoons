@@ -4,17 +4,142 @@
 		"use strict"
 
 		window.onload = function() {
-			var text = document.body.innerHTML;
-			var regex = //m;
+			// var text = document.body.innerHTML;
+			var text = 'Hello, *World*!\n' +
+						'#heading 1\n' +
+						'##heading 2\n' +
+						'###heading 3\n' +
+						'*bolded text*\n' +
+						'Lorem <http://google.com/>\n' + 
+						'* ul list item 1\n' +
+						'* ul list item 2\n' +
+						'* ul list item 3\n' +
+						'* ul list item 4\n' +
+						'\n' +
+						'0. ol list item 1\n' +
+						'0. ol list item 2\n' +
+						'\n' +
+						'* ul list item 1\n' +
+						'* ul list item 2\n' +
+						'* ul list item 3\n' +
+						'* ul list item 4\n';
 
-			text = text.replace( regex , '$1');
+			function parseText( text ) {
+				text = url( text );
 
-			console.log( text )
+				text = ul( text );
+				text = ol( text );
+
+				text = h1( text );
+				text = h2( text );
+				text = h3( text );
+				// text = strong( text );
+
+				return text;
+			}
+
+			function trim(text) {
+				return text.replace(/^\s+/, '').replace(/\s+$/, '');
+			}
+
+			function h1( text ) {
+				var regex = /^#([^#]+)$/m;
+				text = text.replace( regex , '<h1>$1</h1>');	
+
+				return text;
+			}
+
+			function h2( text ) {
+				var regex = /^#{2}([^#]+)$/m;
+				text = text.replace( regex , '<h2>$1</h2>');	
+
+				return text;
+			}
+
+			function h3( text ) {
+				var regex = /^#{3}([^*]+)$/m;
+				text = text.replace( regex , '<h3>$1</h3>');	
+
+				return text;
+			}
+
+			function strong( text ) {
+				var regex = /\*([^\*]+)\*/mg;
+				text = text.replace( regex , '<strong>$1</strong>');	
+
+				return text;
+			}
+
+			function url( text ) {
+				// var regex = /&lt;(.*?)&gt;/m;
+				var regex = /<(.*?)>/m;
+				text = text.replace( regex , '<a href="$1">$1</a>');	
+
+				return text;
+			}
+
+			function ul( text ) {
+				var regex = /(^ *\* *.*$(\n|\r|\n\r|\r\n))+/mg;
+
+				text = text.replace( regex , function( match ) {
+					var items = trim(match).split(/\n|\r|\n\r|\n\r/);
+
+					for ( var i = 0; i < items.length; i++ ) {
+						items[i] = items[i].replace(/^\s?\* /, '');
+					}
+
+					return '<ul><li>' + items.join('</li><li>') + '</li></ul>';
+				});
+
+				return text;
+			}
+
+			function ol( text ) {
+				var regex = /(^ *0\. .*$(\n|\r|\n\r|\r\n))+/mg;
+				text = text.replace( regex , function( match ) {
+					var items = trim(match).split(/\n|\r|\n\r|\n\r/);
+
+					for ( var i = 0; i < items.length; i++ ) {
+						items[i] = items[i].replace(/^ ?0\. ? /, '');
+					}
+
+					return '<ol><li>' + items.join('</li><li>') + '</li></ol>';
+				});
+
+				return text;
+			}
+
+			// console.log( parseText( text ) )
+			document.write('<pre>' + parseText( text ) + ' </pre>');
 
 		}
 	</script>
 </head>
 <body>
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis, ad, ipsum maxime veritatis modi repellat vitae voluptatum ducimus sed accusantium eligendi odit non assumenda animi quaerat fugiat praesentium debitis dolore.
+
+<!-- Hello, *World*!
+#heading 1
+##heading 2
+###heading 3
+Text *bolded text*
+Lorem &lt;http://google.com/&gt;
+
+* ul list item 1
+* ul list item 2
+* ul list item 3
+* ul list item 4
+
+0. ol list item 1
+0. ol list item 2
+
+* ul list item 1
+* ul list item 2
+* ul list item 3
+* ul list item 4 
+
+http://is.gd/dragoons_markdown
+
+-->
+
 </body>
 </html>
