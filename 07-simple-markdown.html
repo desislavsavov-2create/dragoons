@@ -9,15 +9,132 @@
 	<!-- SIMPLE MARKDOWN -->
 
 	<form action="#" method="post" id="formEntry">
-		<textarea name="textEntry" id="" cols="30" rows="10" id="textEntry"></textarea>
-		<button id="btn"></button>
+		<textarea name="textEntry" id="textEntry" cols="30" rows="10"></textarea>
+		<button id="btn" type="submit">Parse</button>
+		<button id="clear">Clear</button>
 	</form>
 
-	<script>
-		'use strict';
+	<div id="parsed">
+		
+	</div><!-- /#parsed -->
 
+	<style>
+		form { margin: 0 0 20px; }
+
+		textarea { display: block; resize: none; }
+	</style>
+
+	<script>
 		(function() {
-			
+			'use strict';
+		
+			window.onload = function() {
+				var _form = document.getElementById('formEntry');
+				var _textarea = document.getElementById('textEntry');
+				var _btn = document.getElementById('btn');
+				var _clear = document.getElementById('clear');
+
+				var _parsed = document.getElementById('parsed');
+
+				_btn.onclick = function(e) {
+					e.preventDefault();
+
+					var newContainer = document.createElement('div');
+
+					var text = _textarea.value;
+
+					if(text.length === 0) {
+						return false;
+					}
+
+					newContainer.innerHTML = parseText(text);
+
+					_parsed.appendChild(newContainer);
+				}
+
+				_clear.onclick = function(e) {
+					e.preventDefault();
+
+					_parsed.innerHTML = '';
+					_textarea.value = '';
+					console.clear();
+				}
+			};
+
+			function parseText(text) {
+
+				// Part 1
+				var regexHeadings = /^#{1,6}.*$/mg;
+				var regexStrong = /\*([^\s].*?[^\s])\*/g;
+				var regexLink = /<([^>]+)>/g;
+
+				// Links
+				text = text.replace(regexLink, '<a href="$1">$1</a>');
+
+				// Headings
+				text = text.replace(regexHeadings, function(match) {
+					var pieces = match.match(/^(#{1,6})(.*)/);
+					var sharpsCount = pieces[1].length;
+					var headingText = pieces[2];
+
+					return '<h' + sharpsCount + '>' + headingText + '</h' + sharpsCount + '>';
+				});
+
+				// Strong
+				text = text.replace(regexStrong, '<strong>$1</strong>');
+
+
+
+				// Part 2
+				var regexUnorderedList = /(^ *\* *.*$(\n|\r|\n\r|\r\n)?)+/mg;
+				var regexOrderedList = /(^ *\d *.*$(\n|\r|\n\r|\r\n)?)+/mg;
+				var regexHr = /^-{4,}$/mg;
+
+				// Unordered List
+				text = text.replace(regexUnorderedList, function(match) {
+					var match = match;
+
+					var result = generateList(match, 'ul');
+
+					return result;
+				});
+
+				// Unordered List
+				text = text.replace(regexOrderedList, function(match) {
+					var match = match;
+
+					var result = generateList(match, 'ol');
+
+					return result;
+				});
+
+				text = text.replace(regexHr, '<hr />\n');
+
+				return text;
+			}
+
+			// Generate ordered and unordered lists
+			function generateList(match, listType) {
+				var regexListType;
+
+				if(listType === 'ul') {
+					regexListType = /^ *\* */mg;
+				} else if(listType === 'ol') {
+					regexListType = /^ *\d */mg;
+				}
+
+				match = match.replace(regexListType, '');
+
+				var matchRows = match.split(/[\n\r]/);
+
+				var result = '';
+
+				for( var i = 0; i < matchRows.length; i++ ) {
+					result = matchRows[i].length > 0 ? result + '<li>' + matchRows[i] + '</li>\n' : result;
+				}
+
+				return '<' + listType + '>' + result + '</' + listType + '>\n';
+			}
 		})();
 	</script>
 </body>
