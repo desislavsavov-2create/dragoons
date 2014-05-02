@@ -98,7 +98,8 @@
 				actions[action].push(callback);
 			}
 
-			function doAction(action){
+
+			function doAction(action) {
 				for (var i = 0; i < actions[action].length; i++) {
 					actions[action][i]();
 				}
@@ -125,11 +126,11 @@
 			});
 			 
 			// At later point, the events are triggered
-			setTimeout(function() {
-				doAction("init"); // Trigger the init event
-				doAction("before_close"); // Trigger the before_close event
-				// don't trigger RIP event.
-			}, 500);
+			// setTimeout(function() {
+			// 	doAction("init"); // Trigger the init event
+			// 	doAction("before_close"); // Trigger the before_close event
+			// 	// don't trigger RIP event.
+			// }, 500);
 			
 			/* 
 				Expected output:
@@ -137,6 +138,56 @@
 				* window is about to close.
 				* Are you sure?
 			*/
+		})();
+
+		(function() {
+			var filters = {};
+
+			function titleCase(title) {
+				var words = title.split(' ');
+
+				for (var i = 0; i < words.length; i++) {
+					var word = words[i];
+
+					word = word.charAt(0).toUpperCase() + word.substring(1);
+					words[i] = word;
+				}
+
+				return words.join(' ');
+			}
+
+			function addFilter(target, callback) {
+				if (typeof filters[target] === 'undefined') {
+					filters[target] = [];
+				}
+
+				filters[target].push(callback);
+			}
+
+			function applyFilters(target, input) {
+				for (var i = 0; i < filters[target].length; i++) {
+					return input = filters[target][i](input);
+				}
+			}
+
+			addFilter('title', titleCase);
+			addFilter('title', function(title) {
+				title = title.replace(/html/g, 'HTML');
+
+				return title;
+			});
+
+			addFilter('content', titleCase);
+
+			addFilter('tags', function(tag){
+				tag = tag.replace(/ /g, ' ');
+
+				return tag;
+			});
+
+			var text = 'ajdahskjsadh hd hakjd ha';
+
+			console.log(applyFilters('title', text));
 		})();
 	</script>
 </head>

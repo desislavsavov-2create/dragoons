@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	
+	<title>Document</title>
+	<script>
+			window.onload=function(){
+				var text = 'Lorem ipsum dolor sit *amet*, consectetur adipisicing elit. <http://google.com> lorem ipsum\n' +
+					'#Heading 1 \n' + 
+					'##Heading 2 \n' + 
+					'###Heading 3 \n' + 
+					'####Heading 4 \n' + 
+					'#####Heading 5 \n' + 
+					'######Heading 6 \n' +
+					'* ul test 1 \n' +
+					'* ul test 2 \n' +
+					'* ul test 3 \n' +
+					'* ul test 4 \n' +
+					'##Ordered Lists \n' + 
+					'0. ol test 1 \n' +
+					'0. ol test 2 \n' +
+					'0. ol test 3 \n' +
+					'0. ol test 4 \n';
+
+				function parseText(text) {
+					// link
+					text = text.replace(/<([^>]+)>/g, '<a href="$1">$1</a>');
+					
+					// unordered lists
+					text = text.replace(/(^ *\* *.*$(\n|\r|\n\r|\r\n))+/mg, function(match) {
+						var ul = '<ul>' + match + '</ul>\n';
+						var li = ul.replace(/\s?\*\s?(.*)$/mg, '<li>$1</li>');
+						
+						return li;
+					});
+
+					// ordered lists
+					text = text.replace(/(^ *0\. *.*$(\n|\r|\n\r|\r\n))+/mg, function(match) {
+						var ol = '<ol>' + match + '</ol>\n';
+						var li = ol.replace(/\s?0\.\s?(.*)$/mg, '<li>$1</li>');
+						
+						return li;
+					});
+
+					// strong
+					text = text.replace(/\*([^*]+)\*/g, '<strong>$1</strong>');
+
+					// headings
+					text = text.replace(/^#{1,6}.*$/mg, function(match) {
+						var pieces = match.match(/^(#{1,6})\s*(.*)/);
+						var sharpsCount = pieces[1].length;
+						var headingTag = 'h' + sharpsCount;
+						var headingText = pieces[2];
+
+						return '<' + headingTag + '>' + headingText + '</' + headingTag + '>';
+					});
+
+
+					return text;
+				}
+
+				console.log(parseText(text));
+
+				document.getElementById('result').innerHTML = parseText(text);
+			};
+
+	</script>
+</head>
+
+<body>
+<div id="result"></div><!-- /#result -->
+</body>
+</html>
