@@ -14,23 +14,135 @@
 						'##Heading 2!\n' + 
 						'###Heading 3!\n' + 
 						'<http://google.com>\n' +
+						'--------------\n' +
 						'* ul list item 1\n' +
 						'* ul list item 2\n' +
 						'0. ol list item 1\n' +
 						'1. ol list item 2\n' +
+						'test ------ mest\n' +
 						'* ul list item 1\n' +
-						'* ul list item 2\n';
+						'* ul list item 2\n' +
+						'`win.location = ""`\n' +
+						'----\n' +
+						'## Usage\n' +
+						'Standard loop:\n' +
+						'{{{\n' +
+						'&lt;?php\n' +
+						'    // The Query\n' +
+						'    $the_query = new WP_Query( $args );\n\n' +
+						'    // The Loop\n' +
+						'    if ( $the_query-&lt;have_posts() ) {\n' +
+						'        echo "&lt;ul&gt;";\n' +
+						'        while ( $the_query-&gt;have_posts() ) {\n' +
+						'            $the_query-&gt;the_post();\n' +
+						'            echo "&lt;li&gt;" . get_the_title() . "&lt;/li&gt;";\n' +
+						'        }\n' +
+						'        echo "&lt;/ul&gt;";\n' +
+						'    } else {\n' +
+						'        // no posts found\n' +
+						'    }\n' +
+						'    /* Restore original Post Data */\n' +
+						'    wp_reset_postdata();\n' +
+						'&gt;\n' +
+						'}}}\n' +
+						'`win.location = "http://google.com"`';
 			
 			function parseText( text ) {
 				var regexes = {
 					regexStrong: /\*(.*?)\*/g,
 					regexHeadings: /^#{1,3}.*$/mg,
 					regexLink: /<([^>]+)>/g,
+					regexWhiteSpace: /\n|\r|\n\r|\r\n/gm,
 					regexUL: /(^\s*\*\s*.*$(\n|\r|\n\r|\r\n))+/gm,
-					regexReplaceUL: /^\s*\*\s*/gm,
 					regexOL: /(^\s*\d*\.\s*.*$(\n|\r|\n\r|\r\n))+/gm,
-					regexReplaceOL: /^\s*\d*\.\s*/gm
+					regexReplaceUL: /^\s*\*\s*/gm,
+					regexReplaceOL: /^\s*\d*\.\s*/gm,
+					regexSimpleUL: /^\s*\*\s*/,
+					regexSimpleOL: /^\s*\d\.\s*/,
+					regexHR: /^-+/gm,
+					regexCodeBlock: /\{{3}[\w\W]+?\}{3}/g,
+					regexCode: /\`{1}[\w\W]+?\`{1}/g
 				};
+				var codeBlocks = {};
+
+				function extractCodeBlocks( input ) {
+					input = input.replace(regexes.regexCodeBlock, function(match) {
+						var uniqieBlockID = '_' + Math.random() + '_' + (new Date()).getTime();
+
+						codeBlocks[uniqieBlockID] = match;
+
+						return uniqieBlockID;
+					});
+
+					return input;
+				};
+
+				function createCodeBlocks( input ) {
+					for ( var blockID in codeBlocks ) {
+
+						codeBlocks[blockID] = codeBlocks[blockID].replace(/\{{3}/, '').replace(/\}{3}/, '');
+
+						if ( codeBlocks.hasOwnProperty(blockID) ) {
+							input = input.replace(blockID, '<pre><code>' + codeBlocks[blockID] + '</code></pre>');
+						}
+					}
+
+					return input;
+				};
+
+				// unordered and ordered list - version 1
+				// function lists(input, listRegex, replacementRegex, tag) {
+				// 	input = input.replace(listRegex, function( match ) {
+				// 		var match = match.replace(replacementRegex, '').replace(/\s*$/, '');
+				// 		var items = match.split(/[\n\r]/);
+
+				// 		for ( var i = 0; i < items.length; i++ ) {
+				// 			items[i] = '<li>' + items[i] + '</li>\n';
+				// 		}
+
+				// 		return '<' + tag + '>' + items.join('\n') + '</' + tag + '>\n';
+				// 	});
+
+				// 	return input;
+				// };
+
+				// text = lists(text, regexes.regexUL, regexes.regexReplaceUL, 'ul');
+				// text = lists(text, regexes.regexOL, regexes.regexReplaceOL, 'ol');
+
+				// unordered and ordered list - version 2
+				function lists(input, splitRegex, listRegex, tag) {
+					var lines = input.split(splitRegex);
+					var isInList = false;
+					var output = [];
+					var line;
+
+					for ( var i = 0; i < lines.length; i++ ) {
+						line = lines[i];
+
+						if ( listRegex.test(line) ) {
+							line = '<li>' + line.replace(listRegex, '') + '</li>';
+
+							if ( !isInList ) {
+								line = '<' + tag + '>\n' + line;
+
+								isInList = true;
+							}
+						} else {
+							if ( isInList ) {
+								line = '</' + tag + '>\n' + line;
+
+								isInList = false;
+							}
+						}
+
+						output.push(line);
+					}
+
+					return output.join('\n');
+				};
+
+				// prepare code blocks
+				text = extractCodeBlocks( text );
 
 				// links
 				text = text.replace(regexes.regexLink, '<a href="$1">$1</a>');
@@ -48,40 +160,27 @@
 					return '<' + headingTag + '>' + headingText + '</' + headingTag + '>';
 				});
 
-				// unordered and ordered list
-				function lists(input, listRegex, replacementRegex, tag) {
-					input = input.replace(listRegex, function( match ) {
-						var match = match.replace(replacementRegex, '').replace(/\s*$/, '');
-						var items = match.split(/[\n\r]/);
+				// unordered lists
+				text = lists(text, regexes.regexWhiteSpace, regexes.regexSimpleUL, 'ul');
 
-						for ( var i = 0; i < items.length; i++ ) {
-							items[i] = '<li>' + items[i] + '</li>';
-						}
+				// ordered lists
+				text = lists(text, regexes.regexWhiteSpace, regexes.regexSimpleOL, 'ol');
 
-						items = '<' + tag + '>' + items.join('') + '</' + tag + '>';
+				// horizontal rules
+				text = text.replace(regexes.regexHR, '<hr />');
 
-						console.log(items);
-
-						return items;
-					});
-
-					console.log(input);
-
-					return input;
-				};
-
-				lists(text, regexes.regexOL, regexes.regexReplaceOL, 'ol');
-				lists(text, regexes.regexUL, regexes.regexReplaceUL, 'ul');
+				// create codeblocks
+				text = createCodeBlocks( text );
 
 				return text;
 			}
 
-			document.write(parseText( text ));
+			document.getElementById('output').innerHTML = parseText(text);
 		};
 
 	</script>
 </head>
 <body>
-	
+	<div id="output"></div>
 </body>
 </html>
