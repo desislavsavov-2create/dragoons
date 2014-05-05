@@ -13,35 +13,63 @@
 					'####Heading 4 \n' + 
 					'#####Heading 5 \n' + 
 					'######Heading 6 \n' +
+					'--------- \n' +
 					'* ul test 1 \n' +
 					'* ul test 2 \n' +
 					'* ul test 3 \n' +
 					'* ul test 4 \n' +
+					'----\n' +
 					'##Ordered Lists \n' + 
 					'0. ol test 1 \n' +
 					'0. ol test 2 \n' +
 					'0. ol test 3 \n' +
-					'0. ol test 4 \n';
+					'0. ol test 4 \n' +
+					'test ------- mest \n' +
+					'---- \n' +
+					'`win.location = "http://google.com"` \n' +
+					'---- \n' +
+					'`win.location = ""`\n' +
+					'---- \n' +
+					'{{{code-block *not strong*}}}';
 
 				function parseText(text) {
 					// link
 					text = text.replace(/<([^>]+)>/g, '<a href="$1">$1</a>');
 					
-					// unordered lists
-					text = text.replace(/(^ *\* *.*$(\n|\r|\n\r|\r\n))+/mg, function(match) {
-						var ul = '<ul>' + match + '</ul>\n';
-						var li = ul.replace(/\s?\*\s?(.*)$/mg, '<li>$1</li>');
-						
-						return li;
-					});
+					// lists
+					function doLists(text, type, plainTextToken) {
+						var lines = text.split(/\n|\r|\n\r|\r\n/);
+						var listItemPrefix = new RegExp('^ *' + plainTextToken + ' *');
+						var isInList = false;
+						var result = [];
+						var line;
 
-					// ordered lists
-					text = text.replace(/(^ *0\. *.*$(\n|\r|\n\r|\r\n))+/mg, function(match) {
-						var ol = '<ol>' + match + '</ol>\n';
-						var li = ol.replace(/\s?0\.\s?(.*)$/mg, '<li>$1</li>');
-						
-						return li;
-					});
+						for (var i = 0; i < lines.length; i++) {
+							line = lines[i];
+
+							if(listItemPrefix.test(line)) {
+								line = '<li>' + line.replace(listItemPrefix, '') + '</li>';
+
+								if(!isInList) {
+									line = '\n<' + type + '>' + line;
+									isInList = true;
+								}
+							} else {
+								if(isInList){
+									line = '</' + type + '>\n' + line;
+
+									isInList = false;
+								}
+							}
+
+							result.push(line);
+						}
+
+						return result.join('\n');
+					}
+
+					text = doLists(text, 'ul', '\\*');
+					text = doLists(text, 'ol', '\\d\\.');
 
 					// strong
 					text = text.replace(/\*([^*]+)\*/g, '<strong>$1</strong>');
@@ -56,6 +84,30 @@
 						return '<' + headingTag + '>' + headingText + '</' + headingTag + '>';
 					});
 
+					// hr
+					text = text.replace(/^-{4,} *$/mg, '<hr />');
+
+					function code(text) {
+						var uniqueString = Math.random().toString();
+
+						text = text.replace(/\{{3}(.+?)\}{3}/, uniqueString);
+
+						console.log(text);
+						
+
+						// replace {{{ lorem ipsum}}} with unique string
+
+						// do parse text
+
+						// replace unique string with output
+					}
+
+					text = code(text);
+
+					// code
+					text = text.replace(/`(.+?)`/g, '<code>$1</code>');
+
+					// pre
 
 					return text;
 				}
