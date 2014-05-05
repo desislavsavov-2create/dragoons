@@ -34,28 +34,103 @@
 	// console.log( string );
 })();
 
-( function () {
+window.onload = function () {
 	var string = ' * #lorem\n'+
 	' * ##lorem\n'+
 	' * ###lorem\n'+
 	' * ####lorem\n'+
 	' * #####lorem\n'+
-	' * ######lorem\n';
-	//'Lorem ipsum dolor sit *amet*, consectetur adipisicing elit. Ex, iure, tempore. <http://google.com>: Tempore, fugit, repudiandae tempora quo id numquam cum dignissimos vel ratione eaque ut *ullam* error accusamus quidem iusto. Quidem!';
+	' * ######lorem\n'+
+	'----\n'+
+	'#lorem\n'+
+	'##lorem\n'+
+	'###lorem\n'+
+	'----------\n'+
+	'test ---------- mest \n'+
+	' * #lorem\n'+
+	' * ##lorem\n'+
+	' * ###lorem\n'+
+	' * ####lorem\n'+
+	' * #####lorem\n'+
+	'`win.location = "http://google.com"`\n'+
+	'`win.location = ""`\n'+
+	' * ######lorem\n'+
+	'Lorem ipsum dolor sit *amet*, consectetur adipisicing elit. Ex, iure, tempore. <http://google.com>: Tempore, fugit, repudiandae tempora quo id numquam cum dignissimos vel ratione eaque ut *ullam* error accusamus quidem iusto. Quidem!';
 
-	var regex = /(^ \* .*$(\n|\r|\n\r|\r\n))+/mg;
+	string = insertInTag(string);
+	string = doLink(string);
+	string = doHeading(string);
+	string = doStrong(string);
+	string = doList(string, 'ul');
+	string = doLine(string);
 
-	string = string.replace(regex, function (match) {
-		match = match.replace(/(^\s\*\s*)/mg, '');
-		var items = match.split('\n');
-		
-		for ( var i = 0; i < items.length - 1; i++ ) {
-				
-		}
-	});
-	// console.log( string );
-})();
+	function doList (text, type) {
+		var regex = /(^ \* .*$(\n|\r|\n\r|\r\n))+/mg;
+
+		text = text.replace(regex, function (match) {
+			match = match.replace(/^\s\*\s/gm, '').replace(/\s\*$/gm, '');
+
+			var list = [];
+			var items = match.split('\n');
+
+			list.push('<' + type + '>\n');
+
+			for ( var i = 0; i < items.length - 1 ; i++ ) {
+				list.push('\t<li>' + items[i] + '</li>\n');
+			}
+
+			list.push('</' + type + '>\n');		
+
+			return list.join("");
+
+		});
+
+		return text;		
+	}
+
+	function doLine (text) {
+		var regex = /^-{4,}$/gm;
+
+		text = text.replace(regex, '<hr />')
+		return text;
+	}
+
+	function doStrong (text) {
+		var regex = /\*(.+?)\*/mg;
+
+		return text = text.replace(regex, '<strong>$1</strong>');
+	}
+
+	function doHeading (text) {
+		text = text.replace(/^#{1,6}.*$/mg, function (match) {
+
+			var pieces = match.match(/^(#{1,6})\s*(.*)/);
+			var sharpsCount = pieces[1].length;
+			var headingTag = 'h' + sharpsCount;
+
+			var headingText = pieces[2];
+
+			return '<' + headingTag + '>' + headingText + '</' + headingTag + '>'
+		});
+
+
+		return text;
+	}
+
+	function doLink (text) {
+		text = text.replace(/<htt(.*?)>/mg, '<a href="htt$1">htt$1</a>');
+		return text;
+	}
+
+	function insertInTag (text) {
+		text = text.replace(/`(.*?)`/g, '<code>$1</code>');
+
+		return text;
+	}
+
+	console.log(string)
+};
+
 
 
 </script>
-
