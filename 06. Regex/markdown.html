@@ -1,4 +1,5 @@
 <html>
+	<meta charset="utf-8"/>
 <head>
 	<script>
 		"use strict"
@@ -22,9 +23,35 @@
 						'* ul list item 1\n' +
 						'* ul list item 2\n' +
 						'* ul list item 3\n' +
-						'* ul list item 4\n';
+						'* ul list item 4\n' +
+						'----\n' +
+						'--------\n' +
+						'------------\n' +
+						'test -------- test \n' +
+						'---- test -------- test \n' +
+						'\n' +
+						'\`win.location = "http://google.com"\`\n' +
+						'\`win.location = ""\`\n' +
+						'\n' +
+						'{{{\n' +
+						'\/* This is a code block *\/\n' +
+						'This is a code block line 1\n' +
+						'This is a code block line 2\n' +
+						'}}}\n' +
+						'{{{\n' +
+						'\/* This is a code block *\/' +
+						'This is a code block line 1\n' +
+						'This is a code block line 2\n' +
+						'}}}' +
+						'\n';
+
+			// var text = document.body.innerHTML;
+
 
 			function parseText( text ) {
+				text = doCodeBlocks( text );
+
+
 				text = url( text );
 
 				text = ul( text );
@@ -33,7 +60,12 @@
 				text = h1( text );
 				text = h2( text );
 				text = h3( text );
-				// text = strong( text );
+				text = strong( text );
+				text = hr( text );
+				text = code( text );
+
+
+				text = extractCodeBlocks( text );
 
 				return text;
 			}
@@ -109,11 +141,57 @@
 				return text;
 			}
 
+			function hr( text ) {
+				var regex = /(-{4,}(\n|\r|\n\r|\r\n))/mg;
+				text = text.replace( regex , '<hr />');	
+
+				return text;
+			}
+
+			function code( text ) {
+				var regex = /`([^`]+)`/g;
+				text = text.replace( regex , '<code>$1</code>');	
+
+				return text;
+			}
+
+			var codeBlocks = {};
+
+			function doCodeBlocks( text ) {
+				var regex = /\{\{\{[\w\W]+?\}\}\}/g
+				text = text.replace( regex, function( match ) {
+					var codeBlockId = 'id_' + (Math.random() + '|' + Math.random());
+					
+					codeBlocks[codeBlockId] = match.replace(/^\{\{\{/, '').replace(/\}\}\}$/, '');
+
+					return codeBlockId;
+				});
+
+				return text;
+			}
+
+			function extractCodeBlocks( text ) {
+				console.log(codeBlocks);
+				for( var codeBlockId in codeBlocks) {
+					if( codeBlocks.hasOwnProperty(codeBlockId)) {
+						text = text.replace(
+							codeBlockId,
+							'<pre>' + codeBlocks[codeBlockId] + '</pre>'
+						) 
+					}
+					return text;
+				}
+				return text;
+			}
+
 			// console.log( parseText( text ) )
-			document.write('<pre>' + parseText( text ) + ' </pre>');
+			// document.write('<pre>' + parseText( text ) + ' </pre>');
+			// document.getElementById('result').innerHTML( parseText( text ));
+			// document.write( parseText( text ) );
 
 		}
 	</script>
+	
 </head>
 <body>
 
@@ -139,7 +217,15 @@ Lorem &lt;http://google.com/&gt;
 
 http://is.gd/dragoons_markdown
 
--->
 
+`win.location = "http://google.com"`
+`win.location = ""`
+
+-->
+<textarea name="textarea" id="textarea" cols="30" rows="10">
+	
+</textarea>
+<button onclick="document.getElementById('result').innerHTML(  )">Convert</button>
+<div id="result" style="padding: 20px; width: 200px; height: 200px; border: 1px solid #000;"></div><!-- /#result -->
 </body>
 </html>
