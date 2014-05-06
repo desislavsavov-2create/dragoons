@@ -63,13 +63,44 @@
 
 			function parseText(text) {
 				var replacedCodes = {};
-				var blockReplacer = '¼¾';
-				var inlineReplacer = '¾¼';
 
-				// Code Blocks
+				// Codes
+				text = doCodes(text);
+				text = doCodeBlocks(text);
+				
+				// Hide code blocks from parser
+
+				text = hideCodes(text, 'block', replacedCodes);
+				text = hideCodes(text, 'inline', replacedCodes);
+
+				// Links
+				text = doLinks(text);
+
+				// Headings
+				text = doHeadings(text);
+
+				// Strong
+				text = doStrong(text);
+
+				// Unordered List
+				text = doUnorderedList(text);
+
+				// Ordered List
+				text = doOrderedList(text);
+
+				// Horizontal Rule
+				text = doHorizontalRule(text);
+
+				// Restore code blocks
+				text = restoreCodes(text, replacedCodes);
+
+				return text;
+			}
+
+			// Do inline codes
+			function doCodes(text) {
 				var regexCode = /`(.*?)`/gm;
-				var regexCodeBlock = /\{{3}([\W\w]+?)\}{3}$/gm;
-
+				
 				text = text.replace(regexCode, function(match) {
 					var result = match.match(/`(.*?)`/);
 
@@ -78,6 +109,13 @@
 					return '<code>' + result + '</code>';
 				});
 
+				return text;
+			}
+
+			// Do code blocks
+			function doCodeBlocks(text) {
+				var regexCodeBlock = /\{{3}([\W\w]+?)\}{3}/gm;
+
 				text = text.replace(regexCodeBlock, function(match) {
 					var result = match.match(/\{{3}([\W\w]+?)\}{3}$/m);
 					result = result[1].replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -85,22 +123,22 @@
 					return '<pre><code>' + result + '</code></pre>\n';
 				});
 
-				var regexCodeBlockReplace = /<pre><code>([\w\W]+?)<\/code><\/pre>/gm;
-				var regexCodeInlineReplace = /<code>([\w\W]+?)<\/code>/gm;
+				return text;
+			}
 
-				// Hide code blocks from parser
-				text = hideCodeBlocks(text, regexCodeBlockReplace, replacedCodes);
-				text = hideCodeBlocks(text, regexCodeInlineReplace, replacedCodes);
-
-				// Headings, strong, links
-				var regexHeadings = /^#{1,6}.*$/mg;
-				var regexStrong = /\*(\s?.*?\s?)\*/g;
+			// Do links
+			function doLinks(text) {
 				var regexLink = /<((https?)?\/\/(.*?))>/g;
 
-				// Links
 				text = text.replace(regexLink, '<a href="$1">$1</a>');
 
-				// Headings
+				return text;
+			}
+
+			// Do headings
+			function doHeadings(text) {
+				var regexHeadings = /^#{1,6}.*$/mg;
+				
 				text = text.replace(regexHeadings, function(match) {
 					var pieces = match.match(/^(#{1,6})(.*)/);
 					var sharpsCount = pieces[1].length;
@@ -109,47 +147,18 @@
 					return '<h' + sharpsCount + '>' + headingText + '</h' + sharpsCount + '>\n';
 				});
 
-				// Strong
-				text = text.replace(regexStrong, '<strong>$1</strong>');
-
-
-				// Lists
-				var regexUnorderedList = /(^ *\* *.*$(\n|\r|\n\r|\r\n)?)+/mg;
-				var regexOrderedList = /(^ *\d+ *.*$(\n|\r|\n\r|\r\n)?)+/mg;
-				var regexHr = /^-{4,}$/mg;
-
-				// Unordered List
-				text = text.replace(regexUnorderedList, function(match) {
-					var match = match;
-
-					var result = generateList(match, 'ul');
-
-					return result;
-				});
-
-				// Unordered List
-				text = text.replace(regexOrderedList, function(match) {
-					var match = match;
-
-					var result = generateList(match, 'ol');
-
-					return result;
-				});
-
-				text = text.replace(regexHr, '<hr />\n');
-
-				// Restore code blocks
-				text = returnCodeBlocks(text, replacedCodes);
-
-				replacedCodes = {};
-
-				console.log(text)
-
 				return text;
 			}
 
-			// Generate ordered and unordered lists
-			function generateList(match, listType) {
+			// Do strong
+			function doStrong(text) {
+				var regexStrong = /\*(\s?.*?\s?)\*/g;
+
+				return text.replace(regexStrong, '<strong>$1</strong>');
+			}
+
+			// Do ordered and unordered lists
+			function doList(text, listType) {
 				var regexListType;
 
 				if(listType === 'ul') {
@@ -158,20 +167,70 @@
 					regexListType = /^ *\d+ */mg;
 				}
 
-				match = match.replace(regexListType, '');
+				text = text.replace(regexListType, '');
 
-				var matchRows = match.split(/[\n\r]/);
+				var matchRows = text.split(/[\n\r]/);
 
-				var result = '';
+				var result;
+				var resultRows = [];
 
 				for( var i = 0; i < matchRows.length; i++ ) {
-					result = matchRows[i].length > 0 ? result + '<li>' + matchRows[i] + '</li>\n' : result;
+					if( matchRows[i].length > 0 ) {
+						resultRows.push('<li>' + matchRows[i] + '</li>');
+					}
 				}
 
-				return '<' + listType + '>' + result + '</' + listType + '>\n';
+				result = resultRows.join('\n');
+
+				return '<' + listType + '>' + result + '\n</' + listType + '>\n';
 			}
 
-			function hideCodeBlocks(text, regex, codeBlocksHolder) {
+			// Unordered lists
+			function doUnorderedList(text) {
+				var regexUnorderedList = /(^ *\* *.*$(\n|\r|\n\r|\r\n)?)+/mg;
+				
+				text = text.replace(regexUnorderedList, function(match) {
+					var match = match;
+
+					var result = doList(match, 'ul');
+
+					return result;
+				});
+
+				return text;
+			}
+
+			// Ordered lists
+			function doOrderedList(text) {
+				var regexOrderedList = /(^ *\d+ *.*$(\n|\r|\n\r|\r\n)?)+/mg;
+
+				text = text.replace(regexOrderedList, function(match) {
+					var match = match;
+
+					var result = doList(match, 'ol');
+
+					return result;
+				});
+
+				return text;
+			}
+
+			function doHorizontalRule(text) {
+				var regexHr = /^-{4,}$/mg;
+				
+				return text.replace(regexHr, '<hr />\n');
+			}
+
+			// Hide codes
+			function hideCodes(text, codeType, codeBlocksHolder) {
+				var regex;
+
+				if(codeType === 'block') {
+					regex = /<pre><code>([\w\W]+?)<\/code><\/pre>/gm;
+				} else if(codeType === 'inline') {
+					regex = /<code>([\w\W]+?)<\/code>/gm;
+				}
+
 				var result = text.replace(regex, function(match) {
 					var codeBlockId  = 'codeStr_' + Math.random() + '__' + (new Date()).getTime();
 
@@ -183,7 +242,7 @@
 				return result;
 			}
 
-			function returnCodeBlocks(text, codeBlocksHolder) {
+			function restoreCodes(text, codeBlocksHolder) {
 				for( var codeBlockId in codeBlocksHolder) {
 					if(codeBlocksHolder.hasOwnProperty(codeBlockId)) {
 						text = text.replace(codeBlockId, codeBlocksHolder[codeBlockId]);
