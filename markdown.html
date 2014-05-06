@@ -9,148 +9,92 @@
 		'use strict';
 
 		window.onload = function() {
-			var text = 	'Hello, *wonderful*, *World*!\n' + 
-						'#Heading 1!\n' + 
-						'##Heading 2!\n' + 
-						'###Heading 3!\n' + 
-						'<http://google.com>\n' +
-						'--------------\n' +
-						'* ul list item 1\n' +
-						'* ul list item 2\n' +
-						'0. ol list item 1\n' +
-						'1. ol list item 2\n' +
-						'test ------ mest\n' +
-						'* ul list item 1\n' +
-						'* ul list item 2\n' +
-						'`win.location = ""`\n' +
-						'----\n' +
-						'## Usage\n' +
-						'Standard loop:\n' +
-						'{{{\n' +
-						'&lt;?php\n' +
-						'    // The Query\n' +
-						'    $the_query = new WP_Query( $args );\n\n' +
-						'    // The Loop\n' +
-						'    if ( $the_query-&lt;have_posts() ) {\n' +
-						'        echo "&lt;ul&gt;";\n' +
-						'        while ( $the_query-&gt;have_posts() ) {\n' +
-						'            $the_query-&gt;the_post();\n' +
-						'            echo "&lt;li&gt;" . get_the_title() . "&lt;/li&gt;";\n' +
-						'        }\n' +
-						'        echo "&lt;/ul&gt;";\n' +
-						'    } else {\n' +
-						'        // no posts found\n' +
-						'    }\n' +
-						'    /* Restore original Post Data */\n' +
-						'    wp_reset_postdata();\n' +
-						'&gt;\n' +
-						'}}}\n' +
-						'`win.location = "http://google.com"`';
+			var regexes = {
+				regexStrong: /\*(.*?)\*/g,
+				regexHeadings: /^#{1,3}.*$/mg,
+				regexLink: /<([^>]+)>/g,
+				regexWhiteSpace: /\n|\r|\n\r|\r\n/gm,
+				regexUL: /(^\s*\*\s*.*$(\n|\r|\n\r|\r\n))+/gm,
+				regexOL: /(^\s*\d*\.\s*.*$(\n|\r|\n\r|\r\n))+/gm,
+				regexReplaceUL: /^\s*\*\s*/gm,
+				regexReplaceOL: /^\s*\d*\.\s*/gm,
+				regexSimpleUL: /^\s*\*\s*/,
+				regexSimpleOL: /^\s*\d\.\s*/,
+				regexHR: /^-+/gm,
+				regexCodeBlock: /\{{3}[\w\W]+?\}{3}/g,
+				regexCode: /\`{1}[\w\W]+?\`{1}/g
+			};
+			var codeBlocks = {};
 			
-			function parseText( text ) {
-				var regexes = {
-					regexStrong: /\*(.*?)\*/g,
-					regexHeadings: /^#{1,3}.*$/mg,
-					regexLink: /<([^>]+)>/g,
-					regexWhiteSpace: /\n|\r|\n\r|\r\n/gm,
-					regexUL: /(^\s*\*\s*.*$(\n|\r|\n\r|\r\n))+/gm,
-					regexOL: /(^\s*\d*\.\s*.*$(\n|\r|\n\r|\r\n))+/gm,
-					regexReplaceUL: /^\s*\*\s*/gm,
-					regexReplaceOL: /^\s*\d*\.\s*/gm,
-					regexSimpleUL: /^\s*\*\s*/,
-					regexSimpleOL: /^\s*\d\.\s*/,
-					regexHR: /^-+/gm,
-					regexCodeBlock: /\{{3}[\w\W]+?\}{3}/g,
-					regexCode: /\`{1}[\w\W]+?\`{1}/g
-				};
-				var codeBlocks = {};
+			function extractCodeBlocks( input ) {
+				input = input.replace(regexes.regexCodeBlock, function(match) {
+					var uniqieBlockID = '_' + Math.random() + '_' + (new Date()).getTime();
 
-				function extractCodeBlocks( input ) {
-					input = input.replace(regexes.regexCodeBlock, function(match) {
-						var uniqieBlockID = '_' + Math.random() + '_' + (new Date()).getTime();
+					codeBlocks[uniqieBlockID] = match;
 
-						codeBlocks[uniqieBlockID] = match;
+					return uniqieBlockID;
+				});
 
-						return uniqieBlockID;
-					});
+				return input;
+			};
 
-					return input;
-				};
+			function createCodeBlocks( input ) {
+				for ( var blockID in codeBlocks ) {
 
-				function createCodeBlocks( input ) {
-					for ( var blockID in codeBlocks ) {
+					codeBlocks[blockID] = codeBlocks[blockID].replace(/\{{3}/, '').replace(/\}{3}/, '');
 
-						codeBlocks[blockID] = codeBlocks[blockID].replace(/\{{3}/, '').replace(/\}{3}/, '');
+					if ( codeBlocks.hasOwnProperty(blockID) ) {
+						input = input.replace(blockID, '<pre><code>' + codeBlocks[blockID] + '</code></pre>');
+					}
+				}
 
-						if ( codeBlocks.hasOwnProperty(blockID) ) {
-							input = input.replace(blockID, '<pre><code>' + codeBlocks[blockID] + '</code></pre>');
+				return input;
+			};
+
+			function lists(input, splitRegex, listRegex, tag) {
+				var lines = input.split(splitRegex);
+				var isInList = false;
+				var output = [];
+				var line;
+
+				for ( var i = 0; i < lines.length; i++ ) {
+					line = lines[i];
+
+					if ( listRegex.test(line) ) {
+						line = '<li>' + line.replace(listRegex, '') + '</li>';
+
+						if ( !isInList ) {
+							line = '<' + tag + '>\n' + line;
+
+							isInList = true;
+						}
+					} else {
+						if ( isInList ) {
+							line = '</' + tag + '>\n' + line;
+
+							isInList = false;
 						}
 					}
 
-					return input;
-				};
+					output.push(line);
+				}
 
-				// unordered and ordered list - version 1
-				// function lists(input, listRegex, replacementRegex, tag) {
-				// 	input = input.replace(listRegex, function( match ) {
-				// 		var match = match.replace(replacementRegex, '').replace(/\s*$/, '');
-				// 		var items = match.split(/[\n\r]/);
+				return output.join('\n');
+			};
 
-				// 		for ( var i = 0; i < items.length; i++ ) {
-				// 			items[i] = '<li>' + items[i] + '</li>\n';
-				// 		}
-
-				// 		return '<' + tag + '>' + items.join('\n') + '</' + tag + '>\n';
-				// 	});
-
-				// 	return input;
-				// };
-
-				// text = lists(text, regexes.regexUL, regexes.regexReplaceUL, 'ul');
-				// text = lists(text, regexes.regexOL, regexes.regexReplaceOL, 'ol');
-
-				// unordered and ordered list - version 2
-				function lists(input, splitRegex, listRegex, tag) {
-					var lines = input.split(splitRegex);
-					var isInList = false;
-					var output = [];
-					var line;
-
-					for ( var i = 0; i < lines.length; i++ ) {
-						line = lines[i];
-
-						if ( listRegex.test(line) ) {
-							line = '<li>' + line.replace(listRegex, '') + '</li>';
-
-							if ( !isInList ) {
-								line = '<' + tag + '>\n' + line;
-
-								isInList = true;
-							}
-						} else {
-							if ( isInList ) {
-								line = '</' + tag + '>\n' + line;
-
-								isInList = false;
-							}
-						}
-
-						output.push(line);
-					}
-
-					return output.join('\n');
-				};
-
-				// prepare code blocks
-				text = extractCodeBlocks( text );
-
-				// links
+			function doLinks(text) {
 				text = text.replace(regexes.regexLink, '<a href="$1">$1</a>');
 
-				// strong
+				return text;
+			}
+
+			function doStrongs(text) {
 				text = text.replace(regexes.regexStrong, '<strong>$1</strong>');
 
-				// headings
+				return text;
+			}
+
+			function doHeadings(text) {
 				text = text.replace(regexes.regexHeadings, function( match ) {
 					var pieces = match.match(/^(#{1,3})\s*(.*)/);
 					var sharpsCount = pieces[1].length;
@@ -159,6 +103,26 @@
 
 					return '<' + headingTag + '>' + headingText + '</' + headingTag + '>';
 				});
+			}
+
+			function doHorizonatalRules(text) {
+				text = text.replace(regexes.regexHR, '<hr />');
+
+				return text;
+			}
+
+			function parseText( text ) {
+				// prepare code blocks
+				text = extractCodeBlocks(text);
+
+				// links
+				doLinks(text);
+
+				// strong
+				doStrongs(text);
+
+				// headings
+				doHeadings(text);
 
 				// unordered lists
 				text = lists(text, regexes.regexWhiteSpace, regexes.regexSimpleUL, 'ul');
@@ -167,7 +131,7 @@
 				text = lists(text, regexes.regexWhiteSpace, regexes.regexSimpleOL, 'ol');
 
 				// horizontal rules
-				text = text.replace(regexes.regexHR, '<hr />');
+				doHorizonatalRules(text)
 
 				// create codeblocks
 				text = createCodeBlocks( text );
@@ -175,12 +139,21 @@
 				return text;
 			}
 
-			document.getElementById('output').innerHTML = parseText(text);
+			document.getElementById('submit').onclick = function() {
+				document.getElementById('output').innerHTML = parseText(document.forms[0].elements[0].value);
+				return false;
+			}
 		};
 
 	</script>
 </head>
 <body>
-	<div id="output"></div>
+	<form action="?" method="post">
+		<textarea cols="30" rows="10" style="width: 300px; height: 200px; display: block; margin: 0 auto;"></textarea>
+
+		<input type="submit" id="submit" style="display: block; margin: 20px auto;" />
+	</form>
+
+	<div id="output" style="padding: 20px; border: 1px solid #000; margin: 20px;"></div>
 </body>
 </html>
