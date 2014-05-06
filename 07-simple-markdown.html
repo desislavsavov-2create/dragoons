@@ -69,7 +69,6 @@
 				text = doCodeBlocks(text);
 				
 				// Hide code blocks from parser
-
 				text = hideCodes(text, 'block', replacedCodes);
 				text = hideCodes(text, 'inline', replacedCodes);
 
@@ -217,7 +216,7 @@
 
 			function doHorizontalRule(text) {
 				var regexHr = /^-{4,}$/mg;
-				
+
 				return text.replace(regexHr, '<hr />\n');
 			}
 
